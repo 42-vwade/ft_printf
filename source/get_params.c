@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/02/24 17:47:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/02/27 17:44:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,5 @@ int
 }
 
 /*
-**	^^^^	Short file which will tell ft_printf what to do
+**	^^^^	Short file which will tell ft_printf what to do		^^^^
 */
