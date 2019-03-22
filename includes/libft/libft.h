@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:34:03 by viwade            #+#    #+#             */
-/*   Updated: 2019/02/24 13:12:18 by viwade           ###   ########.fr       */
+/*   Updated: 2019/02/26 15:31:09 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 # include <stdlib.h>
 # include "added_functions/get_next_line.h"
 
+typedef struct s_list	t_list;
+typedef struct s_quickstring	t_qstr;
 struct			s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 };
-typedef struct s_list	t_list;
+struct			s_quickstring
+{
+	char	*start;
+	char	*end;
+	size_t	len;
+}
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -115,8 +122,10 @@ size_t			ft_arrlen(char **ar);
 int				ft_intlen(int n);
 
 /*
-**	Length Getters
+**	String Modifiers
 */
+
+
 
 /*
 **	Length Getters

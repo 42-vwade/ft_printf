@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/02/27 17:44:27 by marvin           ###   ########.fr       */
+/*   Updated: 2019/03/22 12:09:54 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,26 @@
 typedef t_param	t_context_t;
 
 static int
-	set_flag(char set, char *s)
+	set_flag(char set, const char *s)
 {
+	uint	i;
 	char	*str;
 
-	str = (char *){"-+ #0"};
-	while (*str)
-		if (*str == *s)
-		{
-			set = *str;
-			return (1);
-		}
-		else
-			str++;
+	i = 0;
 	set = 0;
-	return (0);
+	str = (char *){"-+ #0"};
+	while (s[i] && \
+	(s[i] == '-' || s[i] == '+' || s[i] == '#' || s[i] == '0' || s[i] == ' '))
+	{
+		set = (((s[i] == '-') << 0) + ((s[i] == '+') << 1) + ((s[i] == ' ')\
+		<< 2) + ((s[i] == '#') << 3) | ((s[i] == '0') << 4)) | set;
+		i++;
+	}
+	return (i);
 }
 
 static int
-	set_width(t_width *w, char *s)
+	set_width(t_width *w, const char *s)
 {
 	w[0].key = 0;
 	if ((w[0].width = (*s == '*')))
@@ -46,7 +47,7 @@ static int
 }
 
 static int
-	set_precision(t_width *w, char *s)
+	set_precision(t_width *w, const char *s)
 {
 	w[0].key = 0;
 	if ((w[0].width = (s[1] == '*')) && s[0] == '.')
@@ -71,7 +72,7 @@ static int
 */
 
 static int
-	set_specifier(uint8_t sb, char set, char *s)
+	set_specifier(uint8_t sb, char set, const char *s)
 {
 	int		i;
 	char	*spec;
@@ -88,14 +89,14 @@ static int
 }
 
 int
-	get_params(char *option, t_param **set)
+	get_params(const char *option, t_param *set)
 {
 	uint64_t	i;
 	uint64_t	error;
 
 	i = 0;
 	error = 0;
-	if ((set[0] = (t_param *)malloc(sizeof(*set[0]))))
+	if ((set[0] = (t_param *)malloc(sizeof(set[0]))))
 	{
 		i += (option[i] == '%');
 		i += set_flag(set[0]->flag, &option[i]);
