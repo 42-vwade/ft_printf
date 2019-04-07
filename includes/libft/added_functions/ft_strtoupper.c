@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_quickstr.c                                      :+:      :+:    :+:   */
+/*   ft_strtoupper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 15:24:02 by viwade            #+#    #+#             */
-/*   Updated: 2019/03/02 21:08:23 by viwade           ###   ########.fr       */
+/*   Created: 2019/03/25 12:38:35 by viwade            #+#    #+#             */
+/*   Updated: 2019/03/25 14:18:59 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char
-	*ft_qstrclip(t_qstr *s)
+void
+	ft_strtoupper(char **str)
 {
-	if (s->end > s->start)
-		return (ft_strsub(s->start, 0, s->end - s->start));
+	if (str[0])
+		while (*str[0])
+		{
+			str[0][0] = ft_toupper(str[0][0]);
+			str[0]++;
+		}
 }

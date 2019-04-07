@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/03/22 12:09:54 by viwade           ###   ########.fr       */
+/*   Updated: 2019/03/22 18:24:53 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,18 @@ int
 
 	i = 0;
 	error = 0;
-	if ((set[0] = (t_param *)malloc(sizeof(set[0]))))
 	{
 		i += (option[i] == '%');
-		i += set_flag(set[0]->flag, &option[i]);
-		i += set_width(&set[0]->width, &option[i]);
-		error += (set[0]->width.key == -1);
-		i += set_precision(&set[0]->precision, &option[i]);
-		error += (set[0]->precision.key == -1);
-		i += set_specifier(set[0]->sub, set[0]->spec, &option[i]);
-		error += !(ft_strchr(FT_SPEC, set[0]->spec));
-		set[0]->param_len = i;
+		i += set_flag(set->flag, &option[i]);
+		i += set_width(&set->width, &option[i]);
+		error += (set->width.key == -1);
+		i += set_precision(&set->precision, &option[i]);
+		error += (set->precision.key == -1);
+		i += set_specifier(set->sub, set->spec, &option[i]);
+		error += !(ft_strchr(FT_SPEC, set->spec));
+		set->param_len = i;
 	}
-	return (error ? -1 : set[0]->param_len);
+	return (error ? -1 : set->param_len);
 }
 
 /*

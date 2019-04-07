@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:34:03 by viwade            #+#    #+#             */
-/*   Updated: 2019/02/26 15:31:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/03/25 14:55:43 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,6 @@ struct			s_list
 	size_t			content_size;
 	struct s_list	*next;
 };
-struct			s_quickstring
-{
-	char	*start;
-	char	*end;
-	size_t	len;
-}
 
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
@@ -128,8 +122,10 @@ int				ft_intlen(int n);
 
 
 /*
-**	Length Getters
+**	Conversion
 */
+
+char			*ft_itoa_base(int n, int base);
 
 /*
 **	Length Getters

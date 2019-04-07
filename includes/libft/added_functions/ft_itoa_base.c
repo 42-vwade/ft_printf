@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 21:58:04 by viwade            #+#    #+#             */
-/*   Updated: 2018/11/14 22:56:21 by viwade           ###   ########.fr       */
+/*   Updated: 2019/03/25 15:00:35 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdlib.h>
-#define BASE_LOWER "0123456789abcdef"
-#define BASE_UPPER "0123456789ABCDEF"
+#define BASE16_LOWER "0123456789abcdef"
+#define BASE16_UPPER "0123456789ABCDEF"
 #define ABS(x) ((x) < 0) ? -(x) : (x)
-#define ITOA_SIZE(x) ((x) < 0) ? 3 : 2
+#define FT_ITOA_SIZE(x) ((x) < 0) ? 3 : 2
+#define FT_ITOA_PUT(k,n,b,a) (a) = (k)[ABS(n) % b]; n /= b
 
 char	*ft_itoa_base(int n, int base)
 {
@@ -26,8 +26,8 @@ char	*ft_itoa_base(int n, int base)
 	char	*key;
 
 	len = 0;
-	key = BASE_LOWER;
-	size = ITOA_SIZE(n * (base == 10));
+	key = BASE16_LOWER;
+	size = FT_ITOA_SIZE(n * (base == 10));
 	tmp = n;
 	while (tmp /= base)
 		len++;
@@ -35,10 +35,13 @@ char	*ft_itoa_base(int n, int base)
 	if ((str = (char *)malloc(len * sizeof(*str))))
 	{
 		str[--len] = 0;
-		while (str < (&(str[len--] = key[ABS(n) % base])))
+		while (len--)
+		{
+			str[len] = key[ABS(n) % base];
 			n /= base;
+		}
 		if (size == 3)
-			str[0] = '-';	
+			str[0] = '-';
 	}
 	return (str);
 }
