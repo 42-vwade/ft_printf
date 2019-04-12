@@ -1,16 +1,11 @@
 
 ####	CONTROL PANEL	########################################################
 
-NAME		=	fillit
-LIB			=	libfillit.a
+NAME		=	libfillit.a
 BUILDDIR	=	#	build/
 OBJDIR		=	#	obj/
-CFILES		=	source/fillit.c \
-				source/map_func.c \
-				source/readfile.c \
-				source/tetra_func.c \
-				source/validation.c
-LIBFT		=	includes/libft/libft.a
+CFILES		=	$(wildcard source/*.c)
+LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
 
 ####	AUTO SET		########################################################
@@ -20,18 +15,17 @@ OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(LIBFT) #| $(BUILDDIR)
-	@gcc -o $@ $(CFLAGS) $^
-
-$(LIB): $(OBJECTS)
-	@ar rc $@ $^
+$(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
+	@cp $(LIBFT) ./$@
+	@gcc -c $(CFLAGS) $(OBJECTS)
+	@ar rcu $@ $(OBJECTS)
 	@ranlib $@
 
 $(OBJECTS): $(CFILES) #| $(OBJDIR)
-	@cd $(<D) && make re
+	@make all -C $(<D)
 
 $(LIBFT):
-	@cd $(@D) && make re
+	@make all -C $(@D)
 
 #$(BUILDDIR):
 #	@mkdir -p $@
@@ -39,13 +33,12 @@ $(LIBFT):
 #	@mkdir -p $@
 
 clean:
-	@cd includes/libft/ && make clean
-	@rm -rf $(OBJDIR) $(LIBFT)
+	@make clean -C $(dir $(LIBFT))
 	@rm -rf *.o
 
 fclean: clean
-	@cd includes/libft/ && make fclean
-	@rm -rf $(BUILDDIR) $(NAME) $(LIB)
+	@make fclean -C $(dir $(LIBFT))
+	@rm -rf $(BUILDDIR) $(NAME)
 
 re: fclean all
 
