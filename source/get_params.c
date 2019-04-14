@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 03:49:06 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/14 04:12:34 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int
     format = obj->str;
 	{
 		i += (format[i] == '%');
-		i += set_flags(set->flags, &format[i]);
+		i += set_flags(&set->flags, &format[i]);
 		i += set_width(&set->width, &set->precision, &format[i], obj);
-		i += set_specifier(set->sub, set->spec, &format[i]);
+		i += set_specifier(obj, set, &format[i]);
 	}
 	return (error ? -1 : set->param_len);
 }
