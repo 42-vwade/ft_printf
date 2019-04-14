@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 03:11:04 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/14 03:32:09 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,22 @@
 **  ENUMERATION
 */
 
-enum	flags {
+enum	e_flags {
 	plus = '+',
 	minus = '-',
 	zero = '0',
 	hash = '#',
 	space = ' '
 };
+
+enum	e_length {
+	h	= 0,
+	hh	= 1 << 1,
+	l	= 1 << 2,
+	ll	= 1 << 3,
+	j	= 1 << 4,
+	z	= 1 << 5
+}
 
 /*
 **  TYPE DEFINITIONS
@@ -41,8 +50,8 @@ typedef struct s_param	t_param;
 
 struct	s_format
 {
-	va_list		args;
-	char		*string;
+	va_list		arg;
+	char		*str;
 	uint64_t	count;
 };
 

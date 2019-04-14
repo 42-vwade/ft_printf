@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 03:23:23 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/14 03:33:11 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,15 @@ static int
 }
 
 static int
-	set_width(t_width *w, const char *s)
+	set_width(uint32_t *w, const char *s, t_format *o, uint32_t i)
 {
-	w[0].key = 0;
-	if ((w[0].width = (*s == '*')))
-		w[0].key = '*';
+	w[0] = 0;
+	if (s[i] == '*')))
+		w[0] = va_arg(o->arg, int);
 	else if (ft_isdigit(*s))
 		w[0].width = ft_atoi(s);
-	else if ((w[0].key = -1) == -1)
-		return (0);
-	return (ft_intlen(w[0].width));
+
+    return (ft_intlen(w[0].width));
 }
 
 static int
@@ -94,21 +93,21 @@ static int
 }
 
 int
-	get_params(const char *option, t_param *set)
+	get_params(t_format *obj, t_param *set)
 {
 	uint64_t	i;
-	uint64_t	error;
+	char    *format;
 
 	i = 0;
-	error = 0;
+    format = obj->str;
 	{
-		i += (option[i] == '%');
-		i += set_flags(set->flag, &option[i]);
-		i += set_width(&set->width, &option[i]);
+		i += (format[i] == '%');
+		i += set_flags(set->flags, &format[i]);
+		i += set_width(&set->width, &format[i], obj, 0);
 		error += (set->width.key == -1);
-		i += set_precision(&set->precision, &option[i]);
+		i += set_precision(&set->precision, &format[i]);
 		error += (set->precision.key == -1);
-		i += set_specifier(set->sub, set->spec, &option[i]);
+		i += set_specifier(set->sub, set->spec, &format[i]);
 		error += !(ft_strchr(FT_SPEC, set->spec));
 		set->param_len = i;
 	}
