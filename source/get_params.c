@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/03/22 18:24:53 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/14 03:23:23 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,26 @@
 typedef t_param	t_context_t;
 
 static int
-	set_flag(char set, const char *s)
+	set_flags(char *set, const char *s)
 {
 	uint	i;
 	char	*str;
 
 	i = 0;
-	set = 0;
-	str = (char *){"-+ #0"};
-	while (s[i] && \
-	(s[i] == '-' || s[i] == '+' || s[i] == '#' || s[i] == '0' || s[i] == ' '))
-	{
-		set = (((s[i] == '-') << 0) + ((s[i] == '+') << 1) + ((s[i] == ' ')\
-		<< 2) + ((s[i] == '#') << 3) | ((s[i] == '0') << 4)) | set;
-		i++;
-	}
+	set[0] = 0;
+	while (s[i++])
+        if (s[i - 1] == plus)
+            set[0] |= 1 << 0;
+        else if (s[i - 1] == minus)
+            set[0] |= 1 << 1;
+        else if (s[i - 1] == zero)
+            set[0] |= 1 << 2;
+        else if (s[i - 1] == hash)
+            set[0] |= 1 << 3;
+        else if (s[i - 1] == space)
+            set[0] |= 1 << 4;
+        else
+            return (i - 1);
 	return (i);
 }
 
@@ -98,7 +103,7 @@ int
 	error = 0;
 	{
 		i += (option[i] == '%');
-		i += set_flag(set->flag, &option[i]);
+		i += set_flags(set->flag, &option[i]);
 		i += set_width(&set->width, &option[i]);
 		error += (set->width.key == -1);
 		i += set_precision(&set->precision, &option[i]);
