@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 03:49:26 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/14 04:04:37 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ enum	e_length {
 
 typedef struct s_format	t_format;
 typedef struct s_param	t_param;
+typedef struct s_type	t_type;
+
+/*
+**	FUNCTION DEFINITION
+*/
+
+typedef int (*f_func) (va_list, t_format *);
 
 /*
 **  STRUCTS
@@ -61,6 +68,12 @@ struct	s_param
 	uint	width;
 	uint	precision;
 	uint	length;
+};
+
+struct	s_type
+{
+	char	type;
+	f_func	f;
 };
 
 #endif
