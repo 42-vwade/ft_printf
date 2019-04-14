@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 04:12:15 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/14 04:20:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int32_t get_params(t_format *object, t_param *set);
 
 t_type  g_dispatch[] = {
     {'d', int_parse},
-    {'d', int_parse},
+    {'i', int_parse},
     {'s', str_parse},
     {'c', char_parse},
     {'x', x_parse},
