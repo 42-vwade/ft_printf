@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 04:38:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/15 19:50:13 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int
 		w[0] = va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
 		w[0] = ft_atoi(&s[i]);
-	i += (s[i] == '*') ? 1 : ft_intlen(w[0]);
+	i += (s[i] == '*') || ft_isdigit(s[i]) ? ft_intlen(w[0]) : 0;
 	if (s[i++] != '.')
 		return (i - 1);
 	 if (s[i] == '*')
@@ -57,7 +57,7 @@ static int
 }
 
 static int
-	get_length(uint8_t *l, const char *s, uint i)
+	set_length(uint8_t *l, const char *s, uint i)
 {
 	l[0] = 0;
 	if (s[i] == 'h')
@@ -70,6 +70,12 @@ static int
 		l[0] |= z;
 	i += (s[i + 1] == 'h' || s[i + 1] == 'l') ? 2 : 1;
 	return (i);
+}
+
+static void
+	get_function_operator(t_format *o, t_param *p, uint	i)
+{
+
 }
 
 int32_t

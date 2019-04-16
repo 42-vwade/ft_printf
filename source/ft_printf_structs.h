@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/14 04:04:37 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/15 19:50:04 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef int (*f_func) (va_list, t_format *);
 struct	s_format
 {
 	va_list		arg;
+	t_param		param;
 	char		*str;
 	uint64_t	count;
 };
