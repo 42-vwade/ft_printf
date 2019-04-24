@@ -34,7 +34,7 @@ $(LIBFT):
 
 clean:
 	@make clean -C $(dir $(LIBFT))
-	@rm -rf *.o
+	@cd $(BUILDDIR) && rm -rf *.o
 
 fclean: clean
 	@make fclean -C $(dir $(LIBFT))
