@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/15 20:21:15 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 05:57:52 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ static int
 	return (i);
 }
 
-static void
-	get_function_operator(t_format *o, t_param *p, uint	i)
+static int
+	select_function(t_format *o, char *s, uint	i)
 {
 	while (g_dispatch[i++].type)
-		if ()
+		if (g_dispatch[i - 1].type == s[0])
+			g_dispatch[i - 1].f(o->arg, o);
+	return (1);
 }
 
 int32_t
@@ -92,9 +94,10 @@ int32_t
 		i += set_flags(&set->flags, &format[i], 0);
 		i += set_width(&set->width, &set->precision, &format[i], obj);
 		i += set_length(&set->length, &format[i], 0);
-		i += get_function_operator(obj, set, &format[i]);
+		obj->param = set[0];
+		i += select_function(obj, &format[i], 0);
 	}
-	return (error ? -1 : set->param_len);
+	return ();
 }
 
 /*
