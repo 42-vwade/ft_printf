@@ -3,7 +3,7 @@
 
 NAME		=	libfillit.a
 BUILDDIR	=	#	build/
-OBJDIR		=	#	obj/
+OBJDIR		=	obj/
 CFILES		=	$(wildcard source/*.c)
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
@@ -14,27 +14,33 @@ LIB			:=	$(addprefix $(BUILDDIR), $(LIB))
 OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
 
 all: $(NAME)
+:wildcard
+build: $(CFILES) $(LIBFT) main.c
+	gcc -g main.c $(CFILES) $(LIBFT)
 
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
-	@cp $(LIBFT) ./$@
-	@ar rcu $@ $(OBJECTS)
+	#@cp $(LIBFT) ./$@
+	@ar rcu $@ $(OBJDIR)/*.o
 	@ranlib $@
 
-$(OBJECTS): $(CFILES) #| $(OBJDIR)
+$(OBJECTS): $(CFILES) | $(OBJDIR)
 	@make all -C $(<D)
+	@mv ./*.o $(OBJDIR)
 
-$(LIBFT):
+$(LIBFT): | $(OBJDIR)
 	@make all -C $(@D)
+	@mv $(@D)/*.o $(OBJDIR)/
 
 #$(BUILDDIR):
 #	@mkdir -p $@
-#$(OBJDIR):
-#	@mkdir -p $@
+$(OBJDIR):
+	@mkdir -p $@
 
 clean:
-	@rm $(OBJECTS)
-	@make clean -C $(dir $(LIBFT))
 	@rm -rf *.o
+	@rm -rf $(OBJDIR)
+	@make clean -C $(dir $(LIBFT))
+
 
 fclean: clean
 	@make fclean -C $(dir $(LIBFT))

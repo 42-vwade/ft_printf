@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 06:50:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 10:09:45 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include "ft_printf_structs.h"
 
+int     ft_printf(const char *format, ...);
 void    parse_input(t_format *object);
 int32_t get_params(t_format *object, t_param *param_addr);
 int		parse_c(va_list args, t_format *o);
@@ -29,25 +30,5 @@ int		parse_C(va_list args, t_format *o);
 int		parse_S(va_list args, t_format *o);
 int		parse_D(va_list args, t_format *o);
 int		parse_X(va_list args, t_format *o);
-
-/*
-**  GLOBAL
-*/
-
-t_type  g_dispatch[] = {
-    {'d', parse_i},
-    {'i', parse_i},
-    {'s', parse_s},
-    {'c', parse_c},
-    {'x', parse_x},
-    {'u', parse_u},
-    {'o', parse_o},
-    {'p', parse_p},
-    {'C', parse_C},
-    {'S', parse_S},
-    {'D', parse_D},
-    {'X', parse_X},
-	{0, NULL}
-};
 
 #endif

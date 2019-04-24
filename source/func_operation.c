@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 08:23:48 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 11:29:46 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		parse_c(va_list args, t_format *o)
 	c = (unsigned char)va_arg(args, int);
 	write(1, &c, 1);
 	o->count += 1;
+	o->str++;
 	return (1);
 }
 
@@ -34,6 +35,7 @@ int		parse_s(va_list args, t_format *o)
 	else
 		write(1, s, len);
 	o->count += len;
+	o->str++;
 	return (len);
 }
 
@@ -44,6 +46,7 @@ int		parse_i(va_list args, t_format *o)
 	num = (int)va_arg(args, int);
 	if ((0))
 		num = o->count;
+	o->str++;
 	return (ft_intlen(num));
 }
 
