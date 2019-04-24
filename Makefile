@@ -17,7 +17,6 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 	@cp $(LIBFT) ./$@
-	@gcc -c $(CFLAGS) $(OBJECTS)
 	@ar rcu $@ $(OBJECTS)
 	@ranlib $@
 
@@ -33,8 +32,9 @@ $(LIBFT):
 #	@mkdir -p $@
 
 clean:
+	@rm $(OBJECTS)
 	@make clean -C $(dir $(LIBFT))
-	@cd $(BUILDDIR) && rm -rf *.o
+	@rm -rf *.o
 
 fclean: clean
 	@make fclean -C $(dir $(LIBFT))
