@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/15 20:19:16 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 06:50:10 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "../libft/libft.h"
 # include "ft_printf_structs.h"
 
-int32_t get_params(t_format *object, t_param *set);
+void    parse_input(t_format *object);
+int32_t get_params(t_format *object, t_param *param_addr);
 int		parse_c(va_list args, t_format *o);
 int		parse_s(va_list args, t_format *o);
 int		parse_i(va_list args, t_format *o);
@@ -46,7 +47,7 @@ t_type  g_dispatch[] = {
     {'S', parse_S},
     {'D', parse_D},
     {'X', parse_X},
-	NULL
-}
+	{0, NULL}
+};
 
 #endif

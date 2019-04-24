@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 06:30:06 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 06:55:25 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 typedef t_param	t_context_t;
 
 static int
-	set_flags(char *set, const char *s, uint i)
+	set_flags(uint8_t *set, const char *s, uint i)
 {
 	set[0] = 0;
 	while (s[i++])
@@ -66,7 +66,7 @@ static int
 		l[0] |= ((s[i + 1] == 'l') * ll) || l;
 	else if (s[i] == 'j')
 		l[0] |= j;
-	else if (s[i] == 'j')
+	else if (s[i] == 'z')
 		l[0] |= z;
 	i += (s[i + 1] == 'h' || s[i + 1] == 'l') ? 2 : 1;
 	return (i);
@@ -78,7 +78,6 @@ static void
 	while (g_dispatch[i++].type)
 		if (g_dispatch[i - 1].type == s[0])
 			g_dispatch[i - 1].f(o->arg, o);
-	return (1);
 }
 
 int32_t
@@ -94,9 +93,7 @@ int32_t
 		i += set_flags(&set->flags, &format[i], 0);
 		i += set_width(&set->width, &set->precision, &format[i], obj);
 		i += set_length(&set->length, &format[i], 0);
-		obj->p = set[0];
-		obj->count += i;
-		select_function(obj, obj->str = &format[i], 0);
+		select_function(obj, obj->str = &format[i++], 0);
 	}
 	return (i);
 }

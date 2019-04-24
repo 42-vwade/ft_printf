@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_function.c                                  :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/03/22 12:20:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 07:02:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-typedef t_context	t_ctx_t;
-
-char
-	*resolve_arg(t_format *obj, const char *fmt)
+static int
+	find_next(char *s)
 {
-	char	*output;
-	t_ctx_t	context;
-	t_param	set;
+	char	*e;
 
-	if (get_params(fmt, &set) == -1)
-		return (NULL);
-	context = get_context(&set);
-	output = ft_strdup("resolve_arg function called\n");
-	return (obj->str);
+	e = s;
+	while (*(e += !!e[0] && e[0] != '%'))
+		;
+	return (e - s);
+}
+
+void	parse_input(t_format *obj)
+{
+	while (obj->str[0])
+	{
+		while (obj->str[0] != '%')
+			obj->count = write(1, obj->str++, 1);
+		obj->count += get_params(obj, &obj->p);
+	}
 }
 
 /*
