@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 06:20:24 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/24 06:30:06 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int
 	return (i);
 }
 
-static int
+static void
 	select_function(t_format *o, char *s, uint	i)
 {
 	while (g_dispatch[i++].type)
@@ -95,7 +95,8 @@ int32_t
 		i += set_width(&set->width, &set->precision, &format[i], obj);
 		i += set_length(&set->length, &format[i], 0);
 		obj->p = set[0];
-		i += select_function(obj, &format[i], 0);
+		obj->count += i;
+		select_function(obj, obj->str = &format[i], 0);
 	}
 	return (i);
 }
