@@ -2,25 +2,27 @@
 ########################################################	MAIN MAKEFILE	####
 ####	CONTROL PANEL	########################################################
 
-NAME		=	libfillit.a
+NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 CFILES		=	$(wildcard source/*.c)
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
 
-####	AUTO SET		########################################################
+####	AUTO SETTING	########################################################
+
 OBJDIR		:=	$(addprefix $(BUILDDIR), $(OBJDIR))
-LIB			:=	$(addprefix $(BUILDDIR), $(LIB))
+LIB			:=	$(addprefix $(BUILDDIR), $(dir $(LIBFT)))
 OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
 
+####	UNDER THE HOOD	########################################################
+
 all: $(NAME)
-:wildcard
+
 build: $(CFILES) $(LIBFT) main.c
 	gcc -g $^
 
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
-	#@cp $(LIBFT) ./$@
 	@ar rcu $@ $(OBJDIR)/*.o
 	@ranlib $@
 
