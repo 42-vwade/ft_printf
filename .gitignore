@@ -12,5 +12,5 @@
 .DS*
 x.*
 a.*
-*gch
+*.gch
 main.c
