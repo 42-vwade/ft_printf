@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 07:08:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 11:01:21 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,16 @@ static int
 void
 	parse_input(t_format *obj, const char *fmt)
 {
-	size_t	i;
-
-	while (*obj->str && !(i = 0))
+	obj->str = (char*)fmt;
+	while (*obj->str)
 	{
-		i = find_next(obj->str);
-		if (*obj->str != '%')
-			obj->count += write(1, obj->str, i);
-		if (obj->str[i] == '%' && obj->str[i + 1] == '%')
+		if (obj->str[0] == '%' && obj->str[1] == '%')
 			obj->count += 2 * write(1, "%", 1);
-		obj->str = (char *)&fmt[obj->count];
-		if (*obj->str == '%')
+		else if (obj->str[0] == '%')
 			obj->count += get_params(obj, &obj->p);
+		else if (obj->str[0] != '%')
+			obj->count += write(1, obj->str, find_next(obj->str));
+		obj->str += obj->count;
 	}
 }
 

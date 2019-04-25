@@ -5,7 +5,7 @@
 NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
-CFILES		=	$(wildcard source/*.c)
+CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
 
@@ -40,9 +40,9 @@ $(OBJDIR):
 	@mkdir -p $@
 
 clean:
+	@make clean -C $(dir $(LIBFT))
 	@rm -rf *.o
 	@rm -rf $(OBJDIR)
-	@make clean -C $(dir $(LIBFT))
 
 
 fclean: clean

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 08:27:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 11:21:29 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,11 @@ static void
 {
 	o->p.mod = ft_isuppercase(c);
 	while (g_dispatch[i++].type)
-		if (g_dispatch[i - 1].type == c)
+		if (!g_dispatch[i - 1].type)
+			exit(EXIT_FAILURE);
+		else if (g_dispatch[i - 1].type == c)
 			g_dispatch[i - 1].f(o->arg, o);
+	o->count++;
 }
 
 int32_t
