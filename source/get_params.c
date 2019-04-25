@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 06:33:06 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 08:27:47 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int
 	i += (s[i] == '*') || ft_isdigit(s[i]) ? ft_intlen(w[0]) : 0;
 	if (s[i++] != '.')
 		return (i - 1);
-	 if (s[i] == '*')
+	if (s[i] == '*')
 		p[0] = va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
 		p[0] = ft_atoi(&s[i]);
@@ -71,16 +71,17 @@ static int
 	else if (s[i] == 'z')
 		l[0] |= z;
 	if (l[0])
-	i += (s[i + 1] == 'h' || s[i + 1] == 'l') ? 2 : 1;
+		i += (s[i + 1] == 'h' || s[i + 1] == 'l') ? 2 : 1;
 	return (i);
 }
 
-static void
-	select_function(t_format *o, char c, uint	i)
-{
 /*
-**	TODO	-->	ADD VALIDATOR
+**	TODO	-->	ADD VALIDATOR to select_function
 */
+
+static void
+	select_function(t_format *o, char c, uint i)
+{
 	o->p.mod = ft_isuppercase(c);
 	while (g_dispatch[i++].type)
 		if (g_dispatch[i - 1].type == c)
@@ -91,7 +92,7 @@ int32_t
 	get_params(t_format *obj, t_param *set)
 {
 	uint64_t	i;
-	char	*format;
+	char		*format;
 
 	i = 0;
 	format = obj->str;

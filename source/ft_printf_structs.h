@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 06:21:39 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 08:34:56 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/types.h>
 
 /*
-**  ENUMERATION
+**	ENUMERATION
 */
 
 enum	e_flags {
@@ -38,7 +38,7 @@ enum	e_length {
 };
 
 /*
-**  TYPE DEFINITIONS
+**	TYPE DEFINITIONS
 */
 
 typedef struct s_format	t_format;
@@ -52,7 +52,7 @@ typedef struct s_type	t_type;
 typedef int (*f_func) (va_list, t_format *);
 
 /*
-**  STRUCTS
+**	STRUCTS
 */
 struct	s_param
 {
@@ -65,10 +65,10 @@ struct	s_param
 
 struct	s_format
 {
-	va_list		arg;
-	t_param		p;
-	char		*str;
-	uint64_t	count;
+	va_list	arg;
+	t_param	p;
+	char	*str;
+	size_t	count;
 };
 
 struct	s_type

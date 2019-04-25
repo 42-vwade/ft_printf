@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 10:15:36 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 07:41:06 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 08:28:12 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define CONV2 {'E',parse_e},{'F',parse_f},{'G',parse_g},{'A',parse_a}
 # define CONV3 {'e',parse_e},{'n',parse_n},{'g',parse_g},{'a',parse_a}
 # define BONUS_CONV CONV1,CONV2,CONV3
-
 
 /*
 **  GLOBAL
@@ -40,6 +39,5 @@ t_type	g_dispatch[] = {
 	{'f', parse_f},
 	{0, NULL}
 };
-
 
 #endif

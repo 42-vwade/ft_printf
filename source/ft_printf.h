@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 07:27:35 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 08:29:41 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 **		FeEgGaAn%		<<	diuoxXfFeEgGaAcspn%
 */
 
-int     ft_printf(const char *format, ...);
-void    parse_input(t_format *object, const char *format);
-int32_t get_params(t_format *object, t_param *param_addr);
+int		ft_printf(const char *format, ...);
+void	parse_input(t_format *object, const char *format);
+int32_t	get_params(t_format *object, t_param *param_addr);
 
 int		parse_c(va_list args, t_format *o);
 int		parse_s(va_list args, t_format *o);
