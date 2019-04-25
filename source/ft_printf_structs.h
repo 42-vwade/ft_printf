@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 06:52:16 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 06:21:39 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ enum	e_flags {
 };
 
 enum	e_length {
-	h	= 0,
-	hh	= 1 << 1,
-	l	= 1 << 2,
-	ll	= 1 << 3,
-	j	= 1 << 4,
-	z	= 1 << 5
+	h	= 1 << 1,
+	hh	= 1 << 2,
+	l	= 1 << 3,
+	ll	= 1 << 4,
+	j	= 1 << 5,
+	z	= 1 << 6
 };
 
 /*
@@ -60,6 +60,7 @@ struct	s_param
 	uint	width;
 	uint	precision;
 	uint8_t	length;
+	uint8_t	mod;
 };
 
 struct	s_format

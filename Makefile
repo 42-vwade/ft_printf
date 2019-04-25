@@ -1,4 +1,5 @@
 
+########################################################	MAIN MAKEFILE	####
 ####	CONTROL PANEL	########################################################
 
 NAME		=	libfillit.a
@@ -16,7 +17,7 @@ OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
 all: $(NAME)
 :wildcard
 build: $(CFILES) $(LIBFT) main.c
-	gcc -g main.c $(CFILES) $(LIBFT)
+	gcc -g $^
 
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 	#@cp $(LIBFT) ./$@

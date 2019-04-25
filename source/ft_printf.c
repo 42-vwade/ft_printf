@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:36:03 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 06:50:15 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 06:59:33 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int
 {
 	t_format	obj;
 
-	obj.str = (char *)format;
+	ft_bzero(&obj, sizeof(obj));
 	va_start(obj.arg, format);
-	parse_input(&obj);
+	parse_input(&obj, obj.str = (char *)format);
 	va_end(obj.arg);
 	return (obj.count);
 }

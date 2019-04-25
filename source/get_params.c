@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/24 11:23:33 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/25 06:33:06 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int
 	uint	i;
 
 	i = 0;
-	(w[0] = 0) || (p[0] = 0);
+	(w[0] = 0);
+	(p[0] = 0);
 	if (s[i] == '*')
 		w[0] = va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
@@ -62,9 +63,9 @@ static int
 {
 	l[0] = 0;
 	if (s[i] == 'h')
-		l[0] |= ((s[i + 1] == 'h') * hh) || h;
+		l[0] |= (s[i + 1] == 'h') ? hh : h;
 	else if (s[i] == 'l')
-		l[0] |= ((s[i + 1] == 'l') * ll) || 1 << 2;
+		l[0] |= (s[i + 1] == 'l') ? ll : 1 << 3;
 	else if (s[i] == 'j')
 		l[0] |= j;
 	else if (s[i] == 'z')
@@ -75,10 +76,14 @@ static int
 }
 
 static void
-	select_function(t_format *o, char *s, uint	i)
+	select_function(t_format *o, char c, uint	i)
 {
+/*
+**	TODO	-->	ADD VALIDATOR
+*/
+	o->p.mod = ft_isuppercase(c);
 	while (g_dispatch[i++].type)
-		if (g_dispatch[i - 1].type == s[0])
+		if (g_dispatch[i - 1].type == c)
 			g_dispatch[i - 1].f(o->arg, o);
 }
 
@@ -93,9 +98,9 @@ int32_t
 	{
 		i += (format[i] == '%');
 		i += set_flags(&set->flags, &format[i], 0);
-		i += set_width(&set->width, &set->precision, &format[i], obj);
+		i += set_width(&(set->width), &(set->precision), &format[i], obj);
 		i += set_length(&set->length, &format[i], 0);
-		select_function(obj, obj->str = &format[++i - 1], 0);
+		select_function(obj, (obj->str = &format[i++])[0], 0);
 	}
 	return (i);
 }

@@ -1,7 +1,11 @@
 
-CFILES		=	$(filter %.c, $(filter-out ._%, $(notdir $(wildcard *))))
-OBJECTS		=	$(notdir $(CFILES:%.c=%.o))
+########################################################	AUX MAKEFILE	####
+####	CONTROL PANEL	########################################################
 
+CFILES		:=	$(shell find . ! -name "._*" -regex ".*\\.[c]")
+OBJECTS		:=	$(notdir $(CFILES:%.c=%.o))
+
+####	UNDER THE HOOD	########################################################
 
 all: $(OBJECTS)
 	@yes | mv -f $^ ../
@@ -13,6 +17,7 @@ clean:
 	@rm -rf $(OBJECTS)
 
 fclean: clean
+	@cd .. && rm $(OBJECTS)
 
 re: fclean all
 
