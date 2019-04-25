@@ -17,7 +17,7 @@ clean:
 	@rm -rf $(OBJECTS)
 
 fclean: clean
-	@cd .. && rm $(OBJECTS)
+	@cd .. && rm -rf $(OBJECTS)
 
 re: fclean all
 
