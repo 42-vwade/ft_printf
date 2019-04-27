@@ -20,7 +20,7 @@ OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
 all: $(NAME)
 
 build: $(CFILES) $(LIBFT) main.c
-	gcc -g $^
+	gcc -g $(CFLAGS) $^
 
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 	@ar rcu $@ $(OBJDIR)/*.o
