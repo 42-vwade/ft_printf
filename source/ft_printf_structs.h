@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 08:34:56 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/29 23:34:34 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ enum	e_flags {
 };
 
 enum	e_length {
-	h	= 1 << 1,
-	hh	= 1 << 2,
-	l	= 1 << 3,
-	ll	= 1 << 4,
-	j	= 1 << 5,
-	z	= 1 << 6
+	h	= 1 << 0,
+	hh	= 1 << 1,
+	l	= 1 << 2,
+	ll	= 1 << 3,
+	j	= 1 << 4,
+	z	= 1 << 5
 };
 
 /*
@@ -57,10 +57,10 @@ typedef int (*f_func) (va_list, t_format *);
 struct	s_param
 {
 	uint8_t flags;
-	uint	width;
-	uint	precision;
+	size_t	width;
+	size_t	precision;
 	uint8_t	length;
-	uint8_t	mod;
+	uint8_t	f;
 };
 
 struct	s_format

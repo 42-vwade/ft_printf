@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 14:44:32 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/29 23:35:21 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,23 @@ static int
 }
 
 static int
-	set_width(uint *w, uint *p, const char *s, t_format *o)
+	set_width(size_t *w, size_t *p, const char *s, t_format *o)
 {
 	uint	i;
 
 	i = 0;
-	(w[0] = 0);
-	(p[0] = 0);
 	if (s[i] == '*')
-		w[0] = va_arg(o->arg, int);
+		w[0] = (int)va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
 		w[0] = ft_atoi(&s[i]);
 	i += (s[i] == '*') || ft_isdigit(s[i]) ? ft_intlen(w[0]) : 0;
 	if (s[i++] != '.')
 		return (i - 1);
 	if (s[i] == '*')
-		p[0] = va_arg(o->arg, int);
+		p[0] = (int)va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
 		p[0] = ft_atoi(&s[i]);
-	i += (s[i] == '*') ? 2 : ft_intlen(p[0]);
+	i += (s[i] == '*') ? 2 : 1 + ft_intlen(p[0]);
 	return (i);
 }
 
@@ -65,7 +63,7 @@ static int
 	if (s[i] == 'h')
 		l[0] |= (s[i + 1] == 'h') ? hh : h;
 	else if (s[i] == 'l')
-		l[0] |= (s[i + 1] == 'l') ? ll : 1 << 3;
+		l[0] |= (s[i + 1] == 'l') ? ll : 1 << 2;
 	else if (s[i] == 'j')
 		l[0] |= j;
 	else if (s[i] == 'z')
@@ -82,31 +80,31 @@ static int
 static void
 	select_function(t_format *o, char c, uint i)
 {
-	o->p.mod = ft_isuppercase(c);
+	o->p.f = ft_isuppercase(c);
 	while (g_dispatch[i++].type)
 		if (!g_dispatch[i - 1].type)
 			ft_error("No valid parameter found. Exiting.");
 		else if (g_dispatch[i - 1].type == c)
 			g_dispatch[i - 1].f(o->arg, o);
-	o->str++;
 }
 
-int32_t
-	get_params(t_format *obj, t_param *set)
+int
+	get_params(t_format *obj, size_t i)
 {
-	uint64_t	i;
 	char		*format;
+	t_param		set;
 
-	i = 0;
+	ft_bzero(&set, sizeof(set));
 	format = obj->str;
 	{
 		i += (format[i] == '%');
-		i += set_flags(&set->flags, &format[i], 0);
-		i += set_width(&(set->width), &(set->precision), &format[i], obj);
-		i += set_length(&set->length, &format[i], 0);
-		select_function(obj, (obj->str = &format[i++])[0], 0);
+		i += set_flags(&set.flags, &format[i], 0);
+		i += set_width(&(set.width), &(set.precision), &format[i], obj);
+		i += set_length(&set.length, &format[i], 0);
+		obj->p = set;
+		select_function(obj, *(obj->str = &format[i]), 0);
 	}
-	return (i);
+	return (1);
 }
 
 /*

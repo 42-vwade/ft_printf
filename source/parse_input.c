@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 14:19:56 by viwade           ###   ########.fr       */
+/*   Updated: 2019/04/29 17:25:42 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,15 @@ void
 
 	i = 0;
 	obj->str = (char*)fmt;
-	while (*obj->str && !(i = 0))
+	while (!(i = 0) && *obj->str)
 	{
-		ft_putendl(obj->str);
 		if ((i = obj->str[0] == '%' && obj->str[1] == '%'))
 			obj->count += write(1, "%", i++);
 		else if (obj->str[0] == '%')
-			obj->str += get_params(obj, &obj->p);
+			i += get_params(obj, 0);
 		else if (obj->str[0] != '%')
 			obj->count += write(1, obj->str, i = find_next(obj->str));
 		obj->str += i;
-		ft_putendl(obj->str);
 	}
 }
 
