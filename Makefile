@@ -21,15 +21,16 @@ all: $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
-build: $(CFILES) $(LIBFT) main.c
-	gcc -g $(CFLAGS) $^
+build: $(CFILES) $(shell find ./libft ! -name ".*" -regex ".*\\.[c]") main.c
+	@echo "Build initiated ..."
+	@gcc -g $(CFLAGS) $^
 
 #	MAKE THE PROJECT FILE
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 	@ar rcu $@ $(OBJDIR)/*.o
 	@ranlib $@
 
-#	GET OBJECT FILES FROM PROJECT SOURCE DIRECTORY 
+#	GET OBJECT FILES FROM PROJECT SOURCE DIRECTORY
 $(OBJECTS): $(CFILES) | $(OBJDIR)
 	@make all -C $(<D)
 	@mv ./*.o $(OBJDIR)
