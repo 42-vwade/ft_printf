@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/29 23:35:21 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/09 06:44:24 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void
 	o->p.f = ft_isuppercase(c);
 	while (g_dispatch[i++].type)
 		if (!g_dispatch[i - 1].type)
-			ft_error("No valid parameter found. Exiting.");
+			ft_error("ft_printf: No valid parameter found. Exiting.");
 		else if (g_dispatch[i - 1].type == c)
 			g_dispatch[i - 1].f(o->arg, o);
 }

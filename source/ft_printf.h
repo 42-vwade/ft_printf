@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/02 13:24:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/09 07:37:01 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 int		ft_printf(const char *format, ...);
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
+
+size_t	ftprintf_write(char *s, size_t len, t_format *o);
 
 int		parse_c(va_list args, t_format *o);
 int		parse_s(va_list args, t_format *o);
