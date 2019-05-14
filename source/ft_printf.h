@@ -6,13 +6,14 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/13 19:04:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/13 22:28:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 # include <stdlib.h>
+# include <limits.h>
 # include <math.h>
 # include "../libft/libft.h"
 # include "ft_printf_structs.h"

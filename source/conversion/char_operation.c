@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/25 08:15:55 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/13 22:46:54 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 
 int		parse_c(va_list args, t_format *o)
 {
-	unsigned char	c;
+	unsigned long int	c;
 
-	c = (unsigned char)va_arg(args, int);
-	write(1, &c, 1);
-	o->count += 1;
-	o->str++;
+	if (ft_isuppercase(o->str[0]))
+	{
+		ft_putstr("LONG");
+		c = (unsigned long int)va_arg(args, int);
+		write(1, &c, sizeof(wchar_t));
+	}
+	else
+	{
+		c = (unsigned char)va_arg(args, int);
+		write(1, &c, 1);
+	}
 	return (1);
 }

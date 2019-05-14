@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/10 16:30:05 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/14 00:25:59 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int
 		p[0] = (int)va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
 		p[0] = ft_atoi(&s[i]);
-	i += (s[i] == '*') ? 2 : 1 + ft_intlen(p[0]);
+	i += (s[i] == '*') ? 1 : ft_intlen(p[0]);
 	return (i);
 }
 
@@ -85,7 +85,10 @@ static void
 		if (!g_dispatch[i - 1].type)
 			ft_error("ft_printf: No valid parameter found. Exiting.");
 		else if (g_dispatch[i - 1].type == c)
+		{
 			o->count += g_dispatch[i - 1].f(o->arg, o);
+			break ;
+		}
 }
 
 int
