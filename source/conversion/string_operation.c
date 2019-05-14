@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/09 08:59:37 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/10 19:35:26 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int		parse_s(va_list args, t_format *o)
 
 	s = (char *)va_arg(args, char *);
 	if (!s)
-		return (ftprintf_write("(null)", 6, o));
-	if (o->p.precision && o->p.precision <= (len = ft_strlen(s)))
-		return (ftprintf_write(s, len = o->p.precision, o));
+		return (write(1, "(null)", 6));
+	if (o->p.precision <= (len = ft_strlen(s)) && o->p.precision)
+		return (write(1, s, len = o->p.precision));
 	else
-		return (ftprintf_write(s, len, o));
+		return (write(1, s, len));
 }

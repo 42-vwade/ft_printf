@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/09 06:44:24 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/10 16:30:05 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void
 		if (!g_dispatch[i - 1].type)
 			ft_error("ft_printf: No valid parameter found. Exiting.");
 		else if (g_dispatch[i - 1].type == c)
-			g_dispatch[i - 1].f(o->arg, o);
+			o->count += g_dispatch[i - 1].f(o->arg, o);
 }
 
 int
