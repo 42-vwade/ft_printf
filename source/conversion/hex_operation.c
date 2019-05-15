@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/14 08:19:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/14 14:29:31 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ int		parse_o(va_list args, t_format *o)
 
 int		parse_hex(va_list args, t_format *o)
 {
-	long long	num;
-	intptr_t	ptr;
-	char	*str;
+	unsigned long long	num;
+	char				*str;
 
 	if (o->str[0] == 'p' || o->str[0] == 'P')
 		num = (intptr_t)va_arg(args, intptr_t);
 	else
-		num = (int)va_arg(args, int);
+		num = (unsigned)va_arg(args, unsigned);
 	str = ft_strjoin_free(ft_strdup("0x"), ft_itoa_base(num, 16));
 	if (ft_isuppercase(o->str[0]))
 		ft_strcapitalize(str);
