@@ -24,6 +24,7 @@ all: $(NAME)
 build: $(CFILES) $(shell find ./libft ! -name ".*" -regex ".*\\.[c]") main.c
 	@echo "Build initiated ..."
 	@gcc -g $(CFLAGS) $^
+	./a.out
 
 #	MAKE THE PROJECT FILE
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
