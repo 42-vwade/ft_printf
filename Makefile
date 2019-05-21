@@ -40,7 +40,7 @@ $(OBJECTS): $(CFILES) | $(OBJDIR)
 #	MOVE CREATED .O FILES INTO OBJECT DIRECTORY
 $(LIBFT): | $(OBJDIR)
 	@make all -C $(@D)
-	@mv $(@D)/*.o $(OBJDIR)/
+	@mv $(@D)/obj/*.o $(OBJDIR)/
 
 #$(BUILDDIR):
 #	@mkdir -p $@
