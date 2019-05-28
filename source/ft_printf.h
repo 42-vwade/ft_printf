@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/14 08:16:57 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/27 21:38:09 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@ int		get_params(t_format *obj, size_t i);
 
 size_t	ftprintf_write(char *s, size_t len, t_format *o);
 
-int		parse_c(va_list args, t_format *o);
-int		parse_s(va_list args, t_format *o);
-int		parse_i(va_list args, t_format *o);
-int		parse_u(va_list args, t_format *o);
-int		parse_o(va_list args, t_format *o);
-int		parse_hex(va_list args, t_format *o);
-int		parse_f(va_list args, t_format *o);
+int		parse_c(t_format *o);
+int		parse_s(t_format *o);
+int		parse_i(t_format *o);
+int		parse_u(t_format *o);
+int		parse_o(t_format *o);
+int		parse_hex(t_format *o);
+int		parse_f(t_format *o);
+
+int		pad_o(t_format *o, int (*f)(), int64_t width);
+int		prefix_o(uint8_t flag);
+int 	sign_o(int64_t value, uint8_t flag);
 
 #endif

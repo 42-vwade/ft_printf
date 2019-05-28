@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/04/29 23:34:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/27 05:54:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,28 @@
 */
 
 enum	e_flags {
-	plus = '+',
-	minus = '-',
-	zero = '0',
-	hash = '#',
-	space = ' '
+	plus = 1 << 0,
+	minus = 1 << 1,
+	zero = 1 << 2,
+	hash = 1 << 3,
+	space = 1 << 4
 };
 
 enum	e_length {
-	h	= 1 << 0,
-	hh	= 1 << 1,
+	hh	= 1 << 0,
+	h	= 1 << 1,
 	l	= 1 << 2,
 	ll	= 1 << 3,
 	j	= 1 << 4,
 	z	= 1 << 5
+};
+
+enum	e_sample {
+	blank,
+	a,
+	b,
+	c,
+	d
 };
 
 /*
@@ -49,18 +57,18 @@ typedef struct s_type	t_type;
 **	FUNCTION DEFINITION
 */
 
-typedef int (*f_func) (va_list, t_format *);
+typedef int (*f_func) (t_format *);
 
 /*
 **	STRUCTS
 */
 struct	s_param
 {
-	uint8_t flags;
-	size_t	width;
-	size_t	precision;
-	uint8_t	length;
-	uint8_t	f;
+	uint8_t		flags;
+	int64_t		width;
+	int64_t		precision;
+	uint8_t		length;
+	uint8_t		f;
 };
 
 struct	s_format
@@ -69,6 +77,7 @@ struct	s_format
 	t_param	p;
 	char	*str;
 	size_t	count;
+	void	*v;
 };
 
 struct	s_type
