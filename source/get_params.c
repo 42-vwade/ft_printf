@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/20 10:27:28 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/27 22:56:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ static int
 {
 	set[0] = 0;
 	while (s[i++])
-		if (s[i - 1] == plus)
+		if (s[i - 1] == '+')
 			set[0] |= 1 << 0;
-		else if (s[i - 1] == minus)
+		else if (s[i - 1] == '-')
 			set[0] |= 1 << 1;
-		else if (s[i - 1] == zero)
+		else if (s[i - 1] == '0')
 			set[0] |= 1 << 2;
-		else if (s[i - 1] == hash)
+		else if (s[i - 1] == '#')
 			set[0] |= 1 << 3;
-		else if (s[i - 1] == space)
+		else if (s[i - 1] == ' ')
 			set[0] |= 1 << 4;
 		else
 			return (i - 1);
@@ -36,9 +36,10 @@ static int
 }
 
 static int
-	set_width(size_t *w, size_t *p, const char *s, t_format *o)
+	set_width(int64_t *w, int64_t *p, const char *s, t_format *o)
 {
 	uint	i;
+	char	move;
 
 	i = 0;
 	if (s[i] == '*')
@@ -48,14 +49,21 @@ static int
 	i += (s[i] == '*') || ft_isdigit(s[i]) ? ft_intlen(w[0]) : 0;
 	if (s[i++] != '.')
 		return (i - 1);
-	if (s[i] == '*')
+	if ((move = s[i] == '*'))
 		p[0] = (int)va_arg(o->arg, int);
-	else if (ft_isdigit(s[i]))
+	else if ((move = 2 * ft_isdigit(s[i])))
 		p[0] = ft_atoi(&s[i]);
-	i += (s[i] == '*') ? 1 : ft_intlen(p[0]);
+	//p[0] = !(INT_MAX & p[0]) ? 1 : p[0];
+	p[0] = p[0] ? p[0] : -1;
+	if (move)
+		i += (s[i] == '*') ? 1 : ft_intlen(p[0]);
 	return (i);
 }
 
+/*
+**	Returns zero if length parameter is not modified.
+**	Otherwise, a length is determined, returned, and a specific flag is set.
+*/
 static int
 	set_length(uint8_t *l, const char *s, uint i)
 {
@@ -86,7 +94,7 @@ static void
 			ft_error("ft_printf: No valid parameter found. Exiting.");
 		else if (g_dispatch[i - 1].type == c)
 		{
-			o->count += g_dispatch[i - 1].f(o->arg, o);
+			o->count += g_dispatch[i - 1].f(o);
 			break ;
 		}
 }
