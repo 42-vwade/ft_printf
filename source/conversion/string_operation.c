@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 11:14:31 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 13:27:06 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static FT_SIZE
 	o->v = u ? encode_utf8((void *)wstr_to_ustr(o->v)) : ft_strdup(o->v);
 	len = ft_strlen(o->v);
 	len = o->p.tick & 0b0100 ? MIN(len, o->p.precision) : len;
-	o->p.width = MAX(o->p.width - len, 0);
+	o->p.width = MAX((LL)(o->p.width - len), 0);
 	modify_o(o, "pad");
-	ret = write(1, o->v, len);
+	ret = write(1, o->v, len + o->p.width);
 	free(o->v);
 	return (ret);
 }

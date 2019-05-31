@@ -6,20 +6,21 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/29 20:19:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 12:29:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 #define length_i_assign_type(t) ((t *)var)[0] = (t)va_arg(ap, t)
 #define cast_uint(a) (o->str[0] == 'u' ? (uint32_t)(a) : (int32_t)(a))
+#define TYPE (ft_tolower(o->str[0]) == 'u') ? (uint64_t *) : (int64_t *)
 
 /*
 **		INT
 */
 
 static void
-	length_i(va_list ap, void *var, uint8_t length)
+	length_i(va_list ap, int64_t *var, uint8_t length)
 {
 
 	if (!length)
@@ -34,51 +35,22 @@ static void
 		length_i_assign_type(long long);
 }
 
-static size_t
-	write_uint(unsigned long long n, size_t len)
-{
-	size_t	l;
-
-	if (!len)
-		return (0);
-	l = 0;
-	if (n >= 10)
-		l = write_uint(ABS(n / 10), --len);
-	return (l + write(1, (char[1]){48 + ABS(n % 10)}, 1));
-}
-
 static int
-	convert_i(void *data)
+	convert_i(t_format *o)
 {
-	size_t	len;
-	t_format	*o;
-
-	o = data;
-	len = 0;
-	if ((o->str[0] == 'i' || o->str[0] == 'd') &&
-		((int)((int*)o->v)[0] >= 0 && o->p.flags & (plus + space)))
-			len += write(1, o->p.flags & plus ? "+" : " ", 1) +
-				write_uint((int)((int *)o->v)[0], o->p.precision);
-	else if ((o->str[0] == 'i' || o->str[0] == 'd'))
-		len += write_uint((int)((int *)o->v)[0], o->p.precision);
-	else if (o->str[0] == 'u')
-		len += prefix_o(o->p.flags) +
-			write_uint((uint)((int *)o->v)[0], o->p.precision);
-	else
-		len += write_uint((uint)((int *)o->v)[0], o->p.precision);
-	return (len);
-}
-
-static int
-	sign_i(uint8_t *f, int64_t n)
-{
+	char	u[2];
 	size_t	ret;
+	size_t	len;
 
 	ret = 0;
-	if (n < 0)
-		ret += write(1, "-", 1);
-	 if (f[0] & zero && !(f[0] & minus))
-	 	f[0] &= ~zero;
+	u[0] = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
+	u[1] = ft_tolower(o->str[0]) == 'u';
+	o->v = u[1] ? ft_itoa_unsigned(*(uint64_t*)o->v) : ft_itoa(*(int64_t*)o->v);
+	len = ft_strlen(o->v);
+	o->p.width = MAX((LL)(o->p.width - len), 0);
+	modify_o(o, "pad");
+	ret = write(1, o->v, len);
+	free(o->v);
 	return (ret);
 }
 
@@ -86,19 +58,9 @@ int
 	parse_i(t_format *o)
 {
 	int64_t	num;
-	size_t	len;
-	size_t	ret;
 
-	ret = 0;
 	o->v = &num;
 	length_i(o->arg, o->v, o->p.length);
-	num = o->str[0] == 'u' ? (uint32_t)num : num;
-	len = ft_intlen_base(num, 10);
-	len = (num < 0 || o->p.flags & (space | plus)) + len;
-	if (o->p.flags & zero && num < 0)
-		ret += sign_i(&o->p.flags, num);
-	ret += pad_o(&o->p.flags, MAX(o->p.width - len, 0));
-	ret += convert_i(o);
-	ret += pad_o(&o->p.flags, MAX(o->p.width - len, 0));
-	return (len);
+	return (convert_i(o));
+	num = ft_tolower(o->str[0]) == 'u' ? (uint32_t)num : num;
 }

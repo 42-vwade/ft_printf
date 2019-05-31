@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 11:12:38 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 13:40:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@
 static FT_SIZE
 	convert_f(t_format *o)
 {
-	size_t		ret;
+	size_t	ret;
+	size_t	len;
 
 	ret = 0;
 	o->p.precision = !(o->p.tick & 0b100) ?  6 : o->p.precision;
-	o->v = infinite_double(*(FT_LDBL*)o->v, o->p.precision);
-	o->p.width = (LL)MAX(o->p.width - ft_strlen(o->v), 0);
+	o->v = infinite_double(*(double*)o->v, o->p.precision);
+	len = ft_strlen(o->v);
+	o->p.width = MAX((LL)(o->p.width - len), 0);
 	modify_o(o, "pad");
-	ret = write(1, o->v, ft_strlen(o->v));
+	modify_o(o, "sign");
+	ret = write(1, o->v, len + o->p.width);
 	free (o->v);
 	return (ret);
 }
@@ -46,18 +49,22 @@ static int
 		n.d = ft_strdup("inf");
 	else if ((n.length = (num == -INFINITY) * 4))
 		n.d = ft_strdup("-inf");
-	o->v = n.d;
-	if (o->v)
+	if (n.d && (o->v = n.d))
 		ret = convert_f(o);
+	if (n.d)
+		free(n.d);
 	return (ret);
 }
 
 int		parse_f(t_format *o)
 {
 	size_t	ret;
+	double	num;
 
 	ret = 0;
-	o->v = (long double[1]){va_arg(o->arg, long double)};
+	o->v = &num;
+	num = va_arg(o->arg, double);
+	o->p.flags |= (num < 0) << 7;
 	if ((ret = is_anomaly(*(double*)o->v, o)))
 		return (ret);
 	return (convert_f(o));

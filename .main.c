@@ -31,7 +31,7 @@ int
 
 	fmt = (char *[]){
 		(char[]){"\n"},
-		(char[]){"%s"},		/*/	zero flag (does nothing)	/*/
+		(char[]){"%0s"},		/*/	zero flag (does nothing)	/*/
 		(char[]){"%014s"},		/*/	zero flag, 14 width	/*/
 		(char[]){"%0-14s"},		/*/	minus-zero flag, 14 width, 4 precision	/*/
 		(char[]){"%-014.4s"},	/*/	zero-minus flag, 14 width	/*/
