@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/27 23:33:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 11:14:31 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,30 @@
 */
 
 /*
-**	Convert incoming array to int array. Allocation required.
-**	Free allocated int array.
+**	Initializes return value to 0. Check for long conversion. Encode UTF8 or
+**	copy string to memory. Get length of encoded string. Reduce length to
+**	precision value, at most, if less than string length. Reduce value
+**	of width by length value, with no less than 0 width.
+**	Apply padding modifier. Write the prescribed string, free it, and retun
+**	the number of bytes written.
 */
-static int
-	write_wstr(void *data)
+static FT_SIZE
+	convert_s(t_format *o)
 {
-	size_t		len;
-	t_format	*o;
+	char	u;
+	size_t	ret;
+	size_t	len;
 
-	o = data;
-	o->v = wstr_to_ustr(o->v);
-	if (o->p.precision <= 0)
-		return (0);
-	len = MIN(ft_lstrlen(o->v), o->p.precision);
-	o->count += print_utf8_n(o->v, len);
+	ret = 0;
+	u = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
+	o->v = u ? encode_utf8((void *)wstr_to_ustr(o->v)) : ft_strdup(o->v);
+	len = ft_strlen(o->v);
+	len = o->p.tick & 0b0100 ? MIN(len, o->p.precision) : len;
+	o->p.width = MAX(o->p.width - len, 0);
+	modify_o(o, "pad");
+	ret = write(1, o->v, len);
 	free(o->v);
-	return ((int)len);
-}
-
-static int
-	write_str(t_format *data)
-{
-	t_format	*o;
-
-	o = data;
-	if (((t_format*)o)->p.precision <= 0)
-		return (0);
-	return (write(1, o->v, MIN(ft_strlen(o->v), ((t_format*)o)->p.precision)));
+	return (ret);
 }
 
 /*
@@ -59,14 +55,8 @@ static int
 int
 	parse_s(t_format *o)
 {
-	o->v = va_arg(o->arg, void *);
-	if (!o->v)
-		return (write(1, "(null)", 6));
-	if ((int)o->p.precision == -1)
-		o->p.precision = 0;
-	if (o->p.length == 1 << 2 || ft_isuppercase(o->str[0]))
-		return(pad_o(o, write_wstr, MAX(o->p.width - ft_lstrlen(o->v), 0)));
-	else
-		return(pad_o(o, write_str, MAX(o->p.width - ft_strlen(o->v), 0)));
+	if (!(o->v = va_arg(o->arg, void *)))
+		o->v = "(null)";
+	return (convert_s(o));
 }
 

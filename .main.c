@@ -30,7 +30,8 @@ int
 	setlocale(LC_ALL, "");
 
 	fmt = (char *[]){
-		(char[]){"%03.0%"},		/*/	zero flag (does nothing)	/*/
+		(char[]){"\n"},
+		(char[]){"%s"},		/*/	zero flag (does nothing)	/*/
 		(char[]){"%014s"},		/*/	zero flag, 14 width	/*/
 		(char[]){"%0-14s"},		/*/	minus-zero flag, 14 width, 4 precision	/*/
 		(char[]){"%-014.4s"},	/*/	zero-minus flag, 14 width	/*/
@@ -45,25 +46,30 @@ int
 
 	printf("%-032.0c", 'c');
 	while (fmt[0])
-		printf("|[%i]\n", printf((fmt++)[0], string));
+		printf("|[%i]\n", printf((fmt++)[0], NULL));
 	//printf(" [%i][wchr*]\n",
-	printf("%S", L"🤗 💯 🌍 🚀 🔴 ")
+	printf("%S\n", L"🤗 💯 🌍 🚀 🔴 ")
 	//)
 	;
 	fmt = (char *[]){
-		(char[]){"%0i\n"},		/*/	zero flag (does nothing)	/*/
-		(char[]){"%014i\n"},		/*/	zero flag, 14 width	/*/
-		(char[]){"%0-14i\n"},		/*/	minus-zero flag, 14 width, 4 precision	/*/
-		(char[]){"%-014.4i\n"},	/*/	zero-minus flag, 14 width	/*/
-		(char[]){"%-014.4i\n"},	//	minus-zero flag, 14 width, 4 precision
-		(char[]){"%0.4i\n"},		//	zero flag, 4 precision
-		(char[]){"% #-032.9i\n"},	//	space-hash-minus-zero flag, 32 width, 9 precision
-		(char[]){"%0.0i\n"},		//	zero flag, 0 precision
-		(char[]){"%0.i\n"},		//	zero flag, <absentee> precision
+		(char[]){"%0i"},		/*/	zero flag (does nothing)	/*/
+		(char[]){"%014i"},		/*/	zero flag, 14 width	/*/
+		(char[]){"%0-14i"},		/*/	minus-zero flag, 14 width, 4 precision	/*/
+		(char[]){"%-014.4i"},	/*/	zero-minus flag, 14 width	/*/
+		(char[]){"%-014.4i"},	//	minus-zero flag, 14 width, 4 precision
+		(char[]){"%0.4i"},		//	zero flag, 4 precision
+		(char[]){"% #-032.9i"},	//	space-hash-minus-zero flag, 32 width, 9 precision
+		(char[]){"%0.0i"},		//	zero flag, 0 precision
+		(char[]){"%0.i"},		//	zero flag, <absentee> precision
 		/*	INTEGER PADDING	TEST	*/
 		NULL
 	};
 
-	while (fmt[0])
-		printf("[%i] ", printf(chr_replace((fmt++)[0], 's', 'S'), wstring));
+	long long	i = -31415926, count;
+
+	while (fmt[0]){
+		count = printf((fmt++)[0], (int)i * 3 );
+		fflush(stdout);
+		printf("|[%i] \n", count);
+	}
 }

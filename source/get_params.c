@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/27 22:56:48 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 06:03:46 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int
 }
 
 static int
-	set_width(int64_t *w, int64_t *p, const char *s, t_format *o)
+	set_width(uint64_t *w, uint64_t *p, const char *s, t_format *o)
 {
 	uint	i;
 	char	move;
@@ -46,15 +46,16 @@ static int
 		w[0] = (int)va_arg(o->arg, int);
 	else if (ft_isdigit(s[i]))
 		w[0] = ft_atoi(&s[i]);
-	i += (s[i] == '*') || ft_isdigit(s[i]) ? ft_intlen(w[0]) : 0;
+	if ((o->p.tick |= !!w[0] << 1) & 1 << 1)
+		i += (s[i] == '*') ? 1 : ft_intlen(w[0]);
 	if (s[i++] != '.')
 		return (i - 1);
+	o->p.tick |= 1 << 2;
 	if ((move = s[i] == '*'))
 		p[0] = (int)va_arg(o->arg, int);
 	else if ((move = 2 * ft_isdigit(s[i])))
 		p[0] = ft_atoi(&s[i]);
 	//p[0] = !(INT_MAX & p[0]) ? 1 : p[0];
-	p[0] = p[0] ? p[0] : -1;
 	if (move)
 		i += (s[i] == '*') ? 1 : ft_intlen(p[0]);
 	return (i);
@@ -70,8 +71,8 @@ static int
 	l[0] = 0;
 	if (s[i] == 'h')
 		l[0] |= (s[i + 1] == 'h') ? hh : h;
-	else if (s[i] == 'l')
-		l[0] |= (s[i + 1] == 'l') ? ll : 1 << 2;
+	else if (ft_tolower(s[i]) == 'l')
+		l[0] |= (ft_tolower(s[i + 1]) == 'l') ? ll : 1 << 2;
 	else if (s[i] == 'j')
 		l[0] |= j;
 	else if (s[i] == 'z')
@@ -88,15 +89,15 @@ static int
 static void
 	select_function(t_format *o, char c, uint i)
 {
-	o->p.f = ft_isuppercase(c);
+	o->p.tick |= ft_isuppercase(c) << 4;
 	while (g_dispatch[i++].type)
-		if (!g_dispatch[i - 1].type)
-			ft_error("ft_printf: No valid parameter found. Exiting.");
-		else if (g_dispatch[i - 1].type == c)
+		if (g_dispatch[i - 1].type == c)
 		{
 			o->count += g_dispatch[i - 1].f(o);
 			break ;
 		}
+		else if (!g_dispatch[i].type)
+			ft_error("ft_printf: No valid parameter found. Exiting.");
 }
 
 int
@@ -110,8 +111,11 @@ int
 	{
 		i += (format[i] == '%');
 		i += set_flags(&set.flags, &format[i], 0);
-		i += set_width(&(set.width), &(set.precision), &format[i], obj);
+		set.tick |= !!set.flags << 0;
+		i += set_width(&set.width, &set.precision, &format[i], obj);
+		set.tick |= obj->p.tick;
 		i += set_length(&set.length, &format[i], 0);
+		set.tick |= !!set.length << 3;
 		obj->p = set;
 		select_function(obj, *(obj->str = &format[i]), 0);
 	}

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/26 23:30:38 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 09:57:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,21 @@
 **		CHAR
 */
 
-static int
+static FT_SIZE
 	convert_c(t_format *o)
 {
-	return (write_utf8(((int *)o->v)[0]));
+	uint	c[2];
+	size_t	ret;
+
+	c[0] = o->str[0] == '%' ? '%' : va_arg(o->arg, int);
+	if (!(o->v = encode_utf8(c)))
+		ft_error("Memory allocation failure. Exiting.");
+	ret = 0;
+	o->p.width = (LL)MAX(o->p.width - ft_strlen(o->v), 0);
+	modify_o(o, "pad");
+	ret = write(1, o->v, ft_strlen(o->v));
+	free (o->v);
+	return (ret);
 }
 
 /*
@@ -31,6 +42,5 @@ static int
 */
 int		parse_c(t_format *o)
 {
-	o->v = (int[1]){o->str[0] == '%' ? '%' : va_arg(o->arg, int)};
-	return (pad_o(o, convert_c, MAX(o->p.width - 1, 0)));
+	return (convert_c(o));
 }

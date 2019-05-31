@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/27 05:54:48 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/30 11:14:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ enum	e_length {
 	z	= 1 << 5
 };
 
-enum	e_sample {
-	blank,
-	a,
-	b,
-	c,
-	d
+/*
+**	UNION STRUCT
+*/
+
+typedef union u_double	u_double;
+
+union u_double
+{
+	ULL		ld;
+	double	d;
 };
+
 
 /*
 **	TYPE DEFINITIONS
@@ -64,11 +69,11 @@ typedef int (*f_func) (t_format *);
 */
 struct	s_param
 {
+	uint8_t		tick;
 	uint8_t		flags;
-	int64_t		width;
-	int64_t		precision;
+	uint64_t	width;
+	uint64_t	precision;
 	uint8_t		length;
-	uint8_t		f;
 };
 
 struct	s_format
