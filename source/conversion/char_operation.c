@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 09:57:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/01 06:30:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@
 static FT_SIZE
 	convert_c(t_format *o)
 {
-	uint	c[2];
 	size_t	ret;
 
-	c[0] = o->str[0] == '%' ? '%' : va_arg(o->arg, int);
-	if (!(o->v = encode_utf8(c)))
+	o->v = (int[2]){o->str[0] == '%' ? '%' : va_arg(o->arg, int), 0};
+	if (!(o->v = encode_utf8(o->v)))
 		ft_error("Memory allocation failure. Exiting.");
 	ret = 0;
-	o->p.width = (LL)MAX(o->p.width - ft_strlen(o->v), 0);
+	o->p.width = MAX((LL)(o->p.width - ft_strlen(o->v)), 0);
 	modify_o(o, "pad");
 	ret = write(1, o->v, ft_strlen(o->v));
 	free (o->v);

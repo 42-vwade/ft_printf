@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 06:03:46 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/01 07:01:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int
 	t_param		set;
 
 	ft_bzero(&set, sizeof(set));
+	obj->p = set;
 	format = obj->str;
 	{
 		i += (format[i] == '%');

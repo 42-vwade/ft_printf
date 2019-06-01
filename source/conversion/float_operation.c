@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 22:07:05 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 22:34:02 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static FT_SIZE
 		modify_o(o, "sign");
 	else
 		modify_o(o, "pad");
-	ret = write(1, o->v, len + o->p.width);
+	ret = write(1, o->v, ft_strlen(o->v));
 	free (o->v);
 	return (ret);
 }

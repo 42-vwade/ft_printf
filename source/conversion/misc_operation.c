@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 21:56:57 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/01 05:49:56 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ FT_STR
 		ft_memset(pad, ' ', n);
 	else
 		ft_memset(pad, flag & zero ? '0' : ' ', n);
-	if (flag & (neg + zero))
-		pad[0] = '-';
 	return (pad);
 }
 
@@ -55,10 +53,11 @@ static FT_STR
 	sign = (char[2]){SIGN_M(flag, plus, space, neg), 0};
 	if (!pad && !(flag & neg))
 		return (ft_strjoin_free(ft_strdup(sign), nbr));
-	if (pad && flag & (neg + zero) && !(minus & flag))
+	if (pad && flag & zero && !(minus & flag))
 	{
 		pad[0] = sign[0];
-		nbr[0] = '0';
+		if (neg & flag)
+			nbr[0] = '0';
 		return (ft_strjoin_free(pad, nbr));
 	}
 	return (nbr);
