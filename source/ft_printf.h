@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 07:37:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 21:38:09 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "ft_printf_structs.h"
 
 /*
-**	--	REQUIREMENTS	--
+**	--	REQUIREMENTS	--00
 **	CONVERSIONS
 **		csp / diouxX / f
 **	<<		BONUS		>>
@@ -45,6 +45,5 @@ int		parse_f(t_format *o);
 FT_STR	pad_o(uint8_t flags, FT_SIZE width);
 FT_VOID	modify_o(t_format *o, FT_STR s);
 int		prefix_o(uint8_t flag);
-int 	sign_o(int64_t value, uint8_t flag);
 
 #endif

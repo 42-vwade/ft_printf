@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 13:40:48 by viwade           ###   ########.fr       */
+/*   Updated: 2019/05/31 22:07:05 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ static FT_SIZE
 	o->v = infinite_double(*(double*)o->v, o->p.precision);
 	len = ft_strlen(o->v);
 	o->p.width = MAX((LL)(o->p.width - len), 0);
-	modify_o(o, "pad");
-	modify_o(o, "sign");
+	if (o->p.flags & (plus + space + neg))
+		modify_o(o, "sign");
+	else
+		modify_o(o, "pad");
 	ret = write(1, o->v, len + o->p.width);
 	free (o->v);
 	return (ret);
