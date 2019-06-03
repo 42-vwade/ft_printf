@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 13:41:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/02 15:50:22 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <sys/types.h>
+# define U_DOUBLE typedef union u_double	u_double
 
 /*
 **	ENUMERATION
@@ -30,21 +31,21 @@ enum	e_flags {
 };
 
 enum	e_length {
-	hh	= 1 << 0,
-	h	= 1 << 1,
-	l	= 1 << 2,
-	ll	= 1 << 3,
-	j	= 1 << 4,
-	z	= 1 << 5
+	hh = 1 << 0,
+	h = 1 << 1,
+	l = 1 << 2,
+	ll = 1 << 3,
+	j = 1 << 4,
+	z = 1 << 5
 };
 
 /*
 **	UNION STRUCT
 */
 
-typedef union u_double	u_double;
+U_DOUBLE;
 
-union u_double
+union	u_double
 {
 	ULL		ld;
 	double	d;

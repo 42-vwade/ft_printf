@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/01 06:30:15 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/02 15:47:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static FT_SIZE
 	o->p.width = MAX((LL)(o->p.width - ft_strlen(o->v)), 0);
 	modify_o(o, "pad");
 	ret = write(1, o->v, ft_strlen(o->v));
-	free (o->v);
+	free(o->v);
 	return (ret);
 }
 
@@ -39,7 +39,9 @@ static FT_SIZE
 **	An uppercase specifier (C) is treated as if the length flag was given.
 **	Otherwise, a null-terminated char is retrieved.
 */
-int		parse_c(t_format *o)
+
+int
+	parse_c(t_format *o)
 {
 	return (convert_c(o));
 }

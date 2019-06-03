@@ -6,14 +6,14 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/01 07:14:33 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/03 10:18:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define length_i_assign_type(t) ((t *)var)[0] = (t)va_arg(ap, t)
-#define cast_uint(a) (o->str[0] == 'u' ? (uint32_t)(a) : (int32_t)(a))
 #define TYPE (ft_tolower(o->str[0]) == 'u') ? (uint64_t *) : (int64_t *)
+#define IS_SIGNED(l) (((l)=='u')? 0 : 1)
+#define LENGTH(t) {t}
 
 /*
 **		INT
@@ -44,10 +44,11 @@ static int
 int
 	parse_i(t_format *o)
 {
-	int64_t	num;
+	int64_t		num;
+	uint64_t	unum;
 
-	o->v = &num;
-	num = va_arg(o->arg, long long int);
+	o->v = IS_SIGNED(ft_tolower(o->str[0])) ? (void*)&num : (void*)&unum;
+	num = IS_SIGNED(o->str[0]) ? va_arg(o->arg, LL) : va_arg(o->arg, ULL);
 	o->p.flags |= (num < 0) << 7;
 	return (convert_i(o));
 	num = ft_tolower(o->str[0]) == 'u' ? (uint32_t)num : num;

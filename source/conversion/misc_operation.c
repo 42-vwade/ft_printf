@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/01 05:49:56 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/02 21:45:34 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static FT_STR
 {
 	char	*sign;
 
+	if (hash & flag)
 	sign = (char[2]){SIGN_M(flag, plus, space, neg), 0};
 	if (!pad && !(flag & neg))
 		return (ft_strjoin_free(ft_strdup(sign), nbr));
@@ -78,4 +79,12 @@ void
 			o->v = sign_o(o->p.flags, o->v, NULL);
 		else
 			o->v = sign_o(o->p.flags, o->v, pad_o(o->p.flags, o->p.width));)
+	IF_STRNEQU(s, "hex", 3,
+		if (hash & o->p.flags || ft_tolower(o->str[0]) == 'p')
+			o->v = ft_strjoin_free(ft_strdup("0x"), o->v);
+	)
+	IF_STRNEQU(s, "octal", 5,
+		if (hash & o->p.flags && !(neg & o->p.flags))
+			o->v = ft_strjoin_free(ft_strdup("0"), o->v);
+	)
 }

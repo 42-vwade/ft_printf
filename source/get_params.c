@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/01 07:01:48 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/02 23:04:06 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,13 @@ static int
 		w[0] = ft_atoi(&s[i]);
 	if ((o->p.tick |= !!w[0] << 1) & 1 << 1)
 		i += (s[i] == '*') ? 1 : ft_intlen(w[0]);
-	if (s[i++] != '.')
-		return (i - 1);
+	IF_C(s[i++] != '.', return (i - 1););
 	o->p.tick |= 1 << 2;
 	if ((move = s[i] == '*'))
 		p[0] = (int)va_arg(o->arg, int);
 	else if ((move = 2 * ft_isdigit(s[i])))
 		p[0] = ft_atoi(&s[i]);
-	//p[0] = !(INT_MAX & p[0]) ? 1 : p[0];
-	if (move)
-		i += (s[i] == '*') ? 1 : ft_intlen(p[0]);
+	IF_C(move, i += (s[i] == '*') ? 1 : ft_intlen(p[0]););
 	return (i);
 }
 
@@ -65,7 +62,8 @@ static int
 **	Returns zero if length parameter is not modified.
 **	Otherwise, a length is determined, returned, and a specific flag is set.
 */
-static int
+
+FT_SIZE
 	set_length(uint8_t *l, const char *s, uint i)
 {
 	l[0] = 0;

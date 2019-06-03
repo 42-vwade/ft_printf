@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 21:38:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/03 07:22:14 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int		parse_c(t_format *o);
 int		parse_s(t_format *o);
 int		parse_i(t_format *o);
 int		parse_u(t_format *o);
-int		parse_o(t_format *o);
-int		parse_hex(t_format *o);
+int		parse_x(t_format *o);
 int		parse_f(t_format *o);
 
 FT_STR	pad_o(uint8_t flags, FT_SIZE width);
