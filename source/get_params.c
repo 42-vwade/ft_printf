@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/02 23:04:06 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/04 01:15:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef t_param	t_context_t;
 
 static int
-	set_flags(uint8_t *set, const char *s, uint i)
+	set_flags(ull_t *set, const char *s, uint i)
 {
 	set[0] = 0;
 	while (s[i++])
@@ -36,9 +36,9 @@ static int
 }
 
 static int
-	set_width(uint64_t *w, uint64_t *p, const char *s, t_format *o)
+	set_width(ull_t *w, ull_t *p, const char *s, t_format *o)
 {
-	uint	i;
+	size_t	i;
 	char	move;
 
 	i = 0;
@@ -64,17 +64,19 @@ static int
 */
 
 FT_SIZE
-	set_length(uint8_t *l, const char *s, uint i)
+	set_length(ull_t *l, const char *s, uint i)
 {
 	l[0] = 0;
 	if (s[i] == 'h')
-		l[0] |= (s[i + 1] == 'h') ? hh : h;
-	else if (ft_tolower(s[i]) == 'l')
-		l[0] |= (ft_tolower(s[i + 1]) == 'l') ? ll : 1 << 2;
+		l[0] = (s[i + 1] == 'h') ? hh : h;
+	else if (s[i] == 'L')
+		l[0] = LD;
+	else if (s[i] == 'l')
+		l[0] = (ft_tolower(s[i + 1]) == 'l') ? ll : 1 << 2;
 	else if (s[i] == 'j')
-		l[0] |= j;
+		l[0] = j;
 	else if (s[i] == 'z')
-		l[0] |= z;
+		l[0] = z;
 	if (l[0])
 		i += (s[i + 1] == 'h' || s[i + 1] == 'l') ? 2 : 1;
 	return (i);

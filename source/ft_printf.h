@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/03 07:22:14 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/04 01:17:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 /*
 **	--	REQUIREMENTS	--00
-**	CONVERSIONS
-**		csp / diouxX / f
-**	<<		BONUS		>>
-**	CONVERSIONS --	REMAINING
-**		FeEgGaAn%		<<	diuoxXfFeEgGaAcspn%
+**			CONVERSIONS
+**				csp / diouxX / f
+**	<<	BONUS	>>
+**			CONVERSIONS --	REMAINING
+**				FeEgGaAn%		<<	diuoxXfFeEgGaAcspn%
 */
 
 int		ft_printf(const char *format, ...);
@@ -43,6 +43,6 @@ int		parse_f(t_format *o);
 
 FT_STR	pad_o(uint8_t flags, FT_SIZE width);
 FT_VOID	modify_o(t_format *o, FT_STR s);
-int		prefix_o(uint8_t flag);
+void	length_o(ULL *num, ULL lm, char c);
 
 #endif

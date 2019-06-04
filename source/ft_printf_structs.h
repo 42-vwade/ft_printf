@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/02 15:50:22 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/04 01:14:04 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ enum	e_length {
 	l = 1 << 2,
 	ll = 1 << 3,
 	j = 1 << 4,
-	z = 1 << 5
+	z = 1 << 5,
+	t = 1 << 6,
+	LD = 1 << 7
 };
 
 /*
@@ -64,18 +66,18 @@ typedef struct s_type	t_type;
 **	FUNCTION DEFINITION
 */
 
-typedef int (*f_func) (t_format *);
+typedef int	(*t_func) (t_format *);
 
 /*
 **	STRUCTS
 */
 struct	s_param
 {
-	uint8_t		tick;
-	uint8_t		flags;
-	uint64_t	width;
-	uint64_t	precision;
-	uint8_t		length;
+	ull_t	tick;
+	ull_t	flags;
+	ull_t	width;
+	ull_t	precision;
+	ull_t	length;
 };
 
 struct	s_format
@@ -90,7 +92,7 @@ struct	s_format
 struct	s_type
 {
 	char	type;
-	f_func	f;
+	t_func	f;
 };
 
 #endif

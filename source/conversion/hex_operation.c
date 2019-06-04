@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/03 11:33:37 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/04 01:58:33 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,14 @@ static FT_SIZE
 	o->p.width = MAX((LL)(o->p.width - len), 0);
 	modify_o(o, "pad");
 	modify_o(o, u ? "octal" : "hex");
-	ret = write(1, o->v, len + o->p.width);
+	ret = write(1, o->v, ft_strlen(o->v));
 	free(o->v);
 	return (ret);
 }
 
 int		parse_x(t_format *o)
 {
+
 	FT_ULL	num;
 
 	if (o->str[0] == 'p' || o->str[0] == 'P')

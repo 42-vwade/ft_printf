@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/02 21:45:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/04 06:39:20 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,54 @@
 #define B_M(a, b) (!((a) & (b)))
 #define C_M(a,b,c) (A_M(a,b) && B_M(a,c))
 #define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
+#define	I_VLS(u) ((u)&&((u)=='i'||(u)=='d'))
+#define	U_VLS(u) ((u)&&((u)=='o'||(u)=='u'||(u)=='x'))
+#define	N_VLS(u) ((u)&&((u)=='n'))
+#define	F_VLS(u) ((u)&&((u)=='e'||(u)=='f'||(u)=='g'))
+#define	C_VLS(u) ((u)&&((u)=='c'))
+#define	S_VLS(u) ((u)&&((u)=='s'))
+#define APPLY_L(value, type) value = (type)value; return;
+#define IF_E(c,a,b)	{if(c){a}else{b}}
+#define I_0(n)		if(n){APPLY_L(n, int);ft_putstr("ii");return;}
+#define I_1(f,n)	if(f & hh){APPLY_L(n, char);ft_putstr("ihh");}
+#define I_2(f,n)	if(f & h){APPLY_L(n, short);ft_putstr("ih");}
+#define I_4(f,n)	if(f & l){APPLY_L(n, long);ft_putstr("il");}
+#define I_8(f,n)	if(f & ll){APPLY_L(n, long long);ft_putstr("ill");}
+#define I_J(f,n)	if(f & j){APPLY_L(n, intmax_t);ft_putstr("ij");}
+#define I_T(f,n)	if(f & t){APPLY_L(n, ssize_t);ft_putstr("it");}
+#define I_Z(f,n)	if(f & z){APPLY_L(n, ssize_t);ft_putstr("iz");}
+#define U_0(n)		if(n){APPLY_L(n, unsigned);ft_putstr("uu");return;}
+#define U_1(f,n)	if(f & hh){APPLY_L(n, unsigned char);ft_putstr("uhh");}
+#define U_2(f,n)	if(f & h){APPLY_L(n, unsigned short);ft_putstr("uh");}
+#define U_4(f,n)	if(f & l){APPLY_L(n, unsigned long);ft_putstr("ul");}
+#define U_8(f,n)	if(f & ll){APPLY_L(n, unsigned long long);ft_putstr("ull");}
+#define U_J(f,n)	if(f & j){APPLY_L(n, uintmax_t);ft_putstr("uj");}
+#define U_T(f,n)	if(f & t){APPLY_L(n, size_t);ft_putstr("ut");}
+#define U_Z(f,n)	if(f & z){APPLY_L(n, size_t);ft_putstr("uz");}
+#define F_0(n)		if(n){APPLY_L(n, double);ft_putstr("fd");return;}
+#define F_1(f,n)	if(f & LD){APPLY_L(n, long double);ft_putstr("Ld");}
+#define I_LENGTH(a, n, t) if(I_VLS(a)){t;return;}else{I_0(n);}
+#define U_LENGTH(a, n, t) if(U_VLS(a)){t;return;}else{U_0(n);}
+#define F_LENGTH(a, n, t) if(F_VLS(a)){t;return;}else{F_0(n);}
 
-int
-	prefix_o(uint8_t flag)
+FT_VOID
+	length_o(ull_t *num, ull_t lm, char c)
 {
-	if (!(flag & 17))
-		return (0);
-	else if (flag & 1 << 0)
-		return (write(1, "+", 1));
-	else
-		return (write(1, " ", 1));
+	c = 'u' * U_VLS(c) || 'f' * F_VLS(c);
+	if (lm & hh)
+		IF_E(c, APPLY_L(num[0], unsigned char), APPLY_L(num[0], char))
+	if (lm & h)
+		IF_E(c, APPLY_L(num[0], unsigned short), APPLY_L(num[0], short))
+	if (lm & l)
+		IF_E(c, APPLY_L(num[0], unsigned long), APPLY_L(num[0], long))
+	if (lm & ll)
+		IF_E(c, APPLY_L(num[0], ull_t), APPLY_L(num[0], ll_t))
+	if (lm & j)
+		IF_E(c, APPLY_L(num[0], uintmax_t), APPLY_L(num[0], intmax_t))
+	if (lm & z || lm & t)
+		IF_E(c, APPLY_L(num[0], size_t), APPLY_L(num[0], ssize_t))
+	if (lm & LD)
+		IF_E(c == 'f', APPLY_L(num[0], ld_t), APPLY_L(num[0], double))
 }
 
 /*
