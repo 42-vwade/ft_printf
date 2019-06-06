@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/04 06:39:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:00:42 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 #define	F_VLS(u) ((u)&&((u)=='e'||(u)=='f'||(u)=='g'))
 #define	C_VLS(u) ((u)&&((u)=='c'))
 #define	S_VLS(u) ((u)&&((u)=='s'))
-#define APPLY_L(value, type) value = (type)value; return;
-#define IF_E(c,a,b)	{if(c){a}else{b}}
+#define APPLY_L(v, type, ap) value = va_arg(ap, type); return;
 #define I_0(n)		if(n){APPLY_L(n, int);ft_putstr("ii");return;}
 #define I_1(f,n)	if(f & hh){APPLY_L(n, char);ft_putstr("ihh");}
 #define I_2(f,n)	if(f & h){APPLY_L(n, short);ft_putstr("ih");}
@@ -46,12 +45,17 @@
 #define U_LENGTH(a, n, t) if(U_VLS(a)){t;return;}else{U_0(n);}
 #define F_LENGTH(a, n, t) if(F_VLS(a)){t;return;}else{F_0(n);}
 
-FT_VOID
-	length_o(ull_t *num, ull_t lm, char c)
+/*FT_VOID
+	length_o(t_format *o)
 {
+	ull_t	*num;
+	ull_t	lm;
+	char	c;
+
+	c = o->str[0];
 	c = 'u' * U_VLS(c) || 'f' * F_VLS(c);
 	if (lm & hh)
-		IF_E(c, APPLY_L(num[0], unsigned char), APPLY_L(num[0], char))
+		IF_E(c, APPLY_L(num[0], unsigned char, o->args), APPLY_L(num[0], char))
 	if (lm & h)
 		IF_E(c, APPLY_L(num[0], unsigned short), APPLY_L(num[0], short))
 	if (lm & l)
@@ -64,59 +68,66 @@ FT_VOID
 		IF_E(c, APPLY_L(num[0], size_t), APPLY_L(num[0], ssize_t))
 	if (lm & LD)
 		IF_E(c == 'f', APPLY_L(num[0], ld_t), APPLY_L(num[0], double))
-}
+}//*/
 
 /*
 **	Takes a length <n> of the maximum # of spaces to pad.
 **	Pad length = <n> width - <length> written
 */
 FT_STR
-	pad_o(uint8_t flag, FT_SIZE n)
+	pad_o(t_format *o)
 {
 	FT_STR	pad;
 
-	pad = ft_strnew(n + 1);
-	if (flag & minus)
-		ft_memset(pad, ' ', n);
+	pad = ft_strnew(o->p.width + 1);
+	if (o->p.flags & minus)
+		ft_memset(pad, ' ', o->p.width);
 	else
-		ft_memset(pad, flag & zero ? '0' : ' ', n);
+		ft_memset(pad, o->p.flags & zero ? '0' : ' ', o->p.width);
+	o->p.width = 0;
 	return (pad);
 }
 
 static FT_STR
-	sign_o(uint8_t flag, FT_STR nbr, FT_STR pad)
+	sign_o(t_format *o, FT_STR pad)
 {
 	char	*sign;
+	if (hash & o->p.flags)
+		;
+	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
+	if (!pad && !(o->p.flags & neg))
+		return (ft_strjoin_free(ft_strdup(sign), o->v));
+	IF_C(pad && !(o->p.flags & neg),
 
-	if (hash & flag)
-	sign = (char[2]){SIGN_M(flag, plus, space, neg), 0};
-	if (!pad && !(flag & neg))
-		return (ft_strjoin_free(ft_strdup(sign), nbr));
-	if (pad && flag & zero && !(minus & flag))
-	{
+)
+	IF_C(pad && o->p.flags & zero && !(minus & o->p.flags),
+	/*/	If zero pad true and NOT left align...	/*/
 		pad[0] = sign[0];
-		if (neg & flag)
-			nbr[0] = '0';
-		return (ft_strjoin_free(pad, nbr));
-	}
-	return (nbr);
+		if (neg & o->p.flags)	// if o->v < 0, change 1st char to '0'
+			((char*)o->v)[0] = '0';
+		return (ft_strjoin_free(pad, o->v));)
+	return (o->v);
 }
 
 void
 	modify_o(t_format *o, FT_STR s)
 {
+	IF_STRNEQU(s, "zero", 4,
+
+		)
 	IF_STRNEQU(s, "pad", 3,
 		if (!o->p.width)
 			return ;
 		if (o->p.flags & minus)
-			o->v = ft_strjoin_free(o->v, pad_o(o->p.flags, o->p.width));
+			o->v = ft_strjoin_free(o->v, pad_o(o));
 		else
-			o->v = ft_strjoin_free(&pad_o(o->p.flags, o->p.width)[0], o->v);)
+			o->v = ft_strjoin_free(&pad_o(o)[0], o->v);)
 	IF_STRNEQU(s, "sign", 4,
+		IF_C(!(o->p.flags & (space + plus + neg)), return;)
 		if (!o->p.width)
-			o->v = sign_o(o->p.flags, o->v, NULL);
+			o->v = sign_o(o, NULL);
 		else
-			o->v = sign_o(o->p.flags, o->v, pad_o(o->p.flags, o->p.width));)
+			o->v = sign_o(o, pad_o(o));)
 	IF_STRNEQU(s, "hex", 3,
 		if (hash & o->p.flags || ft_tolower(o->str[0]) == 'p')
 			o->v = ft_strjoin_free(ft_strdup("0x"), o->v);
