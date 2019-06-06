@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/04 01:58:33 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:53:13 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int		parse_x(t_format *o)
 	FT_ULL	num;
 
 	if (o->str[0] == 'p' || o->str[0] == 'P')
-		num = va_arg(o->arg, intptr_t);
+		num = va_arg(o->ap, intptr_t);
 	else
-		num = va_arg(o->arg, FT_ULL);
+		num = va_arg(o->ap, FT_ULL);
 	o->p.flags &= !num && o->p.tick & 4 ? o->p.flags | neg : ~(char)neg;
 	o->v = &num;
 	length_x(o->v, o->p.length);

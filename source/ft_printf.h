@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 03:30:45 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:58:34 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,17 @@
 **				FeEgGaAn%		<<	diuoxXfFeEgGaAcspn%
 */
 
+/*
+**		EPIDERMIC SUBSURFACE SCATTERING
+*/
+
 int		ft_printf(const char *format, ...);
+int		ft_vprintf(const char *format, va_list ap);
+
+/*
+**		SUBDERMAL FUNCTIONS
+*/
+
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
 

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/04 01:14:04 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:45:41 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ struct	s_param
 
 struct	s_format
 {
-	va_list	arg;
+	va_list	ap;
 	t_param	p;
 	char	*str;
 	size_t	count;

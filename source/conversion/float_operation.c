@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/05/31 22:34:02 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:51:33 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		parse_f(t_format *o)
 
 	ret = 0;
 	o->v = &num;
-	num = va_arg(o->arg, double);
+	num = va_arg(o->ap, double);
 	o->p.flags |= (num < 0) << 7;
 	if ((ret = is_anomaly(*(double*)o->v, o)))
 		return (ret);

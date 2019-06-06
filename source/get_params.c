@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/04 01:15:00 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:50:57 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int
 
 	i = 0;
 	if (s[i] == '*')
-		w[0] = (int)va_arg(o->arg, int);
+		w[0] = (int)va_arg(o->ap, int);
 	else if (ft_isdigit(s[i]))
 		w[0] = ft_atoi(&s[i]);
 	if ((o->p.tick |= !!w[0] << 1) & 1 << 1)
@@ -51,7 +51,7 @@ static int
 	IF_C(s[i++] != '.', return (i - 1););
 	o->p.tick |= 1 << 2;
 	if ((move = s[i] == '*'))
-		p[0] = (int)va_arg(o->arg, int);
+		p[0] = (int)va_arg(o->ap, int);
 	else if ((move = 2 * ft_isdigit(s[i])))
 		p[0] = ft_atoi(&s[i]);
 	IF_C(move, i += (s[i] == '*') ? 1 : ft_intlen(p[0]););

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/02 15:47:55 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/06 04:51:44 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static FT_SIZE
 int
 	parse_s(t_format *o)
 {
-	if (!(o->v = va_arg(o->arg, void *)))
+	if (!(o->v = va_arg(o->ap, void *)))
 		o->v = "(null)";
 	return (convert_s(o));
 }
