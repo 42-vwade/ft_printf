@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:00:42 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/07 09:59:53 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,61 +79,70 @@ FT_STR
 {
 	FT_STR	pad;
 
+	o->p.width = MAX((ll_t)(o->p.width - ft_strlen(o->v)), 0);
+	if (!o->p.width)
+		return (ft_strdup(""));
 	pad = ft_strnew(o->p.width + 1);
 	if (o->p.flags & minus)
 		ft_memset(pad, ' ', o->p.width);
 	else
 		ft_memset(pad, o->p.flags & zero ? '0' : ' ', o->p.width);
-	o->p.width = 0;
+	o->p.width -= ft_strlen(pad);
 	return (pad);
 }
 
-static FT_STR
-	sign_o(t_format *o, FT_STR pad)
-{
-	char	*sign;
-	if (hash & o->p.flags)
-		;
-	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
-	if (!pad && !(o->p.flags & neg))
-		return (ft_strjoin_free(ft_strdup(sign), o->v));
-	IF_C(pad && !(o->p.flags & neg),
+/*
+** 	0.	Takes args (t_fmt *) object && string to prepend/append.
+** 	1.	Sign (1) character string. Will auto-set to correct sign.
+**		Send [flag] param, and corresponding enum patterns for match check.
+**			Params are:
+**				If [flag] matches plus && NOT negative, return '+'
+**				If [flag] matches space && NOT negative, return ' '
+**				Else [flag] matches NONE, and return '-'
+**	2.	If pad string is NULL && [flag] NOT negative,
+**			prefix [sign] and append to [value], return new string
+**	3.
+*/
 
-)
-	IF_C(pad && o->p.flags & zero && !(minus & o->p.flags),
-	/*/	If zero pad true and NOT left align...	/*/
+static FT_STR
+	sign_o(t_format *o)
+{
+	char	*pad;
+	char	*sign;
+
+	pad = NULL;
+	IF_C(hash & o->p.flags, ;)
+	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
+	IF_C(!(o->p.flags & neg) && !(o->p.flags & zero),
+		return (ft_strjoin_free(ft_strdup(sign), o->v));)
+	IF_C(o->p.flags & (zero + plus) && !(minus & o->p.flags),
+	/*/	If zero pad is true and NOT left align...	/*/
+		pad = pad_o(o);
 		pad[0] = sign[0];
 		if (neg & o->p.flags)	// if o->v < 0, change 1st char to '0'
 			((char*)o->v)[0] = '0';
 		return (ft_strjoin_free(pad, o->v));)
+	IF_C(!o->p.width && !(neg & o->p.flags),
+		return (ft_strjoin_free(ft_strdup(sign), o->v));)
 	return (o->v);
 }
 
 void
 	modify_o(t_format *o, FT_STR s)
 {
-	IF_STRNEQU(s, "zero", 4,
+	IF_STRNEQU(s, "swap", 4,
 
-		)
-	IF_STRNEQU(s, "pad", 3,
-		if (!o->p.width)
-			return ;
-		if (o->p.flags & minus)
-			o->v = ft_strjoin_free(o->v, pad_o(o));
-		else
-			o->v = ft_strjoin_free(&pad_o(o)[0], o->v);)
+		;)
+	IF_C(ft_strnequ(s, "pad", 3) && o->p.width,
+		IF_E(o->p.flags & minus, o->v = ft_strjoin_free(o->v, pad_o(o));,
+			o->v = ft_strjoin_free(&pad_o(o)[0], o->v);))
 	IF_STRNEQU(s, "sign", 4,
 		IF_C(!(o->p.flags & (space + plus + neg)), return;)
-		if (!o->p.width)
-			o->v = sign_o(o, NULL);
-		else
-			o->v = sign_o(o, pad_o(o));)
+		o->v = sign_o(o);)
 	IF_STRNEQU(s, "hex", 3,
 		if (hash & o->p.flags || ft_tolower(o->str[0]) == 'p')
-			o->v = ft_strjoin_free(ft_strdup("0x"), o->v);
-	)
+			o->v = ft_strjoin_free(ft_strdup("0x"), o->v);)
 	IF_STRNEQU(s, "octal", 5,
 		if (hash & o->p.flags && !(neg & o->p.flags))
-			o->v = ft_strjoin_free(ft_strdup("0"), o->v);
-	)
+			o->v = ft_strjoin_free(ft_strdup("0"), o->v);)
 }
