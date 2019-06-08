@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:51:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/07 22:24:14 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,18 @@ static FT_SIZE
 {
 	char	u;
 	char	*tmp;
-	size_t	ret;
 	size_t	len;
 
-	ret = 0;
-	u = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
-	tmp = u ? encode_utf8((void *)wstr_to_ustr(o->v)) : ft_strdup(o->v);
-	len = ft_strlen(o->v);
-	len = o->p.tick & 0b0100 ? MIN(len, o->p.precision) : len;
+	u = (o->p.length & (l + ll) || ft_isuppercase(o->str[0])) << 3;
+	o->v = u ? encode_utf8(str_utf8(o->v, o->p.precision)) : ft_strdup(o->v);
+	precision_o(o);
 	o->v = ft_strsub(tmp, 0, len);
 	free(tmp);
 	o->p.width = MAX((LL)(o->p.width - len), 0);
+	len = o->p.precision + o->p.width;
 	modify_o(o, "pad");
-	ret = write(1, o->v, ft_strlen(o->v));
-	free(o->v);
-	return (ret);
+	append_o(o, o->v, len);
+	return (len);
 }
 
 /*

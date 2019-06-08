@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 19:02:48 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/07 20:07:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,20 @@ static int
 	convert_i(t_format *o)
 {
 	char	u[4];
-	size_t	ret;
+	size_t	len;
 
-	ret = 0;
+	len = 0;
 	u[0] = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
 	u[1] = ft_tolower(o->str[0]) == 'u';
-	o->v = u[1] ? ft_itoa_unsigned(*(ull_t*)o->v) : ft_itoa(*(int64_t*)o->v);
+	o->v = ft_tolower(o->str[0]) == 'u' ?
+		ft_itoa_unsigned(*(ull_t*)o->v) : ft_itoa(*(int64_t*)o->v);
 	if (o->p.tick & 4)
 		o->v = zero_i(o , o->p.precision);
+	len = o->p.precision + o->p.width;
 	IF_C(1, modify_o(o, "sign");)
 	IF_C(1, modify_o(o, "pad");)
- 	free(o->v);
-	return (ret);
+	append_o(o, o->v, len);
+	return (len);
 }
 
 static void

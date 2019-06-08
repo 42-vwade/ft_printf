@@ -48,7 +48,17 @@ int
 	while (fmt[0])
 		printf("|[%i]\n", printf((fmt++)[0], NULL));
 	//printf(" [%i][wchr*]\n",
-	printf("%S\n", L"🤗 💯 🌍 🚀 🔴 ")
+	printf(" [%i]\n",
+		printf(
+			"%032S",
+			L"🤗 💯 🌍 🚀 🔴 ")
+	);
+	printf(" [%i]\n", printf("%032s", ""));
+	printf(" [%i]\n",
+		printf(
+			"%032.5S",
+			L"|🤗 💯 🌍 🚀 🔴 ")
+	);
 	//)
 	;
 	fmt = (char *[]){

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:50:57 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/07 17:07:30 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ static void
 {
 	o->p.tick |= ft_isuppercase(c) << 4;
 	while (g_dispatch[i++].type)
-		if (g_dispatch[i - 1].type == c)
+		if (ft_tolower(g_dispatch[i - 1].type) == c)
 		{
-			o->count += g_dispatch[i - 1].f(o);
+			g_dispatch[i - 1].f(o);
 			break ;
 		}
 		else if (!g_dispatch[i].type)
@@ -120,7 +120,7 @@ int
 		obj->p = set;
 		select_function(obj, *(obj->str = &format[i]), 0);
 	}
-	return (1);
+	return (i);
 }
 
 /*

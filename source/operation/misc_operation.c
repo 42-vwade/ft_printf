@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/07 09:59:53 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/07 20:05:50 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,23 +107,18 @@ FT_STR
 static FT_STR
 	sign_o(t_format *o)
 {
-	char	*pad;
 	char	*sign;
+	char	*tmp;
 
-	pad = NULL;
-	IF_C(hash & o->p.flags, ;)
+	tmp = NULL;
 	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
-	IF_C(!(o->p.flags & neg) && !(o->p.flags & zero),
-		return (ft_strjoin_free(ft_strdup(sign), o->v));)
-	IF_C(o->p.flags & (zero + plus) && !(minus & o->p.flags),
-	/*/	If zero pad is true and NOT left align...	/*/
-		pad = pad_o(o);
-		pad[0] = sign[0];
-		if (neg & o->p.flags)	// if o->v < 0, change 1st char to '0'
-			((char*)o->v)[0] = '0';
-		return (ft_strjoin_free(pad, o->v));)
-	IF_C(!o->p.width && !(neg & o->p.flags),
-		return (ft_strjoin_free(ft_strdup(sign), o->v));)
+	IF_C(o->p.flags & neg,
+		tmp = ft_strchr(o->v, '-');
+		IF_C(o->v < tmp, tmp[0] = '0'; *(char*)o->v = '-';)
+		tmp = ft_strchr(o->v, '0');
+	);
+	if (o->p.flags & (plus + space))
+		o->v = ft_strjoin_free(ft_strdup(sign), o->v);
 	return (o->v);
 }
 

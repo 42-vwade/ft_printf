@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:58:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/08 01:31:18 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ int		parse_u(t_format *o);
 int		parse_x(t_format *o);
 int		parse_f(t_format *o);
 
+void	append_o(t_list *list_start, char *converted_str, size_t width);
+void	output_o(t_format *o, t_list *start);
+size_t	precision_o(t_format *o);
+void	precision_s(t_format *o);
+void	precision_i(t_format *o);
 FT_STR	pad_o(t_format *o);
 FT_VOID	modify_o(t_format *o, FT_STR s);
 //void	length_o(ULL *num, ULL lm, char c);
