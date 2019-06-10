@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:05 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/09 16:57:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 07:15:46 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void
 	node->str = s;
 	node->length = len;
 	ft_lstpush(
-		start,
+		&start,
 		ft_lstnew(
 			node,
 			sizeof(t_str)));

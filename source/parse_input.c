@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/09 22:56:33 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 05:38:32 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int
 	find_next(const char *s)
 {
-	char	*e;
+	const char	*e;
 
 	e = s;
 	while (e[0] != '%' && *(e += !!e[0]))

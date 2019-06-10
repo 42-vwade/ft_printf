@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 05:19:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/07 20:05:50 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 07:30:06 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,37 +107,19 @@ FT_STR
 static FT_STR
 	sign_o(t_format *o)
 {
-	char	*sign;
-	char	*tmp;
-
-	tmp = NULL;
-	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
-	IF_C(o->p.flags & neg,
-		tmp = ft_strchr(o->v, '-');
-		IF_C(o->v < tmp, tmp[0] = '0'; *(char*)o->v = '-';)
-		tmp = ft_strchr(o->v, '0');
-	);
-	if (o->p.flags & (plus + space))
-		o->v = ft_strjoin_free(ft_strdup(sign), o->v);
 	return (o->v);
 }
 
 void
 	modify_o(t_format *o, FT_STR s)
 {
-	IF_STRNEQU(s, "swap", 4,
-
-		;)
 	IF_C(ft_strnequ(s, "pad", 3) && o->p.width,
 		IF_E(o->p.flags & minus, o->v = ft_strjoin_free(o->v, pad_o(o));,
 			o->v = ft_strjoin_free(&pad_o(o)[0], o->v);))
 	IF_STRNEQU(s, "sign", 4,
 		IF_C(!(o->p.flags & (space + plus + neg)), return;)
 		o->v = sign_o(o);)
-	IF_STRNEQU(s, "hex", 3,
+	IF_STRNEQU(s, "hash", 4,
 		if (hash & o->p.flags || ft_tolower(o->str[0]) == 'p')
 			o->v = ft_strjoin_free(ft_strdup("0x"), o->v);)
-	IF_STRNEQU(s, "octal", 5,
-		if (hash & o->p.flags && !(neg & o->p.flags))
-			o->v = ft_strjoin_free(ft_strdup("0"), o->v);)
 }

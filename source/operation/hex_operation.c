@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 00:43:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 07:31:20 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,6 @@
 **		OCTAL / HEX
 */
 
-static void
-	length_x(FT_ULL *num, ULL lm)
-{
-	FT_ULL	n;
-
-	n = num[0];
-	U_LENGTH(lm, n,
-		if (lm & hh)
-			U_HH(n);
-		else if (lm && h)
-			U_H(n);
-		else if (lm && l)
-			U_L(n);
-		else if (lm && ll)
-			U_LL(n);
-		else
-			n = (unsigned)n;
-	)
-	num[0] = n;
-}
-
 static FT_SIZE
 	convert_x(t_format *o)
 {
@@ -67,7 +46,7 @@ static FT_SIZE
 }
 
 static void
-	cast_i(va_list ap, ull_t *n, ull_t lm, int u)
+	cast_x(va_list ap, ull_t *n, ull_t lm, int u)
 {
 	if (!lm)
 		n[0] = (int)va_arg(ap, int);
@@ -98,8 +77,11 @@ int		parse_x(t_format *o)
 
 	o->v = &num;
 	if (ft_tolower(o->str[0]) == 'p')
+	{
 		num = (intptr_t)va_arg(o->ap, intptr_t);
+		o->p.flags |= hash;
+	}
 	else
-		cast_i(o->ap, o->v, o->p.length, U_VLS(ft_tolower(o->str[0])));
+		cast_x(o->ap, o->v, o->p.length, 1);
 	return (convert_x(o));
 }

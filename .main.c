@@ -23,6 +23,7 @@ char
 int
 	main(void)
 {
+	int		ln;
 	char	*string = "1234567890";
 	wchar_t	*wstring = L"🤗 💯 🌍 🚀 🔴 ";
 	char	**fmt;
@@ -63,11 +64,11 @@ int
 	);
 	printf(" [%i]\n",
 		printf(
-			"memory test [1]\n"
-			"%c%llu",
-			(wstring[0]),
-			(-1ULL)
-		)
+			"memory test\n%n"
+			"%#010x",
+			&ln,
+			(42)
+		) - ln
 	);
 	//)
 	;

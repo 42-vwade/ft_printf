@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 00:42:59 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 07:11:07 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void
 {
 	char	*pad;
 
+	hash_o(o);
 	if (!(o->p.width = MAX((LL)(o->p.width - ft_strlen(o->v)), 0)))
 		return ;
 	pad = ft_strnew(o->p.width);
@@ -29,6 +30,8 @@ void
 			pad[0] = ((char*)o->v)[0];
 			((char*)o->v)[0] = '0';
 		}
+		o->v = search_and_splice(o->v, "0x", pad);
+		return ;
 	}
 	else
 		ft_memset(pad, ' ', o->p.width);
