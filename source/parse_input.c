@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/09 13:28:59 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 22:56:33 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void
 	i = 0;
 	while (fmt[i])
 	{
-		n = 0;
+		n = find_next(&fmt[i]);
 		obj->str = &((void*)fmt)[i];
 		if (fmt[i] == '%')
 			n = get_params(obj, 0);
-		else if ((n = find_next(&fmt[i])))
+		else
 			append_o(obj->list, ft_strsub(fmt, i, n), n);
 		i += n;
 	}

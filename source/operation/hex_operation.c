@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/09 17:18:24 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 00:43:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,14 @@ static FT_SIZE
 {
 	char	u;
 	size_t	ret;
-	size_t	len;
 
 	ret = 0;
 	u = ft_tolower(o->str[0]) == 'o';
 	o->v = ft_itoa_base(*(ull_t*)o->v, u ? 8 : 16);
 	precision_i(o);
-	o->p.width = MAX((LL)(o->p.width - o->len), 0);
-	modify_o(o, "pad");
-	modify_o(o, "hash");
-	IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v);)
-	append_o(o->list, o->v, ft_strlen(o->v));
-	free(o->v);
-	return (ret);
-	u = ft_tolower(o->str[0]) == 'o';
+	width_o(o);
+	append_o(o->list, o->v, o->len = ft_strlen(o->v));
+	return (o->len);
 }
 
 static void
@@ -100,7 +94,7 @@ static void
 int		parse_x(t_format *o)
 {
 
-	ull_t	num;
+	size_t	num;
 
 	o->v = &num;
 	if (ft_tolower(o->str[0]) == 'p')
