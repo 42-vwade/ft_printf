@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/07 22:24:14 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:58:24 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,12 @@ static FT_SIZE
 	convert_s(t_format *o)
 {
 	char	u;
-	char	*tmp;
-	size_t	len;
 
-	u = (o->p.length & (l + ll) || ft_isuppercase(o->str[0])) << 3;
-	o->v = u ? encode_utf8(str_utf8(o->v, o->p.precision)) : ft_strdup(o->v);
-	precision_o(o);
-	o->v = ft_strsub(tmp, 0, len);
-	free(tmp);
-	o->p.width = MAX((LL)(o->p.width - len), 0);
-	len = o->p.precision + o->p.width;
+	precision_s(o);
+	o->p.width = MAX((LL)(o->p.width - o->len), 0);
 	modify_o(o, "pad");
-	append_o(o, o->v, len);
-	return (len);
+	append_o(o->list, o->v, o->p.precision + o->p.width);
+	return (o->p.precision + o->p.width);
 }
 
 /*

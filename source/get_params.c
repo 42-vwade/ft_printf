@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/07 17:07:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:55:38 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int
 		i += set_length(&set.length, &format[i], 0);
 		set.tick |= !!set.length << 3;
 		obj->p = set;
-		select_function(obj, *(obj->str = &format[i]), 0);
+		select_function(obj, *(obj->str = &format[i++]), 0);
 	}
 	return (i);
 }

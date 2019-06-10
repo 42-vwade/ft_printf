@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:05 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/08 01:30:04 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:57:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,45 @@ void
 	while (start)
 	{
 		node = start->next;
-		tstr_free(&start->content);
+		tstr_free(start->content);
 		free(start);
 		start = node;
 	}
 }
 
+char
+	*graft_o(t_list *start)
+{
+	char	*new;
+	char	*graft;
+	t_list	*node;
+
+	new = NULL;
+	node = start;
+	while (node)
+	{
+		if (((t_str*)node->content)->str)
+			graft = ft_strsub(
+				((t_str*)node->content)->str,
+				0,
+				((t_str*)node->content)->length);
+		new = ft_strjoin_free(new, graft);
+		node = node->next;
+	}
+	return (new);
+}
+
 void
-	append_o(t_list *lst, char *s, size_t len)
+	append_o(t_list *start, char *s, size_t len)
 {
 	t_str	*node;
-	;
 
 	if (!(node = tstr_new(NULL)))
 		return (ft_error("Memory allocation error."));
 	node->str = s;
 	node->length = len;
 	ft_lstpush(
-		&o->list,
+		start,
 		ft_lstnew(
 			node,
 			sizeof(t_str)));

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/08 01:23:54 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 17:03:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 **	If padding length is zero, no modifications to value are made.
 **	If no precision is given, no modifications are made.
 */
+
+size_t	precision_o(t_format *o)
+{
+	if (o->p.tick & 4)
+		o->p.precision = MIN(ft_strlen(o->v), o->p.precision);
+	else
+		o->p.precision = ft_strlen(o->v);
+	return (o->p.precision);
+}
 
 void	precision_i(t_format *o)
 {
@@ -42,26 +51,24 @@ void	precision_i(t_format *o)
 		z[0] = '-';
 	}
 	o->v = ft_strjoin_free(z, o->v);
+	o->len = ft_strlen(o->v);
 }
 
 void	precision_s(t_format *o)
 {
-	char	u;
-
-	if ((u = o->p.length & (l + ll) || ft_isuppercase(o->str[0])))
-		o->len = o->p.tick & 4 ? MIN(
-			ft_lstrlen(o->v), o->p.precision) : ft_lstrlen(o->v);
+	if (o->p.length & (l + ll) || ft_isuppercase(o->str[0]))
+	{
+		if (o->p.tick & 4)
+			o->v = encode_utf8_w(str_utf8(o->v), o->p.precision);
+		else
+			o->v = encode_utf8(str_utf8(o->v));
+	}
 	else
-		o->len = ft_strlen(o->v);
-
-	o->v = u ? encode_utf8(str_utf8(o->v, o->len)) : ft_strdup(o->v);
-}
-
-size_t	precision_o(t_format *o)
-{
-	if (o->p.tick & 4)
-		o->p.precision = MIN(ft_strlen(o->v), o->p.precision);
-	else
-		o->p.precision = ft_strlen(o->v);
-	return (o->p.precision);
+	{
+		if (o->p.tick & 4)
+			o->v = encode_utf8_w(ft_strdup(o->v), o->p.precision);
+		else
+			o->v = encode_utf8(ft_strdup(o->v));
+	}
+	o->len = ft_strlen(o->v);
 }

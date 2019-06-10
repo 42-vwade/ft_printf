@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:53:13 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 17:18:24 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,52 @@ static FT_SIZE
 
 	ret = 0;
 	u = ft_tolower(o->str[0]) == 'o';
-	o->v = ft_itoa_base(*(FT_ULL*)o->v, u ? 8 : 16);
-	IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v);)
-	len = ft_strlen(o->v);
-	o->p.width = MAX((LL)(o->p.width - len), 0);
+	o->v = ft_itoa_base(*(ull_t*)o->v, u ? 8 : 16);
+	precision_i(o);
+	o->p.width = MAX((LL)(o->p.width - o->len), 0);
 	modify_o(o, "pad");
-	modify_o(o, u ? "octal" : "hex");
-	ret = write(1, o->v, ft_strlen(o->v));
+	modify_o(o, "hash");
+	IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v);)
+	append_o(o->list, o->v, ft_strlen(o->v));
 	free(o->v);
 	return (ret);
+	u = ft_tolower(o->str[0]) == 'o';
 }
+
+static void
+	cast_i(va_list ap, ull_t *n, ull_t lm, int u)
+{
+	if (!lm)
+		n[0] = (int)va_arg(ap, int);
+	else if (lm & hh)
+		n[0] = (char)va_arg(ap, int);
+	else if (lm & h)
+		n[0] = (short)va_arg(ap, int);
+	else if (lm & l)
+		n[0] = (long)va_arg(ap, long);
+	else if (lm & ll)
+		n[0] = (long long)va_arg(ap, long long);
+	else if (lm & j)
+		n[0] = u ? va_arg(ap, uintmax_t) : va_arg(ap, intmax_t);
+	else if (lm & z || lm & t)
+		n[0] = u ? va_arg(ap, size_t) : va_arg(ap, ssize_t);
+}
+
+/*
+**	Conditions already taken care of.
+**	Input specifier shall be o / O / x / X / p / P
+**	Output shall be in in either base 16, or base 8 if o / O is given
+*/
 
 int		parse_x(t_format *o)
 {
 
-	FT_ULL	num;
+	ull_t	num;
 
-	if (o->str[0] == 'p' || o->str[0] == 'P')
-		num = va_arg(o->ap, intptr_t);
-	else
-		num = va_arg(o->ap, FT_ULL);
-	o->p.flags &= !num && o->p.tick & 4 ? o->p.flags | neg : ~(char)neg;
 	o->v = &num;
-	length_x(o->v, o->p.length);
+	if (ft_tolower(o->str[0]) == 'p')
+		num = (intptr_t)va_arg(o->ap, intptr_t);
+	else
+		cast_i(o->ap, o->v, o->p.length, U_VLS(ft_tolower(o->str[0])));
 	return (convert_x(o));
 }

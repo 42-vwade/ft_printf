@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/07 20:07:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 16:58:44 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,6 @@
 **		INT
 */
 
-static FT_STR
-	zero_i(t_format *o, ull_t pad)
-{
-	char	*z;
-
-	IF_C(!pad,
-		free(o->v);
-		return (o->v = ft_strdup(""));)
-	if (!(pad = MAX(pad - ft_strlen(o->v), 0)))
-		return (o->v);
-	z = ft_memset(ft_strnew(pad + 1), '0', pad);
-	IF_C(o->p.flags & neg,
-		z = ft_strjoin_free(ft_strdup("-"), z);
-		((char*)o->v)[0] = '0';)
-	return (ft_strjoin_free(z, o->v));
-}
-
 /*
 **		Zero Pad Integer.
 **	#.	If [precision] given && if [precision] > [value].length
@@ -51,27 +34,22 @@ static int
 	convert_i(t_format *o)
 {
 	char	u[4];
-	size_t	len;
 
-	len = 0;
 	u[0] = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
-	u[1] = ft_tolower(o->str[0]) == 'u';
 	o->v = ft_tolower(o->str[0]) == 'u' ?
-		ft_itoa_unsigned(*(ull_t*)o->v) : ft_itoa(*(int64_t*)o->v);
-	if (o->p.tick & 4)
-		o->v = zero_i(o , o->p.precision);
-	len = o->p.precision + o->p.width;
-	IF_C(1, modify_o(o, "sign");)
-	IF_C(1, modify_o(o, "pad");)
-	append_o(o, o->v, len);
-	return (len);
+		ft_itoa_unsigned(*(ull_t*)o->v) : ft_itoa(*(ll_t*)o->v);
+	precision_i(o);
+	modify_o(o, "pad");
+	modify_o(o, "sign");
+	append_o(o->list, o->v, o->p.precision + o->p.width);
+	return (o->p.precision + o->p.width);
 }
 
 static void
 	cast_i(va_list ap, ull_t *n, ull_t lm, int u)
 {
 	if (!lm)
-		n[0] = va_arg(ap, int);
+		n[0] = (int)va_arg(ap, int);
 	else if (lm & hh)
 		n[0] = (char)va_arg(ap, int);
 	else if (lm & h)

@@ -51,13 +51,23 @@ int
 	printf(" [%i]\n",
 		printf(
 			"%032S",
-			L"🤗 💯 🌍 🚀 🔴 ")
+			wstring
+		)
 	);
 	printf(" [%i]\n", printf("%032s", ""));
 	printf(" [%i]\n",
 		printf(
 			"%032.5S",
-			L"|🤗 💯 🌍 🚀 🔴 ")
+			wstring
+		)
+	);
+	printf(" [%i]\n",
+		printf(
+			"memory test [1]\n"
+			"%c%llu",
+			(wstring[0]),
+			(-1ULL)
+		)
 	);
 	//)
 	;

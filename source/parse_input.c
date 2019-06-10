@@ -6,14 +6,14 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/07 17:01:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/09 13:28:59 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static int
-	find_next(char *s)
+	find_next(const char *s)
 {
 	char	*e;
 
@@ -31,7 +31,7 @@ void
 
 	if (!fmt)
 		return (ft_error("error (ft_printf): A valid string was not entered."));
-	obj->str = (char*)fmt;
+	i = 0;
 	while (fmt[i])
 	{
 		n = 0;
@@ -39,10 +39,10 @@ void
 		if (fmt[i] == '%')
 			n = get_params(obj, 0);
 		else if ((n = find_next(&fmt[i])))
-			append_o(obj, ft_strsub(fmt, i, n), n);
+			append_o(obj->list, ft_strsub(fmt, i, n), n);
 		i += n;
 	}
-	output_write_o(obj, obj->list);
+	output_o(obj, obj->list);
 }
 
 /*
