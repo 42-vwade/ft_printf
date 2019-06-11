@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 00:40:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/11 14:02:21 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
 #define IS_SIGNED(l) (((l)=='u')? 0 : 1)
 #define VA_ASN(type)	va_arg(ap, type)
-#define LENGTH(t) {t}
+#define VA_I(t,a,u)	((u)?(t)va_arg(a,int):(unsigned t)va_arg(a,int))
+#define VA_U(t,a,u)	((u)?(t)va_arg(a,t):(unsigned t)va_arg(a,t))
 
 /*
 **		INT
@@ -40,7 +41,7 @@ static int
 		ft_itoa_unsigned(*(ull_t*)o->v) : ft_itoa(*(ll_t*)o->v);
 	precision_i(o);
 	width_o(o);
-	append_o(o->list, o->v, o->len = ft_strlen(o->v));
+	append_o(&o->list, o->v, o->len = ft_strlen(o->v));
 	return (o->len);
 }
 
@@ -48,15 +49,15 @@ static void
 	cast_i(va_list ap, ull_t *n, ull_t lm, int u)
 {
 	if (!lm)
-		n[0] = (int)va_arg(ap, int);
+		n[0] = VA_U(int, ap, u);
 	else if (lm & hh)
-		n[0] = (char)va_arg(ap, int);
+		n[0] = VA_I(int, ap, u);
 	else if (lm & h)
-		n[0] = (short)va_arg(ap, int);
+		n[0] = VA_I(int, ap, u);
 	else if (lm & l)
-		n[0] = (long)va_arg(ap, long);
+		n[0] = VA_U(long, ap, u);
 	else if (lm & ll)
-		n[0] = (long long)va_arg(ap, long long);
+		n[0] = VA_U(long long, ap, u);
 	else if (lm & j)
 		n[0] = u ? va_arg(ap, uintmax_t) : va_arg(ap, intmax_t);
 	else if (lm & z || lm & t)
@@ -79,6 +80,6 @@ int
 
 	o->v = &num;
 	cast_i(o->ap, o->v, o->p.length, U_VLS(ft_tolower(o->str[0])));
-	o->p.flags |= (!U_VLS(o->str[0]) && num < 0) ? neg : 0;
+	o->p.flags |= (!U_VLS(ft_tolower(o->str[0])) && num < 0) ? neg : 0;
 	return (convert_i(o));
 }

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/09 16:55:38 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/11 00:26:44 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void
 {
 	o->p.tick |= ft_isuppercase(c) << 4;
 	while (g_dispatch[i++].type)
-		if (ft_tolower(g_dispatch[i - 1].type) == c)
+		if (g_dispatch[i - 1].type == ft_tolower(c))
 		{
 			g_dispatch[i - 1].f(o);
 			break ;

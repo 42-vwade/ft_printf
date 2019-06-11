@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:05 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 07:15:46 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/11 00:15:27 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char
 }
 
 void
-	append_o(t_list *start, char *s, size_t len)
+	append_o(t_list **start, char *s, size_t len)
 {
 	t_str	*node;
 
@@ -65,7 +65,7 @@ void
 	node->str = s;
 	node->length = len;
 	ft_lstpush(
-		&start,
+		start,
 		ft_lstnew(
 			node,
 			sizeof(t_str)));

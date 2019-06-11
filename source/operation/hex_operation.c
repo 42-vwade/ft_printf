@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 07:31:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/11 00:46:11 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ static FT_SIZE
 	convert_x(t_format *o)
 {
 	char	u;
-	size_t	ret;
-
-	ret = 0;
 	u = ft_tolower(o->str[0]) == 'o';
 	o->v = ft_itoa_base(*(ull_t*)o->v, u ? 8 : 16);
 	precision_i(o);
 	width_o(o);
-	append_o(o->list, o->v, o->len = ft_strlen(o->v));
+	append_o(&o->list, o->v, o->len = ft_strlen(o->v));
 	return (o->len);
 }
 
@@ -49,15 +46,15 @@ static void
 	cast_x(va_list ap, ull_t *n, ull_t lm, int u)
 {
 	if (!lm)
-		n[0] = (int)va_arg(ap, int);
+		n[0] = (unsigned int)va_arg(ap, int);
 	else if (lm & hh)
-		n[0] = (char)va_arg(ap, int);
+		n[0] = (unsigned char)va_arg(ap, int);
 	else if (lm & h)
-		n[0] = (short)va_arg(ap, int);
+		n[0] = (unsigned short)va_arg(ap, int);
 	else if (lm & l)
-		n[0] = (long)va_arg(ap, long);
+		n[0] = (unsigned long)va_arg(ap, long);
 	else if (lm & ll)
-		n[0] = (long long)va_arg(ap, long long);
+		n[0] = (unsigned long long)va_arg(ap, long long);
 	else if (lm & j)
 		n[0] = u ? va_arg(ap, uintmax_t) : va_arg(ap, intmax_t);
 	else if (lm & z || lm & t)
@@ -73,7 +70,7 @@ static void
 int		parse_x(t_format *o)
 {
 
-	size_t	num;
+	ull_t	num;
 
 	o->v = &num;
 	if (ft_tolower(o->str[0]) == 'p')

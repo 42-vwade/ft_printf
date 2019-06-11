@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 05:38:32 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 22:44:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void
 		if (fmt[i] == '%')
 			n = get_params(obj, 0);
 		else
-			append_o(obj->list, ft_strsub(fmt, i, n), n);
+			append_o(&obj->list, ft_strsub(fmt, i, n), n);
 		i += n;
 	}
 	output_o(obj, obj->list);

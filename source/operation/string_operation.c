@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 07:28:46 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/10 22:44:43 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static FT_SIZE
 {
 	precision_s(o);
 	width_o(o);
-	append_o(o->list, o->v, o->len = ft_strlen(o->v));
+	append_o(&o->list, o->v, o->len = ft_strlen(o->v));
 	return (o->len);
 }
 
