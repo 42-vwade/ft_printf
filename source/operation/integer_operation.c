@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/11 14:02:21 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/11 16:44:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void
 	if (!lm)
 		n[0] = VA_U(int, ap, u);
 	else if (lm & hh)
-		n[0] = VA_I(int, ap, u);
+		n[0] = VA_I(char, ap, u);
 	else if (lm & h)
-		n[0] = VA_I(int, ap, u);
+		n[0] = VA_I(short, ap, u);
 	else if (lm & l)
 		n[0] = VA_U(long, ap, u);
 	else if (lm & ll)
