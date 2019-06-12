@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/11 16:44:40 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/11 17:41:59 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
 #define IS_SIGNED(l) (((l)=='u')? 0 : 1)
 #define VA_ASN(type)	va_arg(ap, type)
-#define VA_I(t,a,u)	((u)?(t)va_arg(a,int):(unsigned t)va_arg(a,int))
-#define VA_U(t,a,u)	((u)?(t)va_arg(a,t):(unsigned t)va_arg(a,t))
+#define VA_I(t,a,u)	((u)?(unsigned t)va_arg(a,int):(signed t)va_arg(a,int))
+#define VA_U(t,a,u)	((u)?(unsigned t)va_arg(a,t):(signed t)va_arg(a,t))
 
 /*
 **		INT
@@ -46,14 +46,14 @@ static int
 }
 
 static void
-	cast_i(va_list ap, ull_t *n, ull_t lm, int u)
+	cast_i(va_list ap, ll_t *n, ull_t lm, int u)
 {
 	if (!lm)
-		n[0] = VA_U(int, ap, u);
+		n[0] = (int)VA_U(int, ap, u);
 	else if (lm & hh)
-		n[0] = VA_I(char, ap, u);
+		n[0] = (char)VA_I(char, ap, u);
 	else if (lm & h)
-		n[0] = VA_I(short, ap, u);
+		n[0] = (short)VA_I(short, ap, u);
 	else if (lm & l)
 		n[0] = VA_U(long, ap, u);
 	else if (lm & ll)
@@ -77,9 +77,11 @@ int
 	parse_i(t_format *o)
 {
 	int64_t	num;
+	char	u;
 
 	o->v = &num;
-	cast_i(o->ap, o->v, o->p.length, U_VLS(ft_tolower(o->str[0])));
-	o->p.flags |= (!U_VLS(ft_tolower(o->str[0])) && num < 0) ? neg : 0;
+	u = neg * U_VLS(ft_tolower(o->str[0]));
+	cast_i(o->ap, o->v, o->p.length, u);
+	o->p.flags = u ? o->p.flags & ~neg : o->p.flags | (num < 0) * neg;
 	return (convert_i(o));
 }
