@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/11 00:26:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/16 02:27:38 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static int
 	set[0] = 0;
 	while (s[i++])
 		if (s[i - 1] == '+')
-			set[0] |= 1 << 0;
+			set[0] = (set[0] | plus) & ~(space);
 		else if (s[i - 1] == '-')
-			set[0] |= 1 << 1;
+			set[0] = (set[0] | minus) & ~(zero);
 		else if (s[i - 1] == '0')
-			set[0] |= 1 << 2;
+			set[0] |= !(minus & set[0]) << 2;
 		else if (s[i - 1] == '#')
 			set[0] |= 1 << 3;
 		else if (s[i - 1] == ' ')
-			set[0] |= 1 << 4;
+			set[0] |= !(plus & set[0]) << 4;
 		else
 			return (i - 1);
 	return (i);

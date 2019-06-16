@@ -6,11 +6,12 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 07:11:07 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/16 13:05:39 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#define PREF_X(t)
 
 void
 	width_o(t_format *o)
@@ -20,17 +21,17 @@ void
 	hash_o(o);
 	if (!(o->p.width = MAX((LL)(o->p.width - ft_strlen(o->v)), 0)))
 		return ;
-	pad = ft_strnew(o->p.width);
-	if (o->p.flags & zero && !(o->p.flags & minus) &&
-			!(o->p.tick & 4 && ft_strchr("dioux", ft_tolower(*o->str))))
+	pad = ft_memset(
+		ft_strnew(o->p.width), o->p.flags & zero ? '0' : ' ', o->p.width);
+	if (o->p.flags & zero &&
+			!((o->p.tick & 4) && ft_strchr("dioux", ft_tolower(*o->str))))
 	{
-		ft_memset(pad, '0', o->p.width);
 		if ((neg + plus + space) & o->p.flags)
-		{
-			pad[0] = ((char*)o->v)[0];
-			((char*)o->v)[0] = '0';
-		}
-		o->v = search_and_splice(o->v, "0x", pad);
+			ft_swap(&((char*)o->v)[0], &pad[0]);
+		if (ft_strchr("xp", ft_tolower(o->str[0])))
+			o->v = search_and_splice(o->v, "0x", pad);
+		else
+			o->v = ft_strjoin_free(pad, o->v);
 		return ;
 	}
 	else
