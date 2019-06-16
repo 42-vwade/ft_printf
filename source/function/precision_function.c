@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/16 12:57:50 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/16 13:19:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	precision_i(t_format *o)
 	{
 		if (ft_strchr("diefga", ft_tolower(*o->str)))
 			sign_i(o);
-		if (neg & o->p.flags)
+		if (len && neg & o->p.flags)
 			ft_memswap(&((char*)o->v)[0], &z[0]);
 	}
 	o->v = ft_strjoin_free(z, o->v);
