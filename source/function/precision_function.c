@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/16 13:19:19 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/17 01:00:32 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void
 {
 	char	*sign;
 
-	if (!((plus + space) & o->p.flags))
+	if (neg & o->p.flags || !((plus + space) & o->p.flags &&
+			ft_strchr("diefga", ft_tolower(*o->str))))
 		return ;
 	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
 	o->v = ft_strjoin_free(ft_strdup(sign), o->v);
@@ -59,20 +60,17 @@ void	precision_i(t_format *o)
 	char	*z;
 	size_t	len;
 
+	sign_i(o);
 	precision_o(o);
 	if (!(o->p.tick & 4))
-		;
+		return ;
 	len = MAX(o->p.precision - ft_strlen(o->v), 0);
 	if (!len)
-		;
+		return ;
 	z = ft_memset(ft_strnew(len), '0', len);
 	if ((neg + plus + space) & o->p.flags)
-	{
-		if (ft_strchr("diefga", ft_tolower(*o->str)))
-			sign_i(o);
-		if (len && neg & o->p.flags)
+		if (ft_strchr("+- ", *(char*)o->v))
 			ft_memswap(&((char*)o->v)[0], &z[0]);
-	}
 	o->v = ft_strjoin_free(z, o->v);
 }
 
