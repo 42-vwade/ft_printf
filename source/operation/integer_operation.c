@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/11 17:41:59 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/17 05:14:56 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static int
 	char	u[4];
 
 	u[0] = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
-	o->v = ft_tolower(o->str[0]) == 'u' ?
-		ft_itoa_unsigned(*(ull_t*)o->v) : ft_itoa(*(ll_t*)o->v);
+	o->v = neg & o->p.flags ?
+		ft_itoa(ABS(*(ll_t*)o->v)) : ft_itoa_unsigned(*(ull_t*)o->v);
 	precision_i(o);
 	width_o(o);
 	append_o(&o->list, o->v, o->len = ft_strlen(o->v));
@@ -55,9 +55,9 @@ static void
 	else if (lm & h)
 		n[0] = (short)VA_I(short, ap, u);
 	else if (lm & l)
-		n[0] = VA_U(long, ap, u);
+		n[0] = (long)VA_U(long, ap, u);
 	else if (lm & ll)
-		n[0] = VA_U(long long, ap, u);
+		n[0] = (long long)VA_U(long long, ap, u);
 	else if (lm & j)
 		n[0] = u ? va_arg(ap, uintmax_t) : va_arg(ap, intmax_t);
 	else if (lm & z || lm & t)

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 10:15:36 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/16 12:24:58 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/17 05:49:16 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,13 @@ t_type	g_dispatch[] = {
 	{'c', parse_c},
 	{'s', parse_s},
 	{'p', parse_x},
-	{'b', parse_x},
 	{'d', parse_i},
 	{'i', parse_i},
 	{'u', parse_i},
 	{'o', parse_x},
 	{'x', parse_x},
 	{'f', parse_f},
-	{'C', parse_c},
-	{'S', parse_s},
+	{'b', parse_x},
 	{0, NULL}
 };
 

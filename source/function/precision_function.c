@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/17 01:00:32 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/18 14:25:01 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ static void
 {
 	char	*sign;
 
-	if (neg & o->p.flags || !((plus + space) & o->p.flags &&
+	if (!((plus + space + neg) & o->p.flags &&
 			ft_strchr("diefga", ft_tolower(*o->str))))
 		return ;
 	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
-	o->v = ft_strjoin_free(ft_strdup(sign), o->v);
+	if (ft_isdigit(*(char*)o->v))
+		o->v = ft_strjoin_free(ft_strdup(sign), o->v);
+	else
+		((char*)o->v)[0] = sign[0];
 }
 
 /*
@@ -48,10 +51,11 @@ static void
 
 size_t	precision_o(t_format *o)
 {
+	o->len = ft_strlen(o->v);
 	if (o->p.tick & 4)
-		o->p.precision = MIN(ft_strlen(o->v), o->p.precision);
+		o->p.precision = MAX(o->p.precision, o->len);
 	else
-		o->p.precision = ft_strlen(o->v);
+		o->p.precision = o->len;
 	return (o->len = o->p.precision);
 }
 
@@ -60,7 +64,6 @@ void	precision_i(t_format *o)
 	char	*z;
 	size_t	len;
 
-	sign_i(o);
 	precision_o(o);
 	if (!(o->p.tick & 4))
 		return ;
@@ -72,6 +75,7 @@ void	precision_i(t_format *o)
 		if (ft_strchr("+- ", *(char*)o->v))
 			ft_memswap(&((char*)o->v)[0], &z[0]);
 	o->v = ft_strjoin_free(z, o->v);
+	sign_i(o);
 }
 
 void	precision_s(t_format *o)
