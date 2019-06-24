@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/17 05:14:56 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/22 06:32:46 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 #define VA_ASN(type)	va_arg(ap, type)
 #define VA_I(t,a,u)	((u)?(unsigned t)va_arg(a,int):(signed t)va_arg(a,int))
 #define VA_U(t,a,u)	((u)?(unsigned t)va_arg(a,t):(signed t)va_arg(a,t))
+#define FI_C(c,v)	(c&(h)?(char)(*(char*)v):(int)*(int*)v)
+#define FI_S(c,v)	(c&(h)?(short)(*(short*)v):FI_C(c,v))
+#define FI_L(c,v)	(c&(l)?(long)(*(long*)v):FI_S(c,v))
+#define FI_LL(c,v)	(c & (ll+j+z+t) ? (ll_t)(*(ll_t*)v) : FI_L(c,v) )
+#define IT_F(u,f1,f2,p)	(u) ? f1(p) : f2(p)
+#define CAST_C(c)	(c) &hh	? char : int
+#define CAST_S(c)	(c) &h	? short : CAST_C(c,v)
+#define CAST_L(c)	(c) &l	? long : CAST_S(c,v)
+#define CAST_LL(c)	((c) & (ll+j+z+t) ? (ll_t) : CAST_L(c,v))
+
 
 /*
 **		INT
@@ -34,34 +44,14 @@
 static int
 	convert_i(t_format *o)
 {
-	char	u[4];
+	char	i;
 
-	u[0] = (o->p.length & (l + ll) || ft_isuppercase(o->str[0]));
-	o->v = neg & o->p.flags ?
-		ft_itoa(ABS(*(ll_t*)o->v)) : ft_itoa_unsigned(*(ull_t*)o->v);
+	i = neg & o->p.flags;
+	o->v = i ? ft_itoa(ABS(*(ll_t*)o->v)) : ft_itoa_unsigned(*(ull_t*)o->v);
 	precision_i(o);
 	width_o(o);
 	append_o(&o->list, o->v, o->len = ft_strlen(o->v));
 	return (o->len);
-}
-
-static void
-	cast_i(va_list ap, ll_t *n, ull_t lm, int u)
-{
-	if (!lm)
-		n[0] = (int)VA_U(int, ap, u);
-	else if (lm & hh)
-		n[0] = (char)VA_I(char, ap, u);
-	else if (lm & h)
-		n[0] = (short)VA_I(short, ap, u);
-	else if (lm & l)
-		n[0] = (long)VA_U(long, ap, u);
-	else if (lm & ll)
-		n[0] = (long long)VA_U(long long, ap, u);
-	else if (lm & j)
-		n[0] = u ? va_arg(ap, uintmax_t) : va_arg(ap, intmax_t);
-	else if (lm & z || lm & t)
-		n[0] = u ? va_arg(ap, size_t) : va_arg(ap, ssize_t);
 }
 
 /*
@@ -77,11 +67,9 @@ int
 	parse_i(t_format *o)
 {
 	int64_t	num;
-	char	u;
 
 	o->v = &num;
-	u = neg * U_VLS(ft_tolower(o->str[0]));
-	cast_i(o->ap, o->v, o->p.length, u);
-	o->p.flags = u ? o->p.flags & ~neg : o->p.flags | (num < 0) * neg;
+	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
+	cast_o(o);
 	return (convert_i(o));
 }

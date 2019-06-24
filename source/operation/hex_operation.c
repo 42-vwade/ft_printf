@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/17 00:48:01 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/24 00:50:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static FT_SIZE
 	convert_x(t_format *o)
 {
 	char	u;
+
 	u = ft_tolower(o->str[0]) == 'b' ? 2 : 16 >> (ft_tolower(o->str[0]) == 'o');
 	o->v = ft_itoa_base(*(ull_t*)o->v, u);
 	precision_i(o);
@@ -42,34 +43,15 @@ static FT_SIZE
 	return (o->len);
 }
 
-static void
-	cast_x(va_list ap, ull_t *n, ull_t lm, int u)
-{
-	if (!lm)
-		n[0] = (unsigned int)va_arg(ap, int);
-	else if (lm & hh)
-		n[0] = (unsigned char)va_arg(ap, int);
-	else if (lm & h)
-		n[0] = (unsigned short)va_arg(ap, int);
-	else if (lm & l)
-		n[0] = (unsigned long)va_arg(ap, long);
-	else if (lm & ll)
-		n[0] = (unsigned long long)va_arg(ap, long long);
-	else if (lm & j)
-		n[0] = u ? va_arg(ap, uintmax_t) : va_arg(ap, intmax_t);
-	else if (lm & z || lm & t)
-		n[0] = u ? va_arg(ap, size_t) : va_arg(ap, ssize_t);
-}
-
 /*
 **	Conditions already taken care of.
 **	Input specifier shall be o / O / x / X / p / P
 **	Output shall be in in either base 16, or base 8 if o / O is given
 */
 
-int		parse_x(t_format *o)
+int
+	parse_x(t_format *o)
 {
-
 	ull_t	num;
 
 	o->v = &num;
@@ -79,6 +61,7 @@ int		parse_x(t_format *o)
 		o->p.flags |= hash;
 	}
 	else
-		cast_x(o->ap, o->v, o->p.length, 1);
+		cast_o(o);
+	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
 	return (convert_x(o));
 }

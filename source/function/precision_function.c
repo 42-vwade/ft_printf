@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/18 14:25:01 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/22 08:28:26 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static void
 **	If no precision is given, no modifications are made.
 */
 
-size_t	precision_o(t_format *o)
+size_t
+	precision_o(t_format *o)
 {
 	o->len = ft_strlen(o->v);
 	if (o->p.tick & 4)
@@ -59,7 +60,8 @@ size_t	precision_o(t_format *o)
 	return (o->len = o->p.precision);
 }
 
-void	precision_i(t_format *o)
+void
+	precision_i(t_format *o)
 {
 	char	*z;
 	size_t	len;
@@ -67,6 +69,12 @@ void	precision_i(t_format *o)
 	precision_o(o);
 	if (!(o->p.tick & 4))
 		return ;
+	if (!o->p.precision)
+	{
+		free(o->v);
+		o->v = ft_strnew(0);
+		return ;
+	}
 	len = MAX(o->p.precision - ft_strlen(o->v), 0);
 	if (!len)
 		return ;
@@ -78,7 +86,8 @@ void	precision_i(t_format *o)
 	sign_i(o);
 }
 
-void	precision_s(t_format *o)
+void
+	precision_s(t_format *o)
 {
 	if (o->p.length & (l + ll) || ft_isuppercase(o->str[0]))
 	{
