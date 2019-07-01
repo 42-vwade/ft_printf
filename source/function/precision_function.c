@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/22 08:28:26 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/26 19:51:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void
 void
 	precision_s(t_format *o)
 {
-	if (o->p.length & (l + ll) || ft_isuppercase(o->str[0]))
+	if ((o->free = o->p.length & (l + ll) || ft_isuppercase(o->str[0])))
 	{
 		if (o->p.tick & 4)
 			o->v = encode_utf8_w(str_utf8(o->v), o->p.precision);
@@ -98,10 +98,11 @@ void
 	}
 	else
 	{
-		if (o->p.tick & 4)
-			o->v = ft_strsub(o->v, 0, o->p.precision);
+		if ((o->free = o->p.tick & 4))
+			o->len = o->p.precision;
 		else
-			o->v = ft_strdup(o->v);
+			o->len = ft_strlen(o->v);
 	}
-	o->len = ft_strlen(o->v);
+	if (!o->len)
+		o->len = ft_strlen(o->v);
 }

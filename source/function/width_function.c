@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/24 01:08:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/24 17:26:49 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ void
 	if (o->p.flags & zero &&
 			!((o->p.tick & 4) && ft_strchr("dioux", ft_tolower(*o->str))))
 	{
-		if ((neg + plus + space) & o->p.flags)
-			ft_swap(&((char*)o->v)[0], &pad[0]);
 		IF_E(ft_strchr("xp", ft_tolower(o->str[0])),
 			o->v = search_and_splice(o->v, "0x", pad),
 			o->v = ft_strjoin_free(pad, o->v));
-		IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
 		return ;
 	}
 	else

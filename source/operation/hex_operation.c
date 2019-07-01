@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/24 00:50:15 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/27 10:02:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static FT_SIZE
 	o->v = ft_itoa_base(*(ull_t*)o->v, u);
 	precision_i(o);
 	width_o(o);
-	append_o(&o->list, o->v, o->len = ft_strlen(o->v));
-	return (o->len);
+	IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
+	return (1);
 }
 
 /*
@@ -49,19 +49,19 @@ static FT_SIZE
 **	Output shall be in in either base 16, or base 8 if o / O is given
 */
 
-int
-	parse_x(t_format *o)
+int		parse_x(t_format *o)
 {
 	ull_t	num;
 
 	o->v = &num;
+	o->free = 1;
+	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
 	if (ft_tolower(o->str[0]) == 'p')
 	{
-		num = (intptr_t)va_arg(o->ap, intptr_t);
+		num = (ull_t)(intptr_t)va_arg(o->ap, intptr_t);
 		o->p.flags |= hash;
 	}
 	else
 		cast_o(o);
-	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
 	return (convert_x(o));
 }

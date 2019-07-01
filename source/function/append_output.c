@@ -6,31 +6,16 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:05 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/11 00:15:27 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/26 19:08:26 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
 void
-	output_o(t_format *o, t_list *start)
+	output_o(t_format *o)
 {
-	t_list	*node;
-
-	node = start;
-	while (node)
-	{
-		o->count += write(1, ((t_str*)node->content)->str,
-			((t_str*)node->content)->length);
-		node = node->next;
-	}
-	while (start)
-	{
-		node = start->next;
-		tstr_free(start->content);
-		free(start);
-		start = node;
-	}
+	write(1, o->out, o->count);
 }
 
 char
@@ -56,17 +41,14 @@ char
 }
 
 void
-	append_o(t_list **start, char *s, size_t len)
+	append_o(t_format *o)
 {
-	t_str	*node;
-
-	if (!(node = tstr_new(NULL)))
-		return (ft_error("Memory allocation error."));
-	node->str = s;
-	node->length = len;
-	ft_lstpush(
-		start,
-		ft_lstnew(
-			node,
-			sizeof(t_str)));
+	if (o->len ? o->len : (o->len = ft_strlen(o->v)))
+	{
+		o->out = ft_strncat(o->out, o->v, o->len);
+		o->count += o->len;
+	}
+	o->len = 0;
+	if (o->free)
+		ft_free(o->v);
 }

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 00:41:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/26 18:31:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,11 @@ struct	s_format
 	va_list	ap;
 	t_param	p;
 	t_list	*list;
+	char	*out;
 	char	*str;
 	size_t	len;
 	size_t	count;
+	int8_t	free;
 	int		error;
 	void	*v;
 };

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/22 06:32:13 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/26 19:41:41 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,19 @@
 */
 
 /*
-**		EPIDERMIC SUBSURFACE SCATTERING
+**		SURFACE FUNCTIONS
 */
 
 int		ft_printf(const char *format, ...);
 int		ft_vprintf(const char *format, va_list ap);
+
+
+/*
+**		UTILITY FUNCTIONS
+*/
+
+size_t	slen(const char *string);
+size_t	slen_s(const char *string, size_t maxsize);
 
 /*
 **		SUBDERMAL FUNCTIONS
@@ -51,14 +59,15 @@ int		parse_u(t_format *o);
 int		parse_x(t_format *o);
 int		parse_f(t_format *o);
 
-void	append_o(t_list **list_start, char *converted_str, size_t width);
+void	append_o(t_format *o);
 char	*graft_o(t_list *start);
-void	output_o(t_format *o, t_list *start);
+void	output_o(t_format *o);
 void	cast_o(t_format *o);
 size_t	precision_o(t_format *o);
 void	precision_s(t_format *o);
 void	precision_i(t_format *o);
 void	width_o(t_format *o);
+void	prefix_o(t_format *o, char *prefix, char *pad);
 void	hash_o(t_format *o);
 FT_STR	pad_o(t_format *o);
 FT_VOID	modify_o(t_format *o, FT_STR s);
