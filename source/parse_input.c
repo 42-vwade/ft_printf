@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 22:44:19 by viwade           ###   ########.fr       */
+/*   Updated: 2019/07/09 18:49:10 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ void
 	size_t	i;
 	size_t	n;
 
-	if (!fmt)
+	if ((i = !fmt))
 		return (ft_error("error (ft_printf): A valid string was not entered."));
-	i = 0;
 	while (fmt[i])
 	{
-		n = find_next(&fmt[i]);
-		obj->str = &((void*)fmt)[i];
+		obj->str = (char *)&fmt[i];
 		if (fmt[i] == '%')
 			n = get_params(obj, 0);
-		else
-			append_o(&obj->list, ft_strsub(fmt, i, n), n);
+		else if ((n = find_next(&fmt[i])))
+			obj->v = ft_strsub(fmt, i, n);
+		if (n)
+			append_o(obj);
 		i += n;
 	}
-	output_o(obj, obj->list);
+	output_o(obj);
 }
 
 /*

@@ -6,31 +6,41 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:05 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/11 00:15:27 by viwade           ###   ########.fr       */
+/*   Updated: 2019/07/09 18:51:47 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
 void
-	output_o(t_format *o, t_list *start)
+	output_o(t_format *o)
 {
 	t_list	*node;
+	char	*str;
 
-	node = start;
+	node = o->list;
 	while (node)
 	{
-		o->count += write(1, ((t_str*)node->content)->str,
+		o->count += ft_strlen(((t_str*)node->content)->str);
+		node = node->next;
+	}
+	if (!(str = ft_strnew(o->count)))
+		ft_error("ft-printf: output allocation error");
+	node = o->list;
+	while (node)
+	{
+		ft_strncat(str, ((t_str*)node->content)->str,
 			((t_str*)node->content)->length);
 		node = node->next;
 	}
-	while (start)
+	while (o->list)
 	{
-		node = start->next;
-		tstr_free(start->content);
-		free(start);
-		start = node;
+		node = o->list->next;
+		tstr_free(o->list->content);
+		free(o->list);
+		o->list = node;
 	}
+	write(1, str, o->count);
 }
 
 char
@@ -56,16 +66,16 @@ char
 }
 
 void
-	append_o(t_list **start, char *s, size_t len)
+	append_o(t_format *o)
 {
 	t_str	*node;
 
 	if (!(node = tstr_new(NULL)))
-		return (ft_error("Memory allocation error."));
-	node->str = s;
-	node->length = len;
+		return (ft_error("ft-printf: append allocation error."));
+	node->str = o->v;
+	node->length = o->len;
 	ft_lstpush(
-		start,
+		&o->list,
 		ft_lstnew(
 			node,
 			sizeof(t_str)));
