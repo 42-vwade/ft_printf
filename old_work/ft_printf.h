@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
+/*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:48:18 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/02 19:15:35 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <limits.h>
 # include <math.h>
 # include "../libft/libft.h"
-# include "ft_printf_structs.h"
+# include "structs/ft_printf_structs.h"
 
 /*
 **	--	REQUIREMENTS	--00
@@ -39,6 +39,7 @@ int		ft_vprintf(const char *format, va_list ap);
 **		SUBDERMAL FUNCTIONS
 */
 
+size_t	find_specifier(const char *format);
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
 

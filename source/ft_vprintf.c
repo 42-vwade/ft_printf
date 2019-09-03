@@ -6,13 +6,22 @@
 /*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/02 18:31:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/02 20:09:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include "ft_printf.h"
+
+static char
+	*format_convert(const char *format, size_t *i)
+{
+	t_format	o;
+
+	ft_bzero(&o, sizeof(o));
+	i[0] += find_specifier(format);
+}
 
 static size_t
 	find_next(const char *s)
@@ -37,11 +46,14 @@ static void
 		ft_error("failed to allocate output string");
 	while (format[i])
 	{
-		tonext = find_next(&format[i]);
+		if (tonext = find_next(&format[i]))
+			i += tonext;
 		if (tonext &&
 			!(output = ft_strjoin_free(output, ft_strsub(format, i, tonext))))
 			ft_error("failed to append output string");
-
+		if (format[i] && format[i] == '%' &&
+			!(output = ft_strjoin_free(output, format_convert(&format[i], &i))))
+			ft_error("failed to append output string");
 	}
 }
 
