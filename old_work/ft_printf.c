@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
+/*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:36:03 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:50:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/02 15:46:45 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+/*
+**	Complete rewrite incoming.
+*/
+
 int
 	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	ssize_t	length;
+	int	length[1];
 
-	length = 0;
 	va_start(ap, format);
-	length = ft_vprintf(format, ap);
+	length[0] = ft_vprintf(format, ap) || 0;
 	va_end(ap);
-	return (length);
+	return (length[0]);
 }
