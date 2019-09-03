@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/02 20:08:59 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 00:39:05 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,16 @@ struct	s_param
 
 struct	s_format
 {
-	va_list	ap;
-	t_param	p;
-	t_list	*list;
-	char	*str;
-	size_t	len;
-	size_t	count;
-	int		error;
-	void	*v;
+	va_list		ap;
+	const char	*format;
+	t_func		jump[256];
+	t_param		p;
+	t_list		*list;
+	char		*str;
+	size_t		len;
+	size_t		count;
+	int			error;
+	void		*v;
 };
 
 struct	s_type
