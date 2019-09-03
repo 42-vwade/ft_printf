@@ -7,7 +7,7 @@ BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror #-O1
 
 ####	AUTO SETTING	########################################################
 
@@ -21,7 +21,7 @@ all: $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
-build: $(CFILES) $(shell find ./libft ! -name ".*" -regex ".*\\.[c]") main.c
+build: $(CFILES) $(shell find ./libft ! -name ".*" -regex ".*\\.[c]") main.c | $(NAME)
 	@echo "Build initiated ..."
 	@gcc -g $(CFLAGS) $^
 #	./a.out

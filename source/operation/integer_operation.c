@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:52:46 by viwade           ###   ########.fr       */
+/*   Updated: 2019/07/31 03:55:49 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 #define FI_L(c,v)	(c&(l)?(long)(*(long*)v):FI_S(c,v))
 #define FI_LL(c,v)	(c & (ll+j+z+t) ? (ll_t)(*(ll_t*)v) : FI_L(c,v) )
 #define IT_F(u,f1,f2,p)	(u) ? f1(p) : f2(p)
-#define CAST_C(c)	(c) &hh	? char : int
-#define CAST_S(c)	(c) &h	? short : CAST_C(c,v)
-#define CAST_L(c)	(c) &l	? long : CAST_S(c,v)
-#define CAST_LL(c)	((c) & (ll+j+z+t) ? (ll_t) : CAST_L(c,v))
+#define CAST_C(le,c)	(le) &hh? (char)*(char*)c : (int)*(int*)c
+#define CAST_S(le,c)	(le) &h	? (short)*(short*)c : CAST_C(le,c)
+#define CAST_L(le,c)	(le) &l	? (long)*(long*)c : CAST_S(le,c)
+#define CAST_LL(le,c)	((le) & (ll+j+z+t) ? (ll_t)*(ll_t*)c : CAST_L(le,c))
 
 
 /*
@@ -44,13 +44,10 @@
 static int
 	convert_i(t_format *o)
 {
-	char	i;
-
-	i = neg & o->p.flags;
-	o->v = i ? ft_itoa(ABS(*(ll_t*)o->v)) : ft_itoa_unsigned(*(ull_t*)o->v);
+	o->v = neg & o->p.flags ? ft_itoa(CAST_LL(o->p.length, o->v)) :
+		ft_itoa_unsigned(CAST_LL(o->p.length, o->v));
 	precision_i(o);
 	width_o(o);
-	append_o(o);
 	return (o->len);
 }
 
@@ -69,7 +66,10 @@ int
 	int64_t	num;
 
 	o->v = &num;
+	o->p.length = !o->p.length ? sizeof(int) : o->p.length;
 	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
 	cast_o(o);
+	o->p.flags |= neg * ((num >> (o->p.length * 8 - 1)) & 1
+		&& ft_tolower(o->str[0]) != 'u');
 	return (convert_i(o));
 }

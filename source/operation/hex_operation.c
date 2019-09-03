@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:55:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/07/31 02:11:39 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static FT_SIZE
 **	Conditions already taken care of.
 **	Input specifier shall be o / O / x / X / p / P
 **	Output shall be in in either base 16, or base 8 if o / O is given
+**		— Additionally, output shall also be in base 2 if specifier is 'b'
 */
 
 int
@@ -55,13 +56,10 @@ int
 	ull_t	num;
 
 	o->v = &num;
-	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
-	if (ft_tolower(o->str[0]) == 'p')
-	{
+	IF_E(ft_tolower(o->str[0]) == 'p',
 		num = (ull_t)(intptr_t)va_arg(o->ap, intptr_t);
-		o->p.flags |= hash;
-	}
-	else
-		cast_o(o);
+		o->p.flags |= hash,
+		cast_o(o));
+	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
 	return (convert_x(o));
 }

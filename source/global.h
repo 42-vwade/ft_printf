@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 10:15:36 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/17 05:49:16 by viwade           ###   ########.fr       */
+/*   Updated: 2019/08/02 14:01:20 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 **		 efga / DOUEFGA / n%	<<	diuoxXfFeEgGaAcspn%
 */
 
-t_type	g_dispatch[] = {
+const t_type	g_dispatch[] = {
 	{'%', parse_c},
 	{'c', parse_c},
 	{'s', parse_s},
@@ -39,6 +39,20 @@ t_type	g_dispatch[] = {
 	{'f', parse_f},
 	{'b', parse_x},
 	{0, NULL}
+};
+
+const t_func	g_table[256] = {
+	['%'] = parse_c,
+	['c'] = parse_c,
+	['s'] = parse_s,
+	['p'] = parse_x,
+	['d'] = parse_i,
+	['i'] = parse_i,
+	['u'] = parse_i,
+	['o'] = parse_x,
+	['x'] = parse_x,
+	['f'] = parse_f,
+	['b'] = parse_x
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:48:18 by viwade           ###   ########.fr       */
+/*   Updated: 2019/08/05 23:22:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ int		parse_f(t_format *o);
 
 void	append_o(t_format *o);
 char	*graft_o(t_list *start);
-void	output_o(t_format *o);
+void	output_o(t_format *o, t_list *node);
 void	cast_o(t_format *o);
 size_t	precision_o(t_format *o);
 void	precision_s(t_format *o);
 void	precision_i(t_format *o);
+void	precision_f(t_format *o);
 void	width_o(t_format *o);
-void	hash_o(t_format *o);
+FT_STR	hash_o(t_format *o);
 FT_STR	pad_o(t_format *o);
 FT_VOID	modify_o(t_format *o, FT_STR s);
-//void	length_o(ULL *num, ULL lm, char c);
 
 #endif

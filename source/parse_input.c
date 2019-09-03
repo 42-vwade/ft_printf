@@ -6,11 +6,12 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 17:46:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:49:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/08/04 16:42:31 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "global.h"
 
 static int
 	find_next(const char *s)
@@ -42,7 +43,7 @@ void
 			append_o(obj);
 		i += n;
 	}
-	output_o(obj);
+	output_o(obj, obj->list);
 }
 
 /*

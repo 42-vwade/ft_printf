@@ -6,12 +6,11 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:51:33 by viwade           ###   ########.fr       */
+/*   Updated: 2019/07/16 00:47:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define assign_type(t) ((t *)var)[0] = (t)va_arg(ap, t)
 
 /*
 **		FLOAT
@@ -20,21 +19,9 @@
 static FT_SIZE
 	convert_f(t_format *o)
 {
-	size_t	ret;
-	size_t	len;
-
-	ret = 0;
-	o->p.precision = !(o->p.tick & 0b100) ?  6 : o->p.precision;
-	o->v = infinite_double(*(double*)o->v, o->p.precision);
-	len = ft_strlen(o->v);
-	o->p.width = MAX((LL)(o->p.width - len), 0);
-	if (o->p.flags & (plus + space + neg))
-		modify_o(o, "sign");
-	else
-		modify_o(o, "pad");
-	ret = write(1, o->v, ft_strlen(o->v));
-	free (o->v);
-	return (ret);
+	precision_f(o);
+	width_o(o);
+	return (o->len);
 }
 
 static int
@@ -52,7 +39,12 @@ static int
 	else if ((n.length = (num == -INFINITY) * 4))
 		n.d = ft_strdup("-inf");
 	if (n.d && (o->v = n.d))
-		ret = convert_f(o);
+	{
+		ft_bzero(&o->p.flags, sizeof(o->p.flags));
+		o->len = n.length;
+		width_o(o);
+		ret = n.length;
+	}
 	if (n.d)
 		free(n.d);
 	return (ret);
@@ -61,13 +53,18 @@ static int
 int		parse_f(t_format *o)
 {
 	size_t	ret;
-	double	num;
+	double	db;
+	ld_t	ldb;
 
 	ret = 0;
-	o->v = &num;
-	num = va_arg(o->ap, double);
-	o->p.flags |= (num < 0) << 7;
-	if ((ret = is_anomaly(*(double*)o->v, o)))
+	IF_E(o->p.length & LD,
+		o->v = &ldb,
+		o->v = &db);
+	IF_E(o->p.length & LD,
+		ldb = va_arg(o->ap, ld_t),
+		db = va_arg(o->ap, db_t));
+	o->p.flags |= (o->p.length & LD ? ldb < 0 : db < 0) << 7;
+	if ((ret = is_anomaly(*(ld_t*)o->v, o)))
 		return (ret);
 	return (convert_f(o));
 }

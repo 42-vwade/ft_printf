@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_cat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 19:36:03 by viwade            #+#    #+#             */
-/*   Updated: 2019/08/05 23:22:33 by viwade           ###   ########.fr       */
+/*   Created: 2019/07/13 01:17:39 by viwade            #+#    #+#             */
+/*   Updated: 2019/07/13 02:02:35 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft/libft.h"
 
-int
-	ft_printf(const char *format, ...)
+int	main(int n, char **v)
 {
-	va_list	ap;
-	ssize_t	length;
+	char	*line;
 
-	length = 0;
-	va_start(ap, format);
-	length = ft_vprintf(format, ap);
-	va_end(ap);
-	return (length);
+	line = NULL;
+	if (n == 2)
+	{
+		int fd = open(v[1], O_RDONLY);
+		while (get_next_line(fd, &line) > 0)
+			ft_putendl(line);
+		close(fd);
+	}
 }

@@ -6,11 +6,12 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:40:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/08/02 11:16:10 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#define RET		return ;
 #define A_M(a, b) ((a) & (b))
 #define B_M(a, b) (!((a) & (b)))
 #define C_M(a,b,c) (A_M(a,b) && B_M(a,c))
@@ -52,12 +53,22 @@ static void
 size_t
 	precision_o(t_format *o)
 {
-	o->len = ft_strlen(o->v);
+	o->len = ft_strlen(o->v + (neg & o->p.flags));
 	if (o->p.tick & 4)
 		o->p.precision = MAX(o->p.precision, o->len);
 	else
 		o->p.precision = o->len;
 	return (o->len = o->p.precision);
+}
+
+void
+	precision_f(t_format *o)
+{
+	o->p.precision = !(o->p.tick & 0b100) ? 6 : o->p.precision;
+	IF_E(o->p.length & LD,
+		o->v = infinite_double(*(ld_t*)o->v, o->p.precision),
+		o->v = infinite_double(*(db_t*)o->v, o->p.precision));
+	o->len = ft_strlen(o->v);
 }
 
 void
@@ -68,20 +79,20 @@ void
 
 	precision_o(o);
 	if (!(o->p.tick & 4))
-		return ;
+		RET;
 	if (!o->p.precision)
 	{
 		free(o->v);
 		o->v = ft_strnew(0);
-		return ;
+		RET;
 	}
 	len = MAX(o->p.precision - ft_strlen(o->v), 0);
 	if (!len)
-		return ;
+		RET;
 	z = ft_memset(ft_strnew(len), '0', len);
 	if ((neg + plus + space) & o->p.flags)
 		if (ft_strchr("+- ", *(char*)o->v))
-			ft_memswap(&((char*)o->v)[0], &z[0]);
+			ft_memswap(o->v, z);
 	o->v = ft_strjoin_free(z, o->v);
 	sign_i(o);
 }
@@ -105,6 +116,4 @@ void
 		else
 			o->v = ft_strdup(o->v);
 	}
-	if (!o->len)
-		o->len = o->p.precision;
 }

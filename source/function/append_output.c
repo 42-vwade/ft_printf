@@ -6,22 +6,20 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 11:05:05 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:51:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/07/31 00:44:22 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
 void
-	output_o(t_format *o)
+	output_o(t_format *o, t_list *node)
 {
-	t_list	*node;
 	char	*str;
 
-	node = o->list;
 	while (node)
 	{
-		o->count += ft_strlen(((t_str*)node->content)->str);
+		o->count += ((t_str*)node->content)->length;
 		node = node->next;
 	}
 	if (!(str = ft_strnew(o->count)))
@@ -55,10 +53,8 @@ char
 	while (node)
 	{
 		if (((t_str*)node->content)->str)
-			graft = ft_strsub(
-				((t_str*)node->content)->str,
-				0,
-				((t_str*)node->content)->length);
+			graft =
+ft_strsub(((t_str*)node->content)->str, 0, ((t_str*)node->content)->length);
 		new = ft_strjoin_free(new, graft);
 		node = node->next;
 	}
@@ -73,10 +69,6 @@ void
 	if (!(node = tstr_new(NULL)))
 		return (ft_error("ft-printf: append allocation error."));
 	node->str = o->v;
-	node->length = o->len;
-	ft_lstpush(
-		&o->list,
-		ft_lstnew(
-			node,
-			sizeof(t_str)));
+	node->length = ft_strlen(o->v);
+	ft_lstpush(&o->list, ft_lstnew(node, sizeof(t_str)));
 }

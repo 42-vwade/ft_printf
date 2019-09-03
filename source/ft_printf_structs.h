@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 00:41:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/08/02 13:50:58 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ enum	e_flags {
 };
 
 enum	e_length {
-	hh = 1 << 0,
-	h = 1 << 1,
-	l = 1 << 2,
-	ll = 1 << 3,
-	j = 1 << 4,
-	z = 1 << 5,
-	t = 1 << 6,
-	LD = 1 << 7
+	hh = sizeof(char),
+	h = sizeof(short),
+	l = sizeof(long),
+	ll = sizeof(long long),
+	j = sizeof(intmax_t),
+	z = sizeof(size_t),
+	t = sizeof(size_t),
+	LD = sizeof(long double)
 };
 
 /*
@@ -61,6 +61,7 @@ union	u_double
 typedef struct s_format	t_format;
 typedef struct s_param	t_param;
 typedef struct s_type	t_type;
+typedef struct s_specifier	t_specifier;
 
 /*
 **	FUNCTION DEFINITION
@@ -90,6 +91,11 @@ struct	s_format
 	size_t	count;
 	int		error;
 	void	*v;
+};
+
+struct	s_specifier
+{
+	t_func	f[256];
 };
 
 struct	s_type
