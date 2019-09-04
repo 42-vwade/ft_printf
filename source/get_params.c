@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 19:45:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 20:41:14 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef t_param	t_context_t;
 
-static int
+static void
 	set_flags(ull_t *set, const char *s, uint *i)
 {
 	set[0] = 0;
@@ -32,7 +32,7 @@ static int
 		else if (s[*i - 1] == ' ')
 			set[0] |= !(plus & set[0]) << 4;
 		else
-			return (*i - 1);
+			return ;
 		*i = *i + 1;
 	}
 	return (i);
@@ -114,7 +114,7 @@ int
 	format = obj->str;
 	{
 		i += (format[i] == '%');
-		i += set_flags(&set.flags, &format[i], &i);
+		set_flags(&set.flags, format, &i);
 		set.tick |= !!set.flags << 0;
 		i += set_width(&set.width, &set.precision, &format[i], obj);
 		set.tick |= obj->p.tick;
