@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 23:52:40 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 00:32:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void
 		o->v = ft_append(o->v, o->pad, 3);
 	else
 		o->v = ft_append(o->pad, o->v, 3);
-	(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
+	MATCH(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
 }

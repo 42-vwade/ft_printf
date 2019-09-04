@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:52:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 00:32:58 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int
 	parse_s(t_format *o)
 {
 	o->len = 0;
-	o->z_pad = 0;
-	o->pad = 0;
 	if ((o->v = va_arg(o->ap, void *)) == NULL)
 		o->v = (char[]){"(null)"};
 	return (convert_s(o));
