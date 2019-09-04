@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 01:23:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 02:08:16 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void
 	{
 		tonext = find_next(&format[i]);
 		if (tonext &&
-			!(output = ft_strjoin_free(output, ft_strsub(format, i, tonext))))
+			!(output = ft_append(output, ft_strsub(format, i, tonext), 3)))
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
 		if (format[i] && format[i] == '%' &&

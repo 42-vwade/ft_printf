@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 02:07:21 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 02:15:47 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ static int
 	RET(0);
 }
 
+static void
+	search_length(ull_t *set, const char *f, size_t *len, size_t *i)
+{
+	set[0] = 0;
+	MATCH(f[*i] == 'h', set[0] = (f[*i + 1] == 'h') ? hh : h);
+	OR(f[*i] == 'L', set[0] = LD);
+	OR(f[*i] == 'l', set[0] = (ft_tolower(f[*i + 1]) == 'l') ? ll : l);
+	OR(f[*i] == 'j', set[0] = j);
+	OR(f[*i] == 'z', set[0] = z);
+	MATCH(set[0], *i += 1 + (set[0] & (ll + hh)));
+}
+
 void
 	search_parameters(t_format *o, const char *format)
 {
@@ -80,6 +92,6 @@ void
 	o->p.tick |= (format[i] == '.') << 2;
 	if (search_precision(&o->p.precision, format, &o->len, &i))
 		o->p.precision = va_arg(o->ap, int);
-	search_length(&o->p.width, format, &o->len, &i);
+	search_length(&o->p.length, format, &o->len, &i);
 	o->p.tick |= !!o->p.length << 3;
 }
