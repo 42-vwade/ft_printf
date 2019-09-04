@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 02:18:04 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 03:08:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,23 @@ static size_t
 }
 
 static void
-	create_string(t_format *o, va_list ap, const char *format)
+	create_string(t_format *o, const char *format)
 {
 	size_t	i;
 	size_t	tonext;
-	char	*output;
 
 	i = 0;
-	if (!(output = ft_strnew(0)))
+	if (!(o->output = ft_strnew(0)))
 		ft_error("ft_printf: failed to allocate output string");
 	while (format[i])
 	{
 		tonext = find_next(&format[i]);
 		if (tonext &&
-			!(output = ft_append(output, ft_strsub(format, i, tonext), 3)))
+		!(o->output = ft_append(o->output, ft_strsub(format, i, tonext), 3)))
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
 		if (format[i] && format[i] == '%' &&
-		!(output = ft_append(output, format_convert(o, &format[i], &i), 3)))
+	!(o->output = ft_append(o->output, format_convert(o, &format[i], &i), 3)))
 			ft_error("ft_printf: failed to append conversion to output");
 	}
 }
@@ -92,9 +91,9 @@ int
 	t_format	o;
 
 	init_format(&o, ap, format);
-	create_string(&o, ap, format);
-	o.count = write(1, o.str, ft_strlen(o.str));
-	ft_memdel(&o.str);
+	create_string(&o, format);
+	o.count = write(1, o.output, ft_strlen(o.output));
+	ft_memdel(&o.output);
 	va_end(o.ap);
 	return (o.count);
 }

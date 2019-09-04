@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 02:40:40 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 03:04:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int
 }
 
 static void
-	search_length(ull_t *set, const char *f, size_t *len, size_t *i)
+	search_length(ull_t *set, const char *f, size_t *i)
 {
 	set[0] = 0;
 	MATCH(f[*i] == 'h', set[0] = (f[*i + 1] == 'h') ? hh : h);
@@ -83,9 +83,8 @@ void
 {
 	size_t	i;
 
-	if (o->len == 1)
+	if ((i = o->len == 1))
 		return ;
-	i = 0;
 	search_flags(&o->p.flags, format, &o->len, &i);
 	if (search_width(&o->p.width, format, &o->len, &i))
 		o->p.width = va_arg(o->ap, int);
@@ -94,6 +93,6 @@ void
 	o->p.tick |= (format[i] == '.') << 2;
 	if (search_precision(&o->p.precision, format, &o->len, &i))
 		o->p.precision = va_arg(o->ap, int);
-	search_length(&o->p.length, format, &o->len, &i);
+	search_length(&o->p.length, format, &i);
 	o->p.tick |= !!o->p.length << 3;
 }

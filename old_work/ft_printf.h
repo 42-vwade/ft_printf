@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 01:02:13 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 03:00:11 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	append_s(t_format *o);
 char	*graft_o(t_list *start);
 void	output_o(t_format *o);
 void	cast_o(t_format *o);
-size_t	precision_o(t_format *o);
+void	precision_o(t_format *o);
 void	precision_s(t_format *o);
 void	precision_i(t_format *o);
 void	width_o(t_format *o);

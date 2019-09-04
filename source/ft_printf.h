@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
+/*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 00:50:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 03:02:01 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		ft_vprintf(const char *format, va_list ap);
 */
 
 size_t	find_specifier(t_format *o, const char *format);
+void	search_parameters(t_format *o, const char *format);
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
 
@@ -56,7 +57,7 @@ void	append_o(t_format *o);
 char	*graft_o(t_list *start);
 void	output_o(t_format *o);
 void	cast_o(t_format *o);
-size_t	precision_o(t_format *o);
+void	precision_o(t_format *o);
 void	precision_s(t_format *o);
 void	precision_i(t_format *o);
 void	width_o(t_format *o);
