@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 02:08:16 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 02:18:04 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static char
 		return (NULL);
 	i[0] += o->len;
 	search_parameters(o, &format[1]);
+	o->f(o);
+	return (o->v);
 }
 
 static size_t

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 02:15:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 02:21:53 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int
 	search_width(ull_t *w, const char *f, size_t *len, size_t *i)
 {
 	w[0] = 0;
-	while (*i < *len && !('1' <= f[*i] && f[*i] <= '9'))
+	while (*i < *len && !(('1' <= f[*i] && f[*i] <= '9') || f[*i] == '.'))
 		*i = *i + 1;
 	MATCH(f[*i] == '*', RET(1));
 	OR(ft_isdigit(f[*i]), w[0] = ft_atoi(&f[*i]));
