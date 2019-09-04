@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
+/*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 00:39:05 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 22:14:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ struct	s_format
 	const char	*format;
 	t_func		jump[256];
 	t_param		p;
+	char		*z_pad;
+	char		*pad;
 	t_list		*list;
 	char		*str;
 	size_t		len;

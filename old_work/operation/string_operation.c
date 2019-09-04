@@ -31,6 +31,7 @@ static FT_SIZE
 {
 	precision_s(o);
 	width_o(o);
+	append_s(o);
 	return (o->len);
 }
 
@@ -46,6 +47,8 @@ int
 	parse_s(t_format *o)
 {
 	o->len = 0;
+	o->z_pad = 0;
+	o->pad = 0;
 	if ((o->v = va_arg(o->ap, void *)) == NULL)
 		o->v = (char[]){"(null)"};
 	return (convert_s(o));

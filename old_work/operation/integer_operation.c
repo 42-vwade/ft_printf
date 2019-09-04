@@ -50,6 +50,7 @@ static int
 	o->v = i ? ft_itoa(ABS(*(ll_t*)o->v)) : ft_itoa_unsigned(*(ull_t*)o->v);
 	precision_i(o);
 	width_o(o);
+	append_s(o);
 	append_o(o);
 	return (o->len);
 }

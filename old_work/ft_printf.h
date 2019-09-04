@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
+/*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 00:50:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 22:20:22 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		parse_x(t_format *o);
 int		parse_f(t_format *o);
 
 void	append_o(t_format *o);
+void	append_s(t_format *o);
 char	*graft_o(t_list *start);
 void	output_o(t_format *o);
 void	cast_o(t_format *o);

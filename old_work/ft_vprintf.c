@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viwade <viwade@student.42.us.org>          +#+  +:+       +#+        */
+/*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 00:49:05 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 20:54:22 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void
 {
 	size_t	i;
 	size_t	tonext;
-	char *output;
+	char	*output;
 
 	i = 0;
 	if (!(output = ft_strnew(0)))

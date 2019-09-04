@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:40:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:39:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void
 		return ;
 	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
 	if (ft_isdigit(*(char*)o->v))
-		o->v = ft_strjoin_free(ft_strdup(sign), o->v);
+		o->v = ft_append(sign, o->v, 2);
 	else
 		((char*)o->v)[0] = sign[0];
 }
@@ -49,15 +49,13 @@ static void
 **	If no precision is given, no modifications are made.
 */
 
-size_t
+void
 	precision_o(t_format *o)
 {
 	o->len = ft_strlen(o->v);
-	if (o->p.tick & 4)
-		o->p.precision = MAX(o->p.precision, o->len);
-	else
-		o->p.precision = o->len;
-	return (o->len = o->p.precision);
+	MATCH(o->p.tick & 4, o->p.precision = MAX(o->p.precision, o->len));
+	ELSE(o->p.precision = o->len);
+	o->len = o->p.precision;
 }
 
 void
@@ -66,9 +64,10 @@ void
 	char	*z;
 	size_t	len;
 
-	precision_o(o);
-	if (!(o->p.tick & 4))
-		return ;
+	MATCH(!(o->p.tick & 4), return);
+	o->len = ft_strlen(o->v);
+	MATCH(o->p.tick & 4, o->p.precision = MAX(o->p.precision - o->len, 0));
+	ELSE(o->p.precision = 0);
 	if (!o->p.precision)
 	{
 		free(o->v);
@@ -82,7 +81,6 @@ void
 	if ((neg + plus + space) & o->p.flags)
 		if (ft_strchr("+- ", *(char*)o->v))
 			ft_memswap(&((char*)o->v)[0], &z[0]);
-	o->v = ft_strjoin_free(z, o->v);
 	sign_i(o);
 }
 
