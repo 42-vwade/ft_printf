@@ -6,12 +6,11 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/06 04:51:33 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 01:20:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define assign_type(t) ((t *)var)[0] = (t)va_arg(ap, t)
 
 /*
 **		FLOAT
@@ -24,7 +23,7 @@ static FT_SIZE
 	size_t	len;
 
 	ret = 0;
-	o->p.precision = !(o->p.tick & 0b100) ?  6 : o->p.precision;
+	o->p.precision = !(o->p.tick & 0b100) ? 6 : o->p.precision;
 	o->v = infinite_double(*(double*)o->v, o->p.precision);
 	len = ft_strlen(o->v);
 	o->p.width = MAX((LL)(o->p.width - len), 0);
@@ -33,7 +32,7 @@ static FT_SIZE
 	else
 		modify_o(o, "pad");
 	ret = write(1, o->v, ft_strlen(o->v));
-	free (o->v);
+	free(o->v);
 	return (ret);
 }
 

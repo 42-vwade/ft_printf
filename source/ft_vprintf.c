@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 01:01:11 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 01:23:30 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static char
 	o->pad = 0;
 	o->sign = 0;
 	o->z_pad = 0;
-	if (!(o->len = find_specifier(o, &format[*i])))
+	if (!(o->len = find_specifier(o, &format[1])))
 		return (NULL);
 	i[0] += o->len;
-	search_parameters(o);
+	search_parameters(o, &format[1]);
 }
 
 static size_t
@@ -56,7 +56,7 @@ static void
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
 		if (format[i] && format[i] == '%' &&
-		!(output = ft_strjoin_free(output, format_convert(o, format, &i))))
+		!(output = ft_append(output, format_convert(o, &format[i], &i), 3)))
 			ft_error("ft_printf: failed to append conversion to output");
 	}
 }
