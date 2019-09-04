@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/16 02:27:38 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 19:44:45 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,25 @@
 typedef t_param	t_context_t;
 
 static int
-	set_flags(ull_t *set, const char *s, uint i)
+	set_flags(ull_t *set, const char *s, uint *i)
 {
 	set[0] = 0;
-	while (s[i++])
-		if (s[i - 1] == '+')
+	while (s[*i])
+	{
+		if (s[*i - 1] == '+')
 			set[0] = (set[0] | plus) & ~(space);
-		else if (s[i - 1] == '-')
+		else if (s[*i - 1] == '-')
 			set[0] = (set[0] | minus) & ~(zero);
-		else if (s[i - 1] == '0')
+		else if (s[*i - 1] == '0')
 			set[0] |= !(minus & set[0]) << 2;
-		else if (s[i - 1] == '#')
+		else if (s[*i - 1] == '#')
 			set[0] |= 1 << 3;
-		else if (s[i - 1] == ' ')
+		else if (s[*i - 1] == ' ')
 			set[0] |= !(plus & set[0]) << 4;
 		else
-			return (i - 1);
+			return (*i - 1);
+		*i = *i + 1;
+	}
 	return (i);
 }
 
