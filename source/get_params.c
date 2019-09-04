@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 13:55:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 19:44:45 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 19:45:47 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int
 	format = obj->str;
 	{
 		i += (format[i] == '%');
-		i += set_flags(&set.flags, &format[i], 0);
+		i += set_flags(&set.flags, &format[i], &i);
 		set.tick |= !!set.flags << 0;
 		i += set_width(&set.width, &set.precision, &format[i], obj);
 		set.tick |= obj->p.tick;
