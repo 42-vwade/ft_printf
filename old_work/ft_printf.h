@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 22:20:22 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 01:02:13 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int		ft_vprintf(const char *format, va_list ap);
 **		SUBDERMAL FUNCTIONS
 */
 
-size_t	find_specifier(t_format *o, const char *format);
+size_t	find_specifier(t_format *object, const char *format);
+void	search_parameters(t_format *object, const char *format);
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
 
