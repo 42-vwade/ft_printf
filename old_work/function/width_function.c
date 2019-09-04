@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 22:12:26 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:52:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void
 	{
 		MATCH(ft_strchr("xp", ft_tolower(o->str[0])),
 			o->v = search_and_splice(o->v, "0x", o->pad));
-		ELSE(o->v = ft_append(o->pad, o->v, 0));
+		ELSE(o->v = ft_append(o->pad, o->v, 3));
 		return ;
 	}
 	ELSE(ft_memset(o->pad, ' ', o->p.width));
 	if (minus & o->p.flags)
-		o->v = ft_append(o->v, o->pad, 0);
+		o->v = ft_append(o->v, o->pad, 3);
 	else
-		o->v = ft_append(o->pad, o->v, 0);
+		o->v = ft_append(o->pad, o->v, 3);
 	(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
 }

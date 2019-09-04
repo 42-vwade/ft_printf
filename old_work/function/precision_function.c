@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 21:39:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:53:11 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,27 @@
 static void
 	sign_i(t_format *o)
 {
-	char	*sign;
-
-	if (!((plus + space + neg) & o->p.flags &&
-			ft_strchr("diefga", ft_tolower(*o->str))))
-		return ;
-	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
-	if (ft_isdigit(*(char*)o->v))
-		o->v = ft_append(sign, o->v, 2);
-	else
-		((char*)o->v)[0] = sign[0];
+	o->sign = 0;
+	MATCH(!((plus + space + neg) & o->p.flags), RET);
+	MATCH(o->p.flags & space, o->sign = " ");
+	OR(o->p.flags & plus, o->sign = "+");
+	OR(o->p.flags & neg, o->sign = "-");
 }
+
+/*
+**	static void
+**		sign_i(t_format *o)
+**	{
+**		if (!((plus + space + neg) & o->p.flags &&
+**				ft_strchr("diefga", ft_tolower(*o->str))))
+**			return ;
+**		o->sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
+**		if (ft_isdigit(*(char*)o->v))
+**			o->v = ft_append(o->sign, o->v, 2);
+**		else
+**			((char*)o->v)[0] = o->sign[0];
+**	}
+*/
 
 /*
 **	Creates a zero-padded number.
@@ -61,27 +71,12 @@ void
 void
 	precision_i(t_format *o)
 {
-	char	*z;
-	size_t	len;
-
-	MATCH(!(o->p.tick & 4), return);
+	sign_i(o);
+	MATCH(!(o->p.tick & 4), RET);
 	o->len = ft_strlen(o->v);
 	MATCH(o->p.tick & 4, o->p.precision = MAX(o->p.precision - o->len, 0));
-	ELSE(o->p.precision = 0);
-	if (!o->p.precision)
-	{
-		free(o->v);
-		o->v = ft_strnew(0);
-		return ;
-	}
-	len = MAX(o->p.precision - ft_strlen(o->v), 0);
-	if (!len)
-		return ;
-	z = ft_memset(ft_strnew(len), '0', len);
-	if ((neg + plus + space) & o->p.flags)
-		if (ft_strchr("+- ", *(char*)o->v))
-			ft_memswap(&((char*)o->v)[0], &z[0]);
-	sign_i(o);
+	MATCH(!o->p.precision, RET);
+	o->z_pad = ft_memset(ft_strnew(o->p.precision), '0', o->p.precision);
 }
 
 void

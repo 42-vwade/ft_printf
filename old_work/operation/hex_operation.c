@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:55:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 00:23:33 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ static FT_SIZE
 {
 	char	u;
 
-	u = ft_tolower(o->str[0]) == 'b' ? 2 : 16 >> (ft_tolower(o->str[0]) == 'o');
+	u = ft_tolower(o->str[0]);
+	MATCH(u == 'b', u = 2);
+	ELSE(u = 16 >> (u == 'o'));
 	o->v = ft_itoa_base(*(ull_t*)o->v, u);
+	MATCH(u == 16 && ANY2(o->str[0], 'X', 'P'),
+		ft_strcapitalize(o->v));
 	precision_i(o);
 	width_o(o);
-	IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
+	append_s(o);
 	return (1);
 }
 

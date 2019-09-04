@@ -87,6 +87,7 @@ struct	s_format
 	const char	*format;
 	t_func		jump[256];
 	t_param		p;
+	char		*sign;
 	char		*z_pad;
 	char		*pad;
 	t_list		*list;

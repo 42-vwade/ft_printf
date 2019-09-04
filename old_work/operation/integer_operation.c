@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:52:46 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 00:04:14 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ static int
 {
 	char	i;
 
-	i = neg & o->p.flags;
-	o->v = i ? ft_itoa(ABS(*(ll_t*)o->v)) : ft_itoa_unsigned(*(ull_t*)o->v);
+	MATCH(neg & o->p.flags, o->v = ft_itoa(ABS(*(ll_t*)o->v)));
+	ELSE(o->v = ft_itoa_unsigned(*(ull_t*)o->v));
 	precision_i(o);
 	width_o(o);
 	append_s(o);
-	append_o(o);
 	return (o->len);
 }
 
