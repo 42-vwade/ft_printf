@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 00:32:13 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 04:01:51 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@
 static int
 	convert_i(t_format *o)
 {
-	char	i;
-
 	MATCH(neg & o->p.flags, o->v = ft_itoa(ABS(*(ll_t*)o->v)));
 	ELSE(o->v = ft_itoa_unsigned(*(ull_t*)o->v));
 	precision_i(o);

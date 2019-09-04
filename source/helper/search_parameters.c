@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 03:04:00 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 04:12:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void
 		OR(f[*i] == '0', set[0] |= !(minus & set[0]) << 2);
 		OR(f[*i] == '#', set[0] |= 1 << 3);
 		OR(f[*i] == ' ', set[0] |= !(plus & set[0]) << 4);
-		ELSE(*i = *i + 1);
+		*i = *i + 1;
 	}
 	while (*i < *len && (('0' <= f[*i] && f[*i] <= '9') || f[*i] == '.'))
 		*i = *i + 1;
@@ -88,7 +88,7 @@ void
 	search_flags(&o->p.flags, format, &o->len, &i);
 	if (search_width(&o->p.width, format, &o->len, &i))
 		o->p.width = va_arg(o->ap, int);
-	o->p.tick &= !!o->p.flags << 0;
+	o->p.tick = !!o->p.flags << 0;
 	o->p.tick |= !!o->p.width << 1;
 	o->p.tick |= (format[i] == '.') << 2;
 	if (search_precision(&o->p.precision, format, &o->len, &i))
