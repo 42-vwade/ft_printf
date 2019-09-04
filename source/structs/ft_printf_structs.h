@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 22:14:00 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 02:33:05 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ struct	s_format
 	va_list		ap;
 	const char	*format;
 	t_func		jump[256];
+	t_func		f;
 	t_param		p;
 	char		*sign;
 	char		*z_pad;

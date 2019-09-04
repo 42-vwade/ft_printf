@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 02:21:53 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 02:40:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void
 {
 	size_t	i;
 
+	if (o->len == 1)
+		return ;
 	i = 0;
 	search_flags(&o->p.flags, format, &o->len, &i);
 	if (search_width(&o->p.width, format, &o->len, &i))
