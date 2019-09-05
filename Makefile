@@ -40,7 +40,7 @@ $(OBJECTS): $(CFILES) | $(OBJDIR)
 
 #	MAKE LIBFT // WE DO NOT NEED IT FOR PROJECT LIB. ONLY .O FILES
 #	MOVE CREATED .O FILES INTO OBJECT DIRECTORY
-$(LIBFT): | $(OBJDIR)
+$(LIBFT): submodule | $(OBJDIR)
 	@make all -C $(@D)
 	@mv $(@D)/obj/*.o $(OBJDIR)/
 
@@ -50,6 +50,9 @@ $(LIBFT): | $(OBJDIR)
 #	IF NOT EXIST - OBJECT DIRECTORY - THEN CREATE IT
 $(OBJDIR):
 	@mkdir -p $@
+
+submodule:
+	@git submodule update --init --recursive
 
 clean:
 	@make clean -C $(dir $(LIBFT))
