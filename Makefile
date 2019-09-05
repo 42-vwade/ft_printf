@@ -40,7 +40,7 @@ $(OBJECTS): $(CFILES) | $(OBJDIR)
 
 #	MAKE LIBFT // WE DO NOT NEED IT FOR PROJECT LIB. ONLY .O FILES
 #	MOVE CREATED .O FILES INTO OBJECT DIRECTORY
-$(LIBFT): submodule | $(OBJDIR)
+$(LIBFT): | $(OBJDIR)
 	@make all -C $(@D)
 	@mv $(@D)/obj/*.o $(OBJDIR)/
 
@@ -52,7 +52,11 @@ $(OBJDIR):
 	@mkdir -p $@
 
 submodule:
-	@git submodule update --init --recursive
+	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
+            echo "INFO: Need to reinitialize git submodules"; \
+            git submodule update --init; \
+    fi
+#	@git submodule update --init --recursive
 
 clean:
 	@make clean -C $(dir $(LIBFT))
@@ -66,4 +70,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re submodule
