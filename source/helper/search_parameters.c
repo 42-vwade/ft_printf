@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 19:40:00 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 20:44:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void
 		OR(f[*i] == '#', set[0] |= 1 << 3);
 		OR(f[*i] == ' ', set[0] |= !(plus & set[0]) << 4);
 		*i = *i + 1;
+		MATCH(*i == *len, RET);
 	}
 	while (*i < *len && (('0' <= f[*i] && f[*i] <= '9') || f[*i] == '.'))
 		*i = *i + 1;
@@ -68,9 +69,12 @@ static int
 }
 
 static void
-	search_length(ull_t *set, const char *f, size_t *i)
+	search_length(ull_t *set, const char *f, size_t *len, size_t *i)
 {
+	i[0] = 0;
 	set[0] = sizeof(int);
+	while (*i < *len && !ft_strchr("hlLjzt", f[*i]))
+		*i = *i + 1;
 	MATCH(f[*i] == 'h', set[0] = (f[*i + 1] == 'h') ? hh : h);
 	OR(f[*i] == 'L', set[0] = LD);
 	OR(f[*i] == 'l', set[0] = (ft_tolower(f[*i + 1]) == 'l') ? ll : l);
@@ -95,6 +99,6 @@ void
 	o->p.tick |= (format[i] == '.') << 2;
 	if (search_precision(&o->p.precision, format, &o->len, &i))
 		o->p.precision = va_arg(o->ap, int);
-	search_length(&o->p.length, format, &i);
+	search_length(&o->p.length, format, &o->len, &i);
 	o->p.tick |= (o->p.length != 4) << 3;
 }
