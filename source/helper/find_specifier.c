@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   find_specifier.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 19:36:03 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 00:16:55 by viwade           ###   ########.fr       */
+/*   Created: 2019/09/02 18:46:35 by viwade            #+#    #+#             */
+/*   Updated: 2019/09/04 17:33:35 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "helper.h"
+
+size_t	find_specifier(t_format *o, const char *format)
+{
+	size_t	n;
+
+	n = 1;
+	MATCH(!format[0], RET(0));
+	while (format[n] && !(o->f = o->jump[ft_tolower(format[n])]))
+		++n;
+	MATCH(o->f, o->str = (char*)&format[n]);
+	MATCH(o->f, RET(n));
+	ELSE(RET(0));
+}
 
 /*
-**	Complete rewrite incoming.
+**	MATCH(!format[0], ft_error("invalid syntax"));
 */
-
-int
-	ft_printf(const char *format, ...)
-{
-	va_list	ap;
-	int		length[1];
-
-	va_start(ap, format);
-	length[0] = ft_vprintf(format, ap) || 0;
-	va_end(ap);
-	return (length[0]);
-}

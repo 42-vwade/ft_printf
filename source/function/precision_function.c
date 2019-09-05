@@ -6,15 +6,11 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:40:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:04:41 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define A_M(a, b) ((a) & (b))
-#define B_M(a, b) (!((a) & (b)))
-#define C_M(a,b,c) (A_M(a,b) && B_M(a,c))
-#define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
 
 /*
 **	Ensure o->v is allocated before use.
@@ -30,17 +26,32 @@
 static void
 	sign_i(t_format *o)
 {
-	char	*sign;
-
-	if (!((plus + space + neg) & o->p.flags &&
-			ft_strchr("diefga", ft_tolower(*o->str))))
-		return ;
-	sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
-	if (ft_isdigit(*(char*)o->v))
-		o->v = ft_strjoin_free(ft_strdup(sign), o->v);
-	else
-		((char*)o->v)[0] = sign[0];
+	o->sign = 0;
+	MATCH(ft_strchr("box", ft_tolower(*o->str)), RET);
+	MATCH(!((plus + space + neg) & o->p.flags), RET);
+	MATCH(o->p.flags & space, o->sign = " ");
+	OR(o->p.flags & plus, o->sign = "+");
+	OR(o->p.flags & neg, o->sign = "-");
 }
+
+/*
+**	#define A_M(a, b) ((a) & (b))
+**	#define B_M(a, b) (!((a) & (b)))
+**	#define C_M(a,b,c) (A_M(a,b) && B_M(a,c))
+**	#define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
+**	static void
+**		sign_i(t_format *o)
+**	{
+**		if (!((plus + space + neg) & o->p.flags &&
+**				ft_strchr("diefga", ft_tolower(*o->str))))
+**			return ;
+**		o->sign = (char[2]){SIGN_M(o->p.flags, plus, space, neg), 0};
+**		if (ft_isdigit(*(char*)o->v))
+**			o->v = ft_append(o->sign, o->v, 2);
+**		else
+**			((char*)o->v)[0] = o->sign[0];
+**	}
+*/
 
 /*
 **	Creates a zero-padded number.
@@ -49,41 +60,25 @@ static void
 **	If no precision is given, no modifications are made.
 */
 
-size_t
+void
 	precision_o(t_format *o)
 {
 	o->len = ft_strlen(o->v);
-	if (o->p.tick & 4)
-		o->p.precision = MAX(o->p.precision, o->len);
-	else
-		o->p.precision = o->len;
-	return (o->len = o->p.precision);
+	MATCH(o->p.tick & 4, o->p.precision = MAX(o->p.precision, o->len));
+	ELSE(o->p.precision = o->len);
+	o->len = o->p.precision;
 }
 
 void
 	precision_i(t_format *o)
 {
-	char	*z;
-	size_t	len;
-
-	precision_o(o);
-	if (!(o->p.tick & 4))
-		return ;
-	if (!o->p.precision)
-	{
-		free(o->v);
-		o->v = ft_strnew(0);
-		return ;
-	}
-	len = MAX(o->p.precision - ft_strlen(o->v), 0);
-	if (!len)
-		return ;
-	z = ft_memset(ft_strnew(len), '0', len);
-	if ((neg + plus + space) & o->p.flags)
-		if (ft_strchr("+- ", *(char*)o->v))
-			ft_memswap(&((char*)o->v)[0], &z[0]);
-	o->v = ft_strjoin_free(z, o->v);
 	sign_i(o);
+	MATCH(ft_tolower(*o->str) != 'p' && !(o->p.tick & 4), RET);
+	o->len = ft_strlen(o->v);
+	MATCH(ft_tolower(*o->str) == 'p' && !(o->p.tick & 4), o->p.precision = 8);
+	o->p.precision = MAX((ll_t)(o->p.precision - o->len), 0);
+	MATCH(!o->p.precision, RET);
+	o->z_pad = ft_memset(ft_strnew(o->p.precision), '0', o->p.precision);
 }
 
 void

@@ -5,7 +5,9 @@
 NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
+SOURCEDIR	=	source/
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
+LFILES		=	$(shell find ./libft ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
 
@@ -14,6 +16,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 OBJDIR		:=	$(addprefix $(BUILDDIR), $(OBJDIR))
 LIB			:=	$(addprefix $(BUILDDIR), $(dir $(LIBFT)))
 OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
+OBJECTS		:=	$(OBJECTS) $(addprefix $(OBJDIR), $(notdir $(LFILES:.c=.o)))
 
 ####	UNDER THE HOOD	########################################################
 
@@ -33,8 +36,7 @@ $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 
 #	GET OBJECT FILES FROM PROJECT SOURCE DIRECTORY
 $(OBJECTS): $(CFILES) | $(OBJDIR)
-	@make all -C $(<D)
-	@mv ./*.o $(OBJDIR)
+	@make all -C $(SOURCEDIR)
 
 #	MAKE LIBFT // WE DO NOT NEED IT FOR PROJECT LIB. ONLY .O FILES
 #	MOVE CREATED .O FILES INTO OBJECT DIRECTORY
@@ -49,6 +51,14 @@ $(LIBFT): | $(OBJDIR)
 $(OBJDIR):
 	@mkdir -p $@
 
+submodule:
+	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
+            echo "INFO: Need to reinitialize git submodules"; \
+            git submodule update --init; \
+    fi
+#	CREDIT: https://bit.ly/2lxmAEO
+#	@git submodule update --init --recursive
+
 clean:
 	@make clean -C $(dir $(LIBFT))
 	@rm -rf *.o
@@ -61,4 +71,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re submodule

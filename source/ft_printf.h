@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:48:18 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 23:58:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <limits.h>
 # include <math.h>
 # include "../libft/libft.h"
-# include "ft_printf_structs.h"
+# include "structs/ft_printf_structs.h"
 
 /*
 **	--	REQUIREMENTS	--00
@@ -39,6 +39,8 @@ int		ft_vprintf(const char *format, va_list ap);
 **		SUBDERMAL FUNCTIONS
 */
 
+size_t	find_specifier(t_format *o, const char *format);
+void	search_parameters(t_format *o, const char *format);
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
 
@@ -52,16 +54,16 @@ int		parse_x(t_format *o);
 int		parse_f(t_format *o);
 
 void	append_o(t_format *o);
+void	append_s(t_format *o);
 char	*graft_o(t_list *start);
 void	output_o(t_format *o);
 void	cast_o(t_format *o);
-size_t	precision_o(t_format *o);
+void	precision_o(t_format *o);
 void	precision_s(t_format *o);
 void	precision_i(t_format *o);
 void	width_o(t_format *o);
 void	hash_o(t_format *o);
 FT_STR	pad_o(t_format *o);
 FT_VOID	modify_o(t_format *o, FT_STR s);
-//void	length_o(ULL *num, ULL lm, char c);
 
 #endif

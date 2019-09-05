@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/06/10 00:41:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:08:10 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdint.h>
 # include <sys/types.h>
 # define U_DOUBLE typedef union u_double	u_double
+# define SPECIFIER_LIST	"%cspdiouxfeganb"
 
 /*
 **	ENUMERATION
@@ -31,14 +32,14 @@ enum	e_flags {
 };
 
 enum	e_length {
-	hh = 1 << 0,
-	h = 1 << 1,
-	l = 1 << 2,
-	ll = 1 << 3,
-	j = 1 << 4,
-	z = 1 << 5,
-	t = 1 << 6,
-	LD = 1 << 7
+	hh = sizeof(char),
+	h = sizeof(short),
+	l = sizeof(long),
+	ll = sizeof(long long),
+	j = sizeof(intmax_t),
+	z = sizeof(size_t),
+	t = sizeof(size_t),
+	LD = sizeof(long double)
 };
 
 /*
@@ -52,7 +53,6 @@ union	u_double
 	ULL		ld;
 	double	d;
 };
-
 
 /*
 **	TYPE DEFINITIONS
@@ -82,14 +82,22 @@ struct	s_param
 
 struct	s_format
 {
-	va_list	ap;
-	t_param	p;
-	t_list	*list;
-	char	*str;
-	size_t	len;
-	size_t	count;
-	int		error;
-	void	*v;
+	va_list		ap;
+	const char	*format;
+	t_func		jump[256];
+	t_func		f;
+	t_param		p;
+	char		*sign;
+	char		*z_pad;
+	char		*pad;
+	char		*prefix;
+	t_list		*list;
+	char		*str;
+	size_t		len;
+	size_t		count;
+	int			error;
+	void		*v;
+	void		*output;
 };
 
 struct	s_type

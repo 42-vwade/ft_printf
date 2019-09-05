@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/07/09 18:55:20 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:44:36 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ static FT_SIZE
 {
 	char	u;
 
-	u = ft_tolower(o->str[0]) == 'b' ? 2 : 16 >> (ft_tolower(o->str[0]) == 'o');
-	o->v = ft_itoa_base(*(ull_t*)o->v, u);
+	u = ft_tolower(o->str[0]);
+	MATCH(u == 'b', u = 2);
+	ELSE(u = 16 >> (u == 'o'));
+	MATCH(o->p.tick & 4 && !o->p.precision, o->v = ft_strnew(0));
+	ELSE(o->v = ft_itoa_base(*(ull_t*)o->v, u));
 	precision_i(o);
 	width_o(o);
-	IF_C(ft_isuppercase(o->str[0]), ft_strcapitalize(o->v));
+	append_s(o);
 	return (1);
 }
 
@@ -55,13 +58,9 @@ int
 	ull_t	num;
 
 	o->v = &num;
-	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
-	if (ft_tolower(o->str[0]) == 'p')
-	{
-		num = (ull_t)(intptr_t)va_arg(o->ap, intptr_t);
-		o->p.flags |= hash;
-	}
-	else
-		cast_o(o);
+	MATCH(ft_isuppercase(o->str[0]), o->p.length = ll);
+	MATCH(ft_tolower(o->str[0]) == 'p', o->p.flags |= hash);
+	MATCH(o->p.tick & 4, o->p.flags &= ~zero);
+	cast_o(o);
 	return (convert_x(o));
 }
