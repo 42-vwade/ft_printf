@@ -7,6 +7,7 @@ BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 SOURCEDIR	=	source/
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
+LFILES		=	$(shell find ./libft ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
 
@@ -15,7 +16,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 OBJDIR		:=	$(addprefix $(BUILDDIR), $(OBJDIR))
 LIB			:=	$(addprefix $(BUILDDIR), $(dir $(LIBFT)))
 OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
-OBJECTS		=	$(shell find ./obj ! -name "._*" -regex ".*\\.[o]")
+OBJECTS		:=	$(OBJECTS) $(addprefix $(OBJDIR), $(notdir $(LFILES:.c=.o)))
 
 ####	UNDER THE HOOD	########################################################
 
