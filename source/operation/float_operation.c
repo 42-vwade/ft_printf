@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 15:19:07 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/05 00:02:58 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static FT_SIZE
 **	{
 **		size_t	ret;
 **		size_t	len;
-**	
+**
 **		ret = 0;
 **		o->p.precision = !(o->p.tick & 0b100) ? 6 : o->p.precision;
 **		o->v = infinite_double(*(double*)o->v, o->p.precision);
@@ -69,7 +69,8 @@ static int
 	return (n.length);
 }
 
-int		parse_f(t_format *o)
+int
+	parse_f(t_format *o)
 {
 	size_t	ret;
 	double	num;

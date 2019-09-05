@@ -54,7 +54,6 @@ union	u_double
 	double	d;
 };
 
-
 /*
 **	TYPE DEFINITIONS
 */
