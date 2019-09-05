@@ -56,6 +56,7 @@ submodule:
             echo "INFO: Need to reinitialize git submodules"; \
             git submodule update --init; \
     fi
+#	CREDIT: https://bit.ly/2lxmAEO
 #	@git submodule update --init --recursive
 
 clean:
