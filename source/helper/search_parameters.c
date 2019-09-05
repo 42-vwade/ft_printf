@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 15:52:51 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 18:58:29 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int
 	w[0] = 0;
 	while (*i < *len && !(('1' <= f[*i] && f[*i] <= '9') || f[*i] == '.'))
 		*i = *i + 1;
+	MATCH(!ft_isdigit(f[*i]), RET(*i *= f[*i] == '.'));
 	MATCH(f[*i] == '*', RET(1));
 	OR(ft_isdigit(f[*i]), w[0] = ft_atoi(&f[*i]));
 	while (*i < *len && ('0' <= f[*i] && f[*i] <= '9'))
@@ -83,7 +84,7 @@ void
 {
 	size_t	i;
 
-	if ((i = o->len == 1))
+	if ((i = o->len == 0))
 		return ;
 	search_flags(&o->p.flags, format, &o->len, &i);
 	if (search_width(&o->p.width, format, &o->len, &i))
