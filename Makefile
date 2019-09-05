@@ -5,6 +5,7 @@
 NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
+SOURCEDIR	=	source/
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
 CFLAGS		=	-Wall -Wextra -Werror
@@ -14,6 +15,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 OBJDIR		:=	$(addprefix $(BUILDDIR), $(OBJDIR))
 LIB			:=	$(addprefix $(BUILDDIR), $(dir $(LIBFT)))
 OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:.c=.o)))
+OBJECTS		=	$(shell find ./obj ! -name "._*" -regex ".*\\.[o]")
 
 ####	UNDER THE HOOD	########################################################
 
@@ -33,8 +35,7 @@ $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 
 #	GET OBJECT FILES FROM PROJECT SOURCE DIRECTORY
 $(OBJECTS): $(CFILES) | $(OBJDIR)
-	@make all -C $(<D)
-	@mv ./*.o $(OBJDIR)
+	@make all -C $(SOURCEDIR)
 
 #	MAKE LIBFT // WE DO NOT NEED IT FOR PROJECT LIB. ONLY .O FILES
 #	MOVE CREATED .O FILES INTO OBJECT DIRECTORY
