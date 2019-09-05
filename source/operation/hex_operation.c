@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 00:30:55 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 20:04:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ int
 	ull_t	num;
 
 	o->v = &num;
-	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
-	if (ft_tolower(o->str[0]) == 'p')
-	{
-		num = (ull_t)(intptr_t)va_arg(o->ap, intptr_t);
-		o->p.flags |= hash;
-	}
-	else
-		cast_o(o);
+	MATCH(ft_isuppercase(o->str[0]), o->p.length = ll);
+	MATCH(ft_tolower(o->str[0]) == 'p', o->p.flags |= hash);
+	MATCH(o->p.tick & 4, o->p.flags &= ~zero);
+	cast_o(o);
 	return (convert_x(o));
 }
