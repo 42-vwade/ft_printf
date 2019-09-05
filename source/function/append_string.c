@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 22:15:36 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 04:27:32 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 17:54:19 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 void
 	append_s(t_format *o)
 {
-	char	*tmp;
+	char	left;
+	char	zer0;
 
-	tmp = 0;
+	left = o->p.flags & minus;
+	zer0 = o->p.flags & zero;
 	MATCH(o->sign && o->z_pad, o->z_pad = ft_append(o->sign, o->z_pad, 2));
+	OR(o->sign && o->pad && zer0, o->pad = ft_append(o->sign, o->pad, 2));
 	OR(o->sign, o->v = ft_append(o->sign, o->v, 2));
-	MATCH(o->z_pad, o->v = ft_append(o->v, o->z_pad, 3));
-	MATCH(o->p.flags & minus, o->v = ft_append(o->v, o->pad, 3));
+	MATCH(o->z_pad, o->v = ft_append(o->z_pad, o->v, 3));
+	MATCH(left, o->v = ft_append(o->v, o->pad, 3));
 	OR(o->pad, o->v = ft_append(o->pad, o->v, 3));
 	MATCH(ANY2(o->str[0], 'X', 'P'), ft_strcapitalize(o->v));
 }

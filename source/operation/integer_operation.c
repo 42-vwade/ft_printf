@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 04:01:51 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 18:13:48 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 #define CAST_S(c)	(c) &h	? short : CAST_C(c,v)
 #define CAST_L(c)	(c) &l	? long : CAST_S(c,v)
 #define CAST_LL(c)	((c) & (ll+j+z+t) ? (ll_t) : CAST_L(c,v))
-
+#define F3(l,v,f)	(f(ABS(*(char*)v)))
+#define F2(l,v,f)	((l==2)?f(ABS(*(short*)v)):F3(l,v,f))
+#define F1(l,v,f)	((l==4)?f(ABS(*(int*)v)):F2(l,v,f))
+#define F0(l,v,f)	v=((l==8)?f(ABS(*(ll_t*)v)):F1(l,v,f))
 
 /*
 **		INT
@@ -44,8 +47,8 @@
 static int
 	convert_i(t_format *o)
 {
-	MATCH(neg & o->p.flags, o->v = ft_itoa(ABS(*(ll_t*)o->v)));
-	ELSE(o->v = ft_itoa_unsigned(*(ull_t*)o->v));
+	MATCH(neg & o->p.flags, F0(o->p.length, o->v, ft_itoa));
+	ELSE(F0(o->p.length, o->v, ft_itoa_unsigned));
 	precision_i(o);
 	width_o(o);
 	append_s(o);
@@ -64,10 +67,14 @@ static int
 int
 	parse_i(t_format *o)
 {
-	int64_t	num;
+	char	c;
+	ull_t	num;
 
 	o->v = &num;
-	o->p.length = ft_isuppercase(o->str[0]) ? ll : o->p.length;
+	c = ft_tolower(o->str[0]);
+	MATCH(ft_isuppercase(o->str[0]), o->p.length = ll);
 	cast_o(o);
+	MATCH(c != 'u' && num > (ull_t)0x80 << (o->p.length - 1) * 8,
+		o->p.flags = o->p.flags & ~plus | 128);
 	return (convert_i(o));
 }

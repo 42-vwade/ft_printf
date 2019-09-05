@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 04:29:24 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 17:39:38 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ static char
 	o->pad = 0;
 	o->sign = 0;
 	o->z_pad = 0;
-	if (!(o->len = find_specifier(o, &format[1])))
+	o->p.length = 4;
+	if (!(o->len = find_specifier(o, format)))
 		return (NULL);
-	i[0] += o->len + 1;
+	i[0] += o->len;
 	search_parameters(o, &format[1]);
 	o->f(o);
 	return (o->v);

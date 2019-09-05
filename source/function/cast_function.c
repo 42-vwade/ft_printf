@@ -6,22 +6,31 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 06:10:12 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/03 20:53:21 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 16:55:47 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define SIZE_0(x,v)	if(x<=8) (v)=va_arg(o->ap, ull_t) & (~0ULL >> (64 - x * 8))
-#define SIZE_1(x,v)	if(x>8)  (v)=va_arg(o->ap, long double)
+#define SIZE_0(v)	v=va_arg(o->ap, uint)
+#define SIZE_1(v)	v=va_arg(o->ap, uint)
+#define SIZE_2(v)	v=va_arg(o->ap, uint)
+#define SIZE_3(v)	v=va_arg(o->ap, uint)
+#define SIZE_4(v)	v=va_arg(o->ap, ll_t)
+#define SIZE_5(v)	v=va_arg(o->ap, ld_t)
 
 void
 	cast_o(t_format *o)
 {
-	SIZE_0(o->p.length, *((ull_t *)o->v));
-	SIZE_1(o->p.length, *((ull_t *)o->v));
+	MATCH(o->p.length == 0, SIZE_0(*((ull_t *)o->v)));
+	OR(o->p.length == 1, SIZE_1(*((ull_t *)o->v)));
+	OR(o->p.length == 2, SIZE_2(*((ull_t *)o->v)));
+	OR(o->p.length == 4, SIZE_3(*((ull_t *)o->v)));
+	OR(o->p.length == 8, SIZE_4(*((ull_t *)o->v)));
+	OR(o->p.length > 8, SIZE_5(*((ull_t *)o->v)));
 }
 
 /*
+**	#-> if(x==8) -> va_arg(o->ap, ull_t) & (~0ULL >> (64 - x * 8))
 **	#include "../ft_printf.h"
 **	#define U_VLS(u)	((u)!='d'||(u)!='i')
 **	#define UC	typedef unsigned char	uc_t

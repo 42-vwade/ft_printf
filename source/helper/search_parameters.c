@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 04:12:40 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 15:52:51 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static int
 static void
 	search_length(ull_t *set, const char *f, size_t *i)
 {
-	set[0] = 0;
+	set[0] = sizeof(int);
 	MATCH(f[*i] == 'h', set[0] = (f[*i + 1] == 'h') ? hh : h);
 	OR(f[*i] == 'L', set[0] = LD);
 	OR(f[*i] == 'l', set[0] = (ft_tolower(f[*i + 1]) == 'l') ? ll : l);
 	OR(f[*i] == 'j', set[0] = j);
 	OR(f[*i] == 'z', set[0] = z);
-	MATCH(set[0], *i += 1 + (set[0] & (ll + hh)));
+	MATCH(set[0] != 4, *i += 1 + (set[0] & (ll + hh)));
 }
 
 void
@@ -94,5 +94,5 @@ void
 	if (search_precision(&o->p.precision, format, &o->len, &i))
 		o->p.precision = va_arg(o->ap, int);
 	search_length(&o->p.length, format, &i);
-	o->p.tick |= !!o->p.length << 3;
+	o->p.tick |= (o->p.length != 4) << 3;
 }
