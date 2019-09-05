@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 18:58:29 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 19:40:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void
 {
 	size_t	i;
 
+	o->p = (t_param){0, 0, 0, 0, 4};
 	if ((i = o->len == 0))
 		return ;
 	search_flags(&o->p.flags, format, &o->len, &i);
