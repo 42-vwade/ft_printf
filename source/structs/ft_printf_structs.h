@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 15:50:13 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:08:10 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ struct	s_format
 	char		*sign;
 	char		*z_pad;
 	char		*pad;
+	char		*prefix;
 	t_list		*list;
 	char		*str;
 	size_t		len;

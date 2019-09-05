@@ -6,15 +6,11 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 20:27:16 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:04:41 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define A_M(a, b) ((a) & (b))
-#define B_M(a, b) (!((a) & (b)))
-#define C_M(a,b,c) (A_M(a,b) && B_M(a,c))
-#define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
 
 /*
 **	Ensure o->v is allocated before use.
@@ -31,6 +27,7 @@ static void
 	sign_i(t_format *o)
 {
 	o->sign = 0;
+	MATCH(ft_strchr("box", ft_tolower(*o->str)), RET);
 	MATCH(!((plus + space + neg) & o->p.flags), RET);
 	MATCH(o->p.flags & space, o->sign = " ");
 	OR(o->p.flags & plus, o->sign = "+");
@@ -38,6 +35,10 @@ static void
 }
 
 /*
+**	#define A_M(a, b) ((a) & (b))
+**	#define B_M(a, b) (!((a) & (b)))
+**	#define C_M(a,b,c) (A_M(a,b) && B_M(a,c))
+**	#define SIGN_M(f,a,b,c) C_M(f,a,c)?'+':C_M(f,b,c)?' ':'-'
 **	static void
 **		sign_i(t_format *o)
 **	{

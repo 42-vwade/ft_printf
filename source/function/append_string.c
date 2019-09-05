@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 22:15:36 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 17:54:19 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:20:30 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void
 
 	left = o->p.flags & minus;
 	zer0 = o->p.flags & zero;
+	MATCH(o->prefix && o->z_pad, o->z_pad = ft_append(o->prefix, o->z_pad, 2));
+	OR(o->prefix && o->pad && zer0, o->pad = ft_append(o->prefix, o->pad, 2));
+	OR(o->prefix, o->v = ft_append(o->prefix, o->v, 2));
 	MATCH(o->sign && o->z_pad, o->z_pad = ft_append(o->sign, o->z_pad, 2));
 	OR(o->sign && o->pad && zer0, o->pad = ft_append(o->sign, o->pad, 2));
 	OR(o->sign, o->v = ft_append(o->sign, o->v, 2));

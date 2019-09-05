@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 19:47:21 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:30:31 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 void
 	width_o(t_format *o)
 {
-	ll_t	zpad;
+	ull_t	zpad;
 
-	zpad = o->p.width - ft_strlen(o->v) - !!o->sign - ft_strlen(o->z_pad);
+	zpad = ft_strlen(o->v) + !!o->sign + ft_strlen(o->z_pad);
 	hash_o(o);
-	o->p.width = MAX((LL)zpad, 0);
+	zpad += ft_strlen(o->prefix);
+	o->p.width = MAX((LL)(o->p.width - zpad), 0);
 	MATCH(!o->p.width, RET);
 	o->pad =
 	ft_memset(ft_strnew(o->p.width), o->p.flags & zero ? '0' : ' ', o->p.width);
