@@ -6,14 +6,13 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 17:42:45 by viwade           ###   ########.fr       */
+/*   Updated: 2019/06/20 14:29:01 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "source/ft_printf.h"
 #include <stdio.h>
 #include <locale.h>
-#include <time.h>
 
 #define T_D		(long long)va_arg(ap, long long)
 #define T_O(a)	(((a) == 'o') ? (unsigned long long)va_arg(ap, unsigned long long) : T_D
@@ -26,45 +25,19 @@
 #define TYPE(a) (((a) == '%') ? (char)va_arg(ap, char) : T_F(a))
 
 static void
-	stopwatch(clock_t a, clock_t b)
-{
-	printf(
-		"\n""[%.3f%%] speed\n",
-		((double)a / (double)b) * 100
-	);
-	fflush(stdout);
-}
-
-static void
 	counter_test(void *fmt, ...)
 {
-	int		re[2];
-	char	*display_format = "\n%-16s[%-24s%4s";
-	char	*return_display = "++ return[1]: %d""\n++ return[2]: %d""\n";
-	char	*rfmt;
-	clock_t	timer[2];
 	va_list	ap[2];
 
-	rfmt = ft_append(fmt, "]", 0);
 	va_start(ap[0], fmt);
 	va_copy(ap[1], ap[0]);
-	{	/*	PRINTF TEST */
-		printf(display_format, "printf[int]:", rfmt, "|");
-		timer[0] = clock();
-		re[0] = vprintf(fmt, ap[0]);
-		timer[0] = clock() - timer[0];
-		va_end(ap[0]);	}
-	{	/*	FT_PRINTF TEST */
-		printf(display_format, "ft_printf[int]:", rfmt, "|");
-		fflush(stdout);
-		timer[1] = clock();
-		re[1] = ft_vprintf(fmt, ap[1]);
-		timer[1] = clock() - timer[1];
-		va_end(ap[1]);	}
-	stopwatch(timer[0], timer[1]);
-	printf(return_display, re[0], re[1]);
+	printf("\n%-16s[%-24s%4s", "printf[int]:", fmt, "|");
+	vprintf(fmt, ap[0]);
+	va_end(ap[0]);
+	printf("\n%-16s[%-24s%4s", "ft_printf[int]:", fmt, "|");
 	fflush(stdout);
-	ft_memdel((void**)&rfmt);
+	ft_vprintf(fmt, ap[1]);
+	va_end(ap[1]);
 }//*/
 /*
 static void
@@ -113,108 +86,108 @@ static void
 
 	// int		test = 0;
 
-//		counter_test("%x",42);
-//		counter_test("%X",42);
-//		counter_test("%x",0);
-//		counter_test("%X",0);
-//		counter_test("%x",-42);
-//		counter_test("%X",-42);
-//		counter_test("%x",4294967296);
-//		counter_test("%X",4294967296);
-//		counter_test("%x",test);
-//		counter_test("%10x",42);
-//		counter_test("%-10x",42);
-//		counter_test("%lx",4294967296);
-//		counter_test("%llX",4294967296);
-//		counter_test("%hx",4294967296);
-//		counter_test("%hhX",4294967296);
-//		counter_test("%jx",4294967295);
-//		counter_test("%jx",4294967296);
-//		counter_test("%jx",-4294967296);
-//		counter_test("%jx",-4294967297);
-//		counter_test("%llx",9223372036854775807);
-//		counter_test("%llx",9223372036854775808);
-//		counter_test("%010x",542);
-//		counter_test("%-15x",542);
-//		counter_test("%2x",542);
-//		counter_test("%.2x",5427);
-//		counter_test("%5.2x",5427);
-//		counter_test("%#llx",9223372036854775807);
-//		counter_test("%#x",0);
-//		counter_test("%#8x",42);
-//		counter_test("%#08x",42);
-//		counter_test("%#-08x",42);
-	counter_test("@moulitest:%#.x%#.0x",0,0);
-	counter_test("@moulitest:%.x%.0x",0,0);
-	counter_test("@moulitest:%5.x%5.0x",0,0);
-	counter_test("%5c",42);
-	counter_test("%-5c",42);
-	counter_test("@moulitest:%c",0);
-	counter_test("%2c",0);
-	counter_test("null%candtext",0);
-	counter_test("%c",0);
-	counter_test("%5o",41);
-	counter_test("%05o",42);
-	counter_test("%-5o",2500);
-	counter_test("%#6o",2500);
-	counter_test("%-#6o",2500);
-	counter_test("%-05o",2500);
-	counter_test("%-5.10o",2500);
-	counter_test("%-10.5o",2500);
-	counter_test("@moulitest:%.o%.0o",0,0);
-	counter_test("@moulitest:%5.o%5.0o",0,0);
-	counter_test("@moulitest:%#.o%#.0o",0,0);
-	counter_test("@moulitest:%.10o",42);
-	counter_test("%d",-1);
-	counter_test("%d",-4242);
-	counter_test("%d",2147483648);
-	counter_test("%d",-2147483648);
-	counter_test("%d",-42);
-	counter_test("%+d",-42);
-		/*	counter_test("%+d",4242424242424242424242);		*/
-	counter_test("%+i",-42);
-	counter_test("%+#o",-42);
-	counter_test("%+u",-42);
-	counter_test("%+x",-42);
-	counter_test("%++d",-42);
-	counter_test("%0d",-42);
-	counter_test("%00d",-42);
-	counter_test("%5d",42);
-	counter_test("%05d",42);
-	counter_test("%0+5d",42);
-	counter_test("%5d",-42);
-	counter_test("%05d",-42);
-	counter_test("%0+5d",-42);
-	counter_test("%-5d",42);
-	counter_test("%-05d",42);
-	counter_test("%-5d",-42);
-	counter_test("%-05d",-42);
-	counter_test("%hd",32768);
-	counter_test("%hhd",128);
-	counter_test("%hhd",-128);
-	counter_test("%ld",-2147483648);
-	counter_test("%ld",2147483648);
-	counter_test("%ld",-2147483649);
-	counter_test("%lld",9223372036854775807);
-	 	/*	counter_test("%lld",-9223372036854775808);		*/
-	counter_test("%jd",9223372036854775807);
-	 	/*	counter_test("%jd",-9223372036854775808);		*/
-	counter_test("%zd",4294967295);
-	counter_test("%zd",4294967296);
-	counter_test("%zd",-1);
-	counter_test("%d%d",1,-2);
-	counter_test("%d%d%d",1,-2,33);
-	counter_test("%d%d%d%d",1,-2,33,42);
-	counter_test("%d%d%d%dgg!",1,-2,33,42,0);
-	counter_test("%4.15d",42);
-	counter_test("%.10d",4242);
-	counter_test("%10.5d",4242);
-	counter_test("%-10.5d",4242);
-	counter_test("%10.5d",4242);
-	counter_test("%+10.5d",4242);
-	counter_test("%-+10.5d",4242);
-	counter_test("%03.2d",0);
-	counter_test("%03.2d",1);
+	// counter_test("%x",42);
+	// counter_test("%X",42);
+	// counter_test("%x",0);
+	// counter_test("%X",0);
+	// counter_test("%x",-42);
+	// counter_test("%X",-42);
+	// counter_test("%x",4294967296);
+	// counter_test("%X",4294967296);
+	// counter_test("%x",test);
+	// counter_test("%10x",42);
+	// counter_test("%-10x",42);
+	// counter_test("%lx",4294967296);
+	// counter_test("%llX",4294967296);
+	// counter_test("%hx",4294967296);
+	// counter_test("%hhX",4294967296);
+	// counter_test("%jx",4294967295);
+	// counter_test("%jx",4294967296);
+	// counter_test("%jx",-4294967296);
+	// counter_test("%jx",-4294967297);
+	// counter_test("%llx",9223372036854775807);
+	// //counter_test("%llx",9223372036854775808);
+	// counter_test("%010x",542);
+	// counter_test("%-15x",542);
+	// counter_test("%2x",542);
+	// counter_test("%.2x",5427);
+	// counter_test("%5.2x",5427);
+	// counter_test("%#llx",9223372036854775807);
+	// counter_test("%#x",0);
+	// counter_test("%#8x",42);
+	// counter_test("%#08x",42);
+	// counter_test("%#-08x",42);
+	// counter_test("@moulitest:%#.x%#.0x",0,0);
+	// counter_test("@moulitest:%.x%.0x",0,0);
+	// counter_test("@moulitest:%5.x%5.0x",0,0);
+	// counter_test("%5c",42);
+	// counter_test("%-5c",42);
+	// counter_test("@moulitest:%c",0);
+	// counter_test("%2c",0);
+	// counter_test("null%candtext",0);
+	// counter_test("%c",0);
+	// counter_test("%5o",41);
+	// counter_test("%05o",42);
+	// counter_test("%-5o",2500);
+	// counter_test("%#6o",2500);
+	// counter_test("%-#6o",2500);
+	// counter_test("%-05o",2500);
+	// counter_test("%-5.10o",2500);
+	// counter_test("%-10.5o",2500);
+	// counter_test("@moulitest:%.o%.0o",0,0);
+	// counter_test("@moulitest:%5.o%5.0o",0,0);
+	// counter_test("@moulitest:%#.o%#.0o",0,0);
+	// counter_test("@moulitest:%.10o",42);
+	// counter_test("%d",-1);
+	// counter_test("%d",-4242);
+	// counter_test("%d",2147483648);
+	// counter_test("%d",-2147483648);
+	// // counter_test("%d",-42);
+	// counter_test("%+d",-42);
+	// // /*	counter_test("%+d",4242424242424242424242);	//	*/
+	// // counter_test("%+i",-42);
+	// // counter_test("%+#o",-42);
+	// // counter_test("%+u",-42);
+	// // counter_test("%+x",-42);
+	// counter_test("%++d",-42);
+	// counter_test("%0d",-42);
+	// counter_test("%00d",-42);
+	// counter_test("%5d",42);
+	// counter_test("%05d",42);
+	// counter_test("%0+5d",42);
+	// counter_test("%5d",-42);
+	// counter_test("%05d",-42);
+	// counter_test("%0+5d",-42);
+	// counter_test("%-5d",42);
+	// counter_test("%-05d",42);
+	// counter_test("%-5d",-42);
+	// counter_test("%-05d",-42);
+	// counter_test("%hd",32768);
+	// counter_test("%hhd",128);
+	// counter_test("%hhd",-128);
+	// counter_test("%ld",-2147483648);
+	// counter_test("%ld",2147483648);
+	// counter_test("%ld",-2147483649);
+	// counter_test("%lld",9223372036854775807);
+	// 	/*	counter_test("%lld",-9223372036854775808);	//	*/
+	// counter_test("%jd",9223372036854775807);
+	// 	/*	counter_test("%jd",-9223372036854775808);	//	*/
+	// counter_test("%zd",4294967295);
+	// counter_test("%zd",4294967296);
+	// counter_test("%zd",-1);
+	// counter_test("%d%d",1,-2);
+	// counter_test("%d%d%d",1,-2,33);
+	// counter_test("%d%d%d%d",1,-2,33,42);
+	// counter_test("%d%d%d%dgg!",1,-2,33,42,0);
+	// counter_test("%4.15d",42);
+	// counter_test("%.10d",4242);
+	// counter_test("%10.5d",4242);
+	// counter_test("%-10.5d",4242);
+	// counter_test("%10.5d",4242);
+	// counter_test("%+10.5d",4242);
+	// counter_test("%-+10.5d",4242);
+	// counter_test("%03.2d",0);
+	// counter_test("%03.2d",1);
 	counter_test("%03.2d",-1);
 	counter_test("@moulitest:%.10d",-42);
 	counter_test("@moulitest:%.d%.0d",0,0);

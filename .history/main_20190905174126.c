@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 17:42:45 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/05 17:41:26 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ static void
 	rfmt = ft_append(fmt, "]", 0);
 	va_start(ap[0], fmt);
 	va_copy(ap[1], ap[0]);
-	{	/*	PRINTF TEST */
-		printf(display_format, "printf[int]:", rfmt, "|");
+	{	printf(display_format, "printf[int]:", rfmt, "|");
 		timer[0] = clock();
 		re[0] = vprintf(fmt, ap[0]);
 		timer[0] = clock() - timer[0];
-		va_end(ap[0]);	}
-	{	/*	FT_PRINTF TEST */
-		printf(display_format, "ft_printf[int]:", rfmt, "|");
+		va_end(ap[0]);
+	}
+	{	printf(display_format, "ft_printf[int]:", rfmt, "|");
 		fflush(stdout);
 		timer[1] = clock();
 		re[1] = ft_vprintf(fmt, ap[1]);
 		timer[1] = clock() - timer[1];
-		va_end(ap[1]);	}
+		va_end(ap[1]);
+	}
 	stopwatch(timer[0], timer[1]);
 	printf(return_display, re[0], re[1]);
 	fflush(stdout);

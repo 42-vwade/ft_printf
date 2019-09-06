@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 17:42:45 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/05 17:19:23 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void
 	stopwatch(clock_t a, clock_t b)
 {
 	printf(
-		"\n""[%.3f%%] speed\n",
-		((double)a / (double)b) * 100
+		"\n""[%.3f%%] faster\t",
+		((double)a - (double)b) * 100
 	);
 	fflush(stdout);
 }
@@ -39,32 +39,27 @@ static void
 	counter_test(void *fmt, ...)
 {
 	int		re[2];
-	char	*display_format = "\n%-16s[%-24s%4s";
-	char	*return_display = "++ return[1]: %d""\n++ return[2]: %d""\n";
-	char	*rfmt;
+	char	*display_format = "\n%-16s[%s%-24s%s";
+	char	*return_display = "++ return[1]: %d"" return[2]: %d""\n";
 	clock_t	timer[2];
 	va_list	ap[2];
 
-	rfmt = ft_append(fmt, "]", 0);
 	va_start(ap[0], fmt);
 	va_copy(ap[1], ap[0]);
-	{	/*	PRINTF TEST */
-		printf(display_format, "printf[int]:", rfmt, "|");
-		timer[0] = clock();
-		re[0] = vprintf(fmt, ap[0]);
-		timer[0] = clock() - timer[0];
-		va_end(ap[0]);	}
-	{	/*	FT_PRINTF TEST */
-		printf(display_format, "ft_printf[int]:", rfmt, "|");
-		fflush(stdout);
-		timer[1] = clock();
-		re[1] = ft_vprintf(fmt, ap[1]);
-		timer[1] = clock() - timer[1];
-		va_end(ap[1]);	}
+	printf(display_format, "printf[int]:", fmt, "]", "|");
+	timer[0] = clock();
+	re[0] = vprintf(fmt, ap[0]);
+	timer[0] = clock() - timer[0];
+	va_end(ap[0]);
+	printf(display_format, "ft_printf[int]:", fmt, "]", "|");
+	fflush(stdout);
+	timer[1] = clock();
+	re[1] = ft_vprintf(fmt, ap[1]);
+	timer[1] = clock() - timer[1];
 	stopwatch(timer[0], timer[1]);
 	printf(return_display, re[0], re[1]);
 	fflush(stdout);
-	ft_memdel((void**)&rfmt);
+	va_end(ap[1]);
 }//*/
 /*
 static void
