@@ -5,6 +5,7 @@
 		"libft_macros.h": "c",
 		"ft_printf.h": "c",
 		"global.h": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"ios": "c"
 	}
 }

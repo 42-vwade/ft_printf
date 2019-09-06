@@ -24,9 +24,12 @@ all: $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
-build: $(CFILES) $(shell find ./libft ! -name ".*" -regex ".*\\.[c]") main.c
+build: $(CFILES) $(LFILES) main.c
+#build: $(NAME) main.c
 	@echo "Build initiated ..."
-	@gcc -g $(CFLAGS) $^
+	@gcc -g $(CFLAGS) $^ 
+	# -fsanitize=address
+#	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
 
 #	MAKE THE PROJECT FILE
@@ -55,7 +58,7 @@ $(SUBMODULE):
 	@touch $@
 	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
             echo "INFO: Need to reinitialize git submodules"; \
-            git submodule update --init; \
+            git submodule update --init --recursive; \
     fi
 #	CREDIT: https://bit.ly/2lxmAEO
 #	@git submodule update --init --recursive

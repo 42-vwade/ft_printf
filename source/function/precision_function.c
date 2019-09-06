@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 00:58:50 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 13:50:37 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void
 void
 	precision_s(t_format *o)
 {
+	if (o->p.tick & 4 && !o->p.precision)
+		o->v = 0;
 	if (o->p.tick & 4)
 		o->p.precision = MIN(ft_strlen(o->v), o->p.precision);
 	if ((o->p.length & (l + ll) || ft_isuppercase(o->str[0])))

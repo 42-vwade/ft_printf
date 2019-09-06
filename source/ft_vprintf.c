@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 01:09:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 12:10:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static char
 	i[0] += o->len--;
 	search_parameters(o, &format[1]);
 	o->f(o);
-	o->encode = encode_output(o->encode, o->output);
 	MATCH(ft_tolower(*o->str) == 'c',
 		RET(o->encode = ft_append(o->encode, o->v, 3)));
 	ELSE(RET(o->encode = encode_output(o->encode, o->v)));
@@ -52,18 +51,15 @@ static void
 	size_t	tonext;
 
 	i = 0;
-	if (!(o->output = ft_strnew(0)))
-		ft_error("ft_printf: failed to allocate output string");
 	while (format[i])
 	{
 		tonext = find_next(&format[i]);
 		if (tonext &&
-		!(o->output = ft_append(o->output, ft_strsub(format, i, tonext), 3)))
+		!(o->encode = encode_output(o->encode, ft_strsub(format, i, tonext))))
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
-		MATCH(tonext, o->encode = encode_output(o->encode, o->output));
 		if (format[i] && format[i] == '%' &&
-	!(o->output = format_convert(o, &format[i], &i)))
+				!(format_convert(o, &format[i], &i)))
 			ft_error("ft_printf: failed to append conversion to output");
 	}
 	MATCH(o->encode, o->output = decode_output(o->encode, &o->write));

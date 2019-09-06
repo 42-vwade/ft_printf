@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 22:26:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 23:37:11 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 13:45:44 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static char
 	buf[1] = 0;
 	len = ft_strlen(s);
 	MATCH(!(new = ft_strnew(len / 2)), ft_error("fatal: decode string failed"));
-	while (s[i] && s[i + 1] && i < len)
+	while (i < len)
 	{
 		buf[0] = (s[i] & 0x0f) | ((s[i + 1] & 0x0f) << 4);
-		ft_strcat(&new[i], buf);
-		i += 1;
+		ft_strcat(&new[i / 2], buf);
+		i += 2;
 	}
 	write[0] = len / 2;
 	return (new);
@@ -44,9 +44,10 @@ static char
 
 	i = 0;
 	buf[2] = 0;
-	len = ft_strlen(s) || 1;
+	(len = ft_strlen(s))
+		|| (len = 1);
 	MATCH(!(new = ft_strnew(len * 2)), ft_error("fatal: encode string failed"));
-	while (s[i] && i < len)
+	while (i < len)
 	{
 		buf[0] = 0xf0 | (s[i] & 0x0f);
 		buf[1] = 0xf0 | (s[i] >> 4);
@@ -59,19 +60,21 @@ static char
 char
 	*encode_output(const char *data, const char *output)
 {
-	MATCH(!data, data = ft_append(data, encode_str(output), 2));
-	ELSE(data = ft_append(data, encode_str(output), 3));
+	char	*encode;
+
+	MATCH(!output, RET(0));
+	MATCH(!data, encode = encode_str(output));
+	ELSE(encode = ft_append(data, encode_str(output), 3));
 	ft_memdel((void**)&output);
-	return ((char*)data);
+	return (encode);
 }
 
 char
 	*decode_output(const char *data, size_t *len)
 {
-	void	*tmp;
+	char	*decode;
 
-	tmp = (char*)data;
-	data = ft_append(NULL, decode_str(data, len), 2);
-	ft_memdel(&tmp);
-	return ((char*)data);
+	decode = decode_str(data, len);
+	ft_memdel((void**)&data);
+	return (decode);
 }
