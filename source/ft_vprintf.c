@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 20:55:13 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 00:01:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,14 @@ static void
 		!(o->output = ft_append(o->output, ft_strsub(format, i, tonext), 3)))
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
+		MATCH(o->output, o->encode = encode_output(o->encode, o->output));
 		if (format[i] && format[i] == '%' &&
 	!(o->output = ft_append(o->output, format_convert(o, &format[i], &i), 3)))
 			ft_error("ft_printf: failed to append conversion to output");
+		MATCH(ft_tolower(*o->str) == 'c',
+			o->encode = encode_output(o->encode, o->output));
 	}
+	o->output = decode_output(o->encode, &o->write);
 }
 
 static void
@@ -94,10 +98,10 @@ int
 
 	init_format(&o, ap, format);
 	create_string(&o, format);
-	o.count = write(1, o.output, ft_strlen(o.output));
+	o.count = write(1, o.output, o.write);
 	ft_memdel(&o.output);
 	va_end(o.ap);
-	return (o.count);
+	return (o.write);
 }
 
 /*

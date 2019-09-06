@@ -18,7 +18,7 @@ $(OBJDIR):
 	@mkdir -p $@
 
 clean:
-	@rm -rf $(OBJECTS)
+	@rm -rf $(OBJECTS) *.o
 
 fclean: clean
 	@rm -rf $(OBJDIR)

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 23:58:19 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/05 23:36:40 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ size_t	find_specifier(t_format *o, const char *format);
 void	search_parameters(t_format *o, const char *format);
 void	parse_input(t_format *object, const char *format);
 int		get_params(t_format *obj, size_t i);
+
+char	*encode_output(const char *data, const char *output);
+char	*decode_output(const char *data, size_t *len);
 
 size_t	ftprintf_write(char *s, size_t len, t_format *o);
 
