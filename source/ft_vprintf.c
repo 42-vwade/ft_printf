@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 01:00:56 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 01:09:10 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ static void
 		!(o->output = ft_append(o->output, ft_strsub(format, i, tonext), 3)))
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
+		MATCH(tonext, o->encode = encode_output(o->encode, o->output));
 		if (format[i] && format[i] == '%' &&
 	!(o->output = format_convert(o, &format[i], &i)))
 			ft_error("ft_printf: failed to append conversion to output");
 	}
 	MATCH(o->encode, o->output = decode_output(o->encode, &o->write));
-	ELSE(o->write = ft_strlen(o->output));
 }
 
 static void
