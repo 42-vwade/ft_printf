@@ -11,6 +11,7 @@
 ._*
 .DS*
 .nfs*
+.sub
 x.*
 a.*
 *.gch

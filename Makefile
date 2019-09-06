@@ -6,6 +6,7 @@ NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 SOURCEDIR	=	source/
+SUBMODULE		=	.sub
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LFILES		=	$(shell find ./libft ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
@@ -20,7 +21,7 @@ OBJECTS		:=	$(OBJECTS) $(addprefix $(OBJDIR), $(notdir $(LFILES:.c=.o)))
 
 ####	UNDER THE HOOD	########################################################
 
-all: $(NAME)
+all: $(SUBMODULE) $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
@@ -51,11 +52,12 @@ $(LIBFT): | $(OBJDIR)
 $(OBJDIR):
 	@mkdir -p $@
 
-submodule:
+$(SUBMODULE):
 	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
             echo "INFO: Need to reinitialize git submodules"; \
             git submodule update --init; \
     fi
+	@touch $@
 #	CREDIT: https://bit.ly/2lxmAEO
 #	@git submodule update --init --recursive
 
@@ -71,4 +73,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re submodule
+.PHONY: clean fclean all re

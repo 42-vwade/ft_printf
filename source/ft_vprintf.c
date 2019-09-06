@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 00:01:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 01:00:56 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ static char
 	i[0] += o->len--;
 	search_parameters(o, &format[1]);
 	o->f(o);
-	return (o->v);
+	o->encode = encode_output(o->encode, o->output);
+	MATCH(ft_tolower(*o->str) == 'c',
+		RET(o->encode = ft_append(o->encode, o->v, 3)));
+	ELSE(RET(o->encode = encode_output(o->encode, o->v)));
 }
 
 static size_t
@@ -58,14 +61,12 @@ static void
 		!(o->output = ft_append(o->output, ft_strsub(format, i, tonext), 3)))
 			ft_error("ft_printf: failed to append text to output");
 		i += tonext;
-		MATCH(o->output, o->encode = encode_output(o->encode, o->output));
 		if (format[i] && format[i] == '%' &&
-	!(o->output = ft_append(o->output, format_convert(o, &format[i], &i), 3)))
+	!(o->output = format_convert(o, &format[i], &i)))
 			ft_error("ft_printf: failed to append conversion to output");
-		MATCH(ft_tolower(*o->str) == 'c',
-			o->encode = encode_output(o->encode, o->output));
 	}
-	o->output = decode_output(o->encode, &o->write);
+	MATCH(o->encode, o->output = decode_output(o->encode, &o->write));
+	ELSE(o->write = ft_strlen(o->output));
 }
 
 static void

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 23:57:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 00:59:39 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ int
 {
 	o->len = 0;
 	if ((o->v = va_arg(o->ap, void *)) == NULL)
-		o->v = ft_strdup("(null)");
+		o->v = "(null)";
 	return (convert_s(o));
 }
