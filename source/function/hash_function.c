@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 00:45:55 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 02:54:54 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 09:37:04 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ void
 	char	c;
 	char	nz;
 
-	if (!(hash & o->p.flags))
-		return ;
+	MATCH(!(hash & o->p.flags), RET);
 	c = ft_tolower(o->str[0]);
 	nz = !!ft_atoi(o->v);
-	if (ft_cmp(c, 'o') && !(!nz && (o->p.tick & 4 && !o->p.precision)))
+	if (ft_cmp(c, 'o') && (nz || (nz && !(o->p.tick & 4 && !o->p.precision))))
 		o->prefix = "0";
 	else if (ft_strchr("xp", c) && nz)
 		o->prefix = "0x";

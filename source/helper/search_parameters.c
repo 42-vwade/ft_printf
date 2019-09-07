@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 20:44:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 09:24:05 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void
 	{
 		if (('1' <= f[*i] && f[*i] <= '9') || f[*i] == '.')
 			break ;
-		MATCH(f[*i] == '+', set[0] = (set[0] | plus) & ~(space));
-		OR(f[*i] == '-', set[0] = (set[0] | minus) & ~(zero));
+		MATCH(f[*i] == '+', set[0] = (set[0] | plus) & ~space);
+		OR(f[*i] == '-', set[0] = (set[0] | minus) & ~zero);
 		OR(f[*i] == '0', set[0] |= !(minus & set[0]) << 2);
-		OR(f[*i] == '#', set[0] |= 1 << 3);
+		OR(f[*i] == '#', set[0] |= hash);
 		OR(f[*i] == ' ', set[0] |= !(plus & set[0]) << 4);
 		*i = *i + 1;
-		MATCH(*i == *len, RET);
+		MATCH(*i == *len && !(*i = 0), RET);
 	}
 	while (*i < *len && (('0' <= f[*i] && f[*i] <= '9') || f[*i] == '.'))
 		*i = *i + 1;

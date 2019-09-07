@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 04:32:41 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 09:10:36 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ static void
 	// int		test = 0;
 //*/
 
+	counter_test("%%#o 0 ==  %#o", 0);
 	counter_test("Il fait au moins %u", -8000);
 	counter_test("Il fait au moins %d", -8000);
 	counter_test("%d", INT_MIN);
