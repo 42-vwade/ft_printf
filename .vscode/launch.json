@@ -8,7 +8,7 @@
 			"name": "(lldb) Attach",
 			"type": "cppdbg",
 			"request": "attach",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/a.test",
 			"processId": "${command:pickProcess}",
 			"MIMode": "lldb"
 		},
@@ -16,7 +16,7 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/a.test",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
@@ -25,10 +25,10 @@
 			"MIMode": "lldb"
 		},
 		{
-			"name": "Build",
+			"name": "Debug Build",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/a.test",
 			"args": [],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
@@ -50,6 +50,33 @@
 				"engineLogging": true
 			 },
 			"preLaunchTask": "GDB C/C++ Makefile Build"
+		},
+		{
+			"name": "Test Build",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/a.test",
+			"args": [],
+			"stopAtEntry": true,
+			"cwd": "${workspaceFolder}",
+			"linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/usr/bin/gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "C:\\MinGw\\bin\\gdb.exe"
+            },
+			"externalConsole": true,
+			"logging": {
+				"trace": true,
+				"traceResponse": true,
+				"engineLogging": true
+			 },
+			"preLaunchTask": "GDB C/C++ Makefile Test Final"
 		}
 	]
 }
