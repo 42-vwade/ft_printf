@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 13:46:27 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 01:38:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define T_P(a)	(((a) == 'p') ? (unsigned long long)va_arg(ap, unsigned long long) : T_S(a))
 #define T_F(a)	(((a) == 'f') ? (double)va_arg(ap, double) : T_P(a))
 #define TYPE(a) (((a) == '%') ? (char)va_arg(ap, char) : T_F(a))
+#define PI		3.141592653589793238462643383279502884197169399375105820974944592307816406286L
 
 static void
 	stopwatch(clock_t a, clock_t b)
@@ -93,26 +94,34 @@ static void
 static void
 	basic_tests(void)
 {
-	const long double		PI = 3.141592653589793238462643383279502884197169399375105820974944592307816406286L;
-	unsigned	i;
-
-	i = 0;
+/*/
 	fflush(stdout);
 	printf("[%i]\n", (int)write_infinite_double((double)PI + -4U, 16 << 2));
 	fflush(stdout);
 
 	counter_test("%s", NULL);
-/*/	counter_test("%0f", (double)PI);
+//	counter_test("%0f", (double)PI);
 	counter_test("%03f", (double)PI);
-/*/	counter_test("%03.f|", (double)PI);
-/*/	i++;
+//	counter_test("%03.f|", (double)PI);
+//	unsigned	i = 0;
+//	i++;
 	while (i++ < 24){
 		printf("\n>\t%+0*.*Lf|[%%%i]", i << 1, i, PI, i);
 		ft_printf("\nft>\t%+0*.*Lf|[%%%i]\n", i << 1, i, (double)PI, i);//*/
 	//ft_printf()
 
 	// int		test = 0;
+//*/
 
+	counter_test("Il fait au moins %d", -8000);
+	counter_test("%d", INT_MIN);
+	counter_test("%d", INT_MAX + 1);
+	counter_test("%d", INT_MAX);
+	counter_test("%%d 0000042 == |%d|", 0000042);
+	counter_test("%%d \t == |%d|", '\t');
+	counter_test("%%d Lydie == |%d|", 'L'+'y'+'d'+'i'+'e');
+
+/*
 //		counter_test("%x",42);
 //		counter_test("%X",42);
 //		counter_test("%x",0);
@@ -171,7 +180,7 @@ static void
 	counter_test("%d",-2147483648);
 	counter_test("%d",-42);
 	counter_test("%+d",-42);
-		/*	counter_test("%+d",4242424242424242424242);		*/
+		//	counter_test("%+d",4242424242424242424242);
 	counter_test("%+i",-42);
 	counter_test("%+#o",-42);
 	counter_test("%+u",-42);
@@ -196,9 +205,9 @@ static void
 	counter_test("%ld",2147483648);
 	counter_test("%ld",-2147483649);
 	counter_test("%lld",9223372036854775807);
-	 	/*	counter_test("%lld",-9223372036854775808);		*/
+	 	//	counter_test("%lld",-9223372036854775808);
 	counter_test("%jd",9223372036854775807);
-	 	/*	counter_test("%jd",-9223372036854775808);		*/
+	 	//	counter_test("%jd",-9223372036854775808);
 	counter_test("%zd",4294967295);
 	counter_test("%zd",4294967296);
 	counter_test("%zd",-1);
@@ -232,7 +241,7 @@ static void
 	counter_test("%U",4294967295);
 	counter_test("%hU",4294967296);
 	counter_test("%U",4294967296);
-	counter_test("@moulitest:%.5u",42);
+	counter_test("@moulitest:%.5u",42);//*/
 }//*/
 /*
 static void

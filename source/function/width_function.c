@@ -6,12 +6,11 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 18:41:33 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 21:50:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 01:21:16 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define PREF_X(t)
 
 void
 	width_o(t_format *o)

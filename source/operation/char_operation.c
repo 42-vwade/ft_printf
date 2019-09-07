@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 00:59:05 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 14:36:37 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static void
 	o->v = encode_output(0, o->v);
 	MATCH(!o->p.width, RET);
 	MATCH(!(o->p.width -= 1), RET);
-	o->pad = encode_output(0, ft_memset(
-		ft_strnew(o->p.width), o->p.flags & zero ? '0' : ' ', o->p.width));
+	o->tmp =
+	ft_memset(ft_strnew(o->p.width), o->p.flags & zero ? '0' : ' ', o->p.width);
+	o->tmp = encode_output(0, o->tmp);
+	ft_memdel(&o->tmp);
 }
 
 static FT_SIZE

@@ -16,3 +16,6 @@ x.*
 a.*
 *.gch
 main.c
+pft/
+test.*
+results.txt

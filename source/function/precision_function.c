@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/06 13:50:37 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 01:43:28 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static void
 	MATCH(o->p.flags & space, o->sign = " ");
 	OR(o->p.flags & plus, o->sign = "+");
 	OR(o->p.flags & neg, o->sign = "-");
+	if (((char*)o->v)[0] == '-' && o->sign && *o->sign == '-')
+	{
+		o->tmp = o->v;
+		o->v = ft_strdup(&((char*)o->v)[1]);
+		ft_memdel(&o->tmp);
+	}
 }
 
 /*

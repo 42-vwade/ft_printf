@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:01:40 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 23:34:51 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/06 14:25:45 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ struct	s_format
 	void		*v;
 	void		*output;
 	void		*encode;
+	void		*tmp;
 	size_t		write;
 	t_bstr		bytes;
 };
