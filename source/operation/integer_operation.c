@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 09:02:08 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 09:39:30 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int
 	MATCH(o->p.tick & 4, o->p.flags &= ~zero);
 	cast_o(o);
 	MATCH(c != 'u' && num >= (ull_t)0x80 << (o->p.length - 1) * 8,
-		o->p.flags = o->p.flags & ~plus | neg);
+		o->p.flags = o->p.flags & ~(plus + space) | neg);
 	MATCH(neg & o->p.flags, num = ~(num - 1) & ~0UL >> (64 - o->p.length * 8));
 	return (convert_i(o));
 }
