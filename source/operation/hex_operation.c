@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 02:18:56 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 13:40:23 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int
 	ull_t	num;
 
 	o->v = &num;
-	MATCH(ft_isuppercase(o->str[0]), o->p.length = ll);
+	MATCH(ft_isuppercase(o->str[0]) || o->p.length > 8, o->p.length = ll);
 	MATCH(ft_tolower(o->str[0]) == 'p', o->p.length = ll);
 	MATCH(ft_tolower(o->str[0]) == 'p', o->p.flags |= hash);
 	MATCH(o->p.tick & 4, o->p.flags &= ~zero);
