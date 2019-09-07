@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 01:52:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 14:07:14 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void
 		i += tonext;
 		if (format[i] && format[i] == '%' &&
 				!(format_convert(o, &format[i], &i)))
-			ft_error("ft_printf: failed to append conversion to output");
+			;
 	}
 	MATCH(o->encode, o->output = decode_output(o->encode, &o->write));
 }

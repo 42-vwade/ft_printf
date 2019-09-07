@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 13:43:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 13:47:02 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,54 +113,54 @@ static void
 	// int		test = 0;
 //*/
 
-	counter_test("%%f 42.42 == |%f|", 42.42);
-	counter_test("%f", (double)42);
-	counter_test("%x", 42);
-	counter_test("%%#o 0 ==  %#o", 0);
-	counter_test("Il fait au moins %u", -8000);
-	counter_test("Il fait au moins %d", -8000);
-	counter_test("%d", INT_MIN);
-	counter_test("%d", INT_MAX + 1);
-	counter_test("%d", INT_MAX);
-	counter_test("%%d 0000042 == |%d|", 0000042);
-	counter_test("%%d \t == |%d|", '\t');
-	counter_test("%%d Lydie == |%d|", 'L'+'y'+'d'+'i'+'e');
-	counter_test("%c", 42);
-	counter_test("Il fait au moins %c", -8000);
-	//int	r00 = 0;
-	counter_test("Lalalala, %d%% des gens qui parlent à Ly adorent %s. Ou Presque. %p", 100, "Ly", &(int){0});
+//		counter_test("%%f 42.42 == |%f|", 42.42);
+//		counter_test("%f", (double)42);
+//		counter_test("%x", 42);
+//		counter_test("%%#o 0 ==  %#o", 0);
+//		counter_test("Il fait au moins %u", -8000);
+//		counter_test("Il fait au moins %d", -8000);
+//		counter_test("%d", INT_MIN);
+//		counter_test("%d", INT_MAX + 1);
+//		counter_test("%d", INT_MAX);
+//		counter_test("%%d 0000042 == |%d|", 0000042);
+//		counter_test("%%d \t == |%d|", '\t');
+//		counter_test("%%d Lydie == |%d|", 'L'+'y'+'d'+'i'+'e');
+//		counter_test("%c", 42);
+//		counter_test("Il fait au moins %c", -8000);
+//		//int	r00 = 0;
+//		counter_test("Lalalala, %d%% des gens qui parlent à Ly adorent %s. Ou Presque. %p", 100, "Ly", &(int){0});
 
 //*/
-	counter_test("%x",42);
-	counter_test("%X",42);
-	counter_test("%x",0);
-	counter_test("%X",0);
-	counter_test("%x",-42);
-	counter_test("%X",-42);
-	counter_test("%x",4294967296);
-	counter_test("%X",4294967296);
-	counter_test("%10x",42);
-	counter_test("%-10x",42);
-	counter_test("%lx",4294967296);
-	counter_test("%llX",4294967296);
-	counter_test("%hx",4294967296);
-	counter_test("%hhX",4294967296);
-	counter_test("%jx",4294967295);
-	counter_test("%jx",4294967296);
-	counter_test("%jx",-4294967296);
-	counter_test("%jx",-4294967297);
-	counter_test("%llx",9223372036854775807);
-		//counter_test("%llx",9223372036854775808);
-	counter_test("%010x",542);
-	counter_test("%-15x",542);
-	counter_test("%2x",542);
-	counter_test("%.2x",5427);
-	counter_test("%5.2x",5427);
-	counter_test("%#llx",9223372036854775807);
-	counter_test("%#x",0);
-	counter_test("%#8x",42);
-	counter_test("%#08x",42);
-	counter_test("%#-08x",42);
+//		counter_test("%x",42);
+//		counter_test("%X",42);
+//		counter_test("%x",0);
+//		counter_test("%X",0);
+//		counter_test("%x",-42);
+//		counter_test("%X",-42);
+//		counter_test("%x",4294967296);
+//		counter_test("%X",4294967296);
+//		counter_test("%10x",42);
+//		counter_test("%-10x",42);
+//		counter_test("%lx",4294967296);
+//		counter_test("%llX",4294967296);
+//		counter_test("%hx",4294967296);
+//		counter_test("%hhX",4294967296);
+//		counter_test("%jx",4294967295);
+//		counter_test("%jx",4294967296);
+//		counter_test("%jx",-4294967296);
+//		counter_test("%jx",-4294967297);
+//		counter_test("%llx",9223372036854775807);
+//			//counter_test("%llx",9223372036854775808);
+//		counter_test("%010x",542);
+//		counter_test("%-15x",542);
+//		counter_test("%2x",542);
+//		counter_test("%.2x",5427);
+//		counter_test("%5.2x",5427);
+//		counter_test("%#llx",9223372036854775807);
+//		counter_test("%#x",0);
+//		counter_test("%#8x",42);
+//		counter_test("%#08x",42);
+//		counter_test("%#-08x",42);
 	counter_test("@moulitest:%#.x%#.0x",0,0);
 	counter_test("@moulitest:%.x%.0x",0,0);
 	counter_test("@moulitest:%5.x%5.0x",0,0);
