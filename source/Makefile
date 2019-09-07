@@ -12,7 +12,7 @@ OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:%.c=%.o)))
 ####	UNDER THE HOOD	########################################################
 
 all: $(OBJECTS) | $(OBJDIR)
-	@yes | rm -rf *.o
+	@rm $(OFILES)
 
 $(OBJECTS): $(OFILES)
 	@cp -rf $^ $(OBJDIR)
