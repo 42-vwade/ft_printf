@@ -58,12 +58,15 @@ $(OBJDIR):
 	@mkdir -p $@
 
 $(SUBMODULE):
-	@touch $@
-	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
+#	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
             echo "INFO: Need to reinitialize git submodules"; \
             git submodule update --init --recursive; \
     fi
 #	CREDIT: https://bit.ly/2lxmAEO
+	@if git submodule status | egrep -q '^[-]|^[+]' ; then \
+		git submodule update --init --recursive; \
+		touch $@; \
+	fi
 #	@git submodule update --init --recursive
 
 clean:
