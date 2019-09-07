@@ -32,6 +32,9 @@ build: $(CFILES) $(LFILES) main.c
 #	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
 
+test: $(NAME) main.c
+	@gcc -o "a.test" -g $(CFLAGS) $^
+
 #	MAKE THE PROJECT FILE
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
 	@ar rcu $@ $(OBJDIR)/*.o
