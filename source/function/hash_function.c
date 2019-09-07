@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 00:45:55 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 01:22:31 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 02:54:54 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void
 	nz = !!ft_atoi(o->v);
 	if (ft_cmp(c, 'o') && !(!nz && (o->p.tick & 4 && !o->p.precision)))
 		o->prefix = "0";
-	else if (ft_cmp(c, 'x') && nz)
+	else if (ft_strchr("xp", c) && nz)
 		o->prefix = "0x";
 	else if (ft_strchr("aefg", c) && !ft_strchr(o->v, '.'))
 		o->v = ft_append(o->v, ".", 1);

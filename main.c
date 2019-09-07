@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 01:38:00 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 04:32:41 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ static void
 	// int		test = 0;
 //*/
 
+	counter_test("Il fait au moins %u", -8000);
 	counter_test("Il fait au moins %d", -8000);
 	counter_test("%d", INT_MIN);
 	counter_test("%d", INT_MAX + 1);
@@ -120,6 +121,10 @@ static void
 	counter_test("%%d 0000042 == |%d|", 0000042);
 	counter_test("%%d \t == |%d|", '\t');
 	counter_test("%%d Lydie == |%d|", 'L'+'y'+'d'+'i'+'e');
+	counter_test("%c", 42);
+	counter_test("Il fait au moins %c", -8000);
+	//int	r00 = 0;
+	counter_test("Lalalala, %d%% des gens qui parlent à Ly adorent %s. Ou Presque. %p", 100, "Ly", &(int){0});
 
 /*
 //		counter_test("%x",42);
