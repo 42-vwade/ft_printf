@@ -27,8 +27,8 @@ all: $(NAME)
 build: $(CFILES) $(LFILES) main.c
 #build: $(NAME) main.c
 	@echo "Build initiated ..."
-	@gcc -g $(CFLAGS) $^ 
-	# -fsanitize=address
+	@gcc -g $(CFLAGS) $^
+# 	-fsanitize=address
 #	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
 
