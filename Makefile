@@ -6,6 +6,7 @@ NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 SOURCEDIR	=	source/
+MAINFILE	=	.main.c
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LFILES		=	$(shell find ./libft ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
@@ -24,16 +25,18 @@ all: $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
-build: $(CFILES) $(LFILES) main.c
-#build: $(NAME) main.c
+build: $(CFILES) $(LFILES) $(MAINFILE)
+#build: $(NAME) $(MAINFILE)
 	@echo "Build initiated ..."
 	@gcc -g $(CFLAGS) $^
 # 	-fsanitize=address
 #	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
 
-test: $(NAME) main.c
+#	REAL BUILD & TEST OF ACTUAL FINISHED WORK
+test: $(NAME) $(MAINFILE)
 	@gcc -o "a.test" -g $(CFLAGS) $^
+	./a.test
 
 #	MAKE THE PROJECT FILE
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
