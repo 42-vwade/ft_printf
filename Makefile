@@ -7,6 +7,7 @@ BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 SOURCEDIR	=	source/
 MAINFILE	=	.main
+MAINLINK	=	../ft_printf_maintest_edit.c
 MAINOBJ		=	main.o
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LFILES		=	$(shell find ./libft ! -name "._*" -regex ".*\\.[c]")
@@ -54,8 +55,11 @@ $(LIBFT): $(SUBMODULE) | $(OBJDIR)
 	@make all -C $(@D)
 	@mv $(@D)/obj/*.o $(OBJDIR)/
 
-$(MAINOBJ): $(MAINFILE)
+$(MAINOBJ): $(MAINFILE) | $(MAINLINK)
 	@mv $(MAINFILE) "main.c"; gcc -c main.c; mv "main.c" $(MAINFILE)
+
+$(MAINLINK): $(MAINFILE)
+	@ln $< $@
 
 #$(BUILDDIR):
 #	@mkdir -p $@
