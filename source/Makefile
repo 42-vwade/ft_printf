@@ -2,16 +2,22 @@
 ########################################################	AUX MAKEFILE	####
 ####	CONTROL PANEL	########################################################
 
-CFILES		:=	$(shell find . ! -name "._*" -regex ".*\\.[c]")
-OBJECTS		:=	$(notdir $(CFILES:%.c=%.o))
+CFILES		=	$(shell find . ! -name "._*" -regex ".*\\.[c]")
+OFILES		=	$(notdir $(CFILES:%.c=%.o))
 OBJDIR		=	../obj/
+
+####	AUTO SETTING	########################################################
+OBJECTS		:=	$(addprefix $(OBJDIR), $(notdir $(CFILES:%.c=%.o)))
 
 ####	UNDER THE HOOD	########################################################
 
 all: $(OBJECTS) | $(OBJDIR)
-	@yes | mv -f $^ $(OBJDIR)
+	@rm $(OFILES)
 
-$(OBJECTS): $(CFILES)
+$(OBJECTS): $(OFILES)
+	@cp -rf $^ $(OBJDIR)
+
+$(OFILES): $(CFILES)
 	@gcc -c -Wall -Wextra -Werror $^
 
 $(OBJDIR):

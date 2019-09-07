@@ -6,7 +6,8 @@ NAME		=	libftprintf.a
 BUILDDIR	=	#	build/
 OBJDIR		=	obj/
 SOURCEDIR	=	source/
-MAINFILE	=	.main.c
+MAINFILE	=	.main
+MAINOBJ		=	main.o
 CFILES		=	$(shell find ./source ! -name "._*" -regex ".*\\.[c]")
 LFILES		=	$(shell find ./libft ! -name "._*" -regex ".*\\.[c]")
 LIBFT		=	libft/libft.a
@@ -25,18 +26,18 @@ all: $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
-build: $(CFILES) $(LFILES) $(MAINFILE)
-#build: $(NAME) $(MAINFILE)
+build: $(CFILES) $(LFILES) $(MAINOBJ)
+#build: $(NAME) $(MAINOBJ)
 	@echo "Build initiated ..."
-	@gcc -g $(CFLAGS) $^
+	@gcc -o "a.test" -g $(CFLAGS) $^
 # 	-fsanitize=address
 #	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
 
 #	REAL BUILD & TEST OF ACTUAL FINISHED WORK
-test: $(NAME) $(MAINFILE)
-	@gcc -o "a.test" -g $(CFLAGS) $^
-	./a.test
+test: $(NAME) $(MAINOBJ)
+	@gcc -o "a.test" -g $(CFLAGS) $< "main.o"
+#	./a.test
 
 #	MAKE THE PROJECT FILE
 $(NAME): $(LIBFT) $(OBJECTS) #| $(BUILDDIR)
@@ -52,6 +53,9 @@ $(OBJECTS): $(CFILES) | $(OBJDIR)
 $(LIBFT): $(SUBMODULE) | $(OBJDIR)
 	@make all -C $(@D)
 	@mv $(@D)/obj/*.o $(OBJDIR)/
+
+$(MAINOBJ): $(MAINFILE)
+	@mv $(MAINFILE) "main.c"; gcc -c main.c; mv "main.c" $(MAINFILE)
 
 #$(BUILDDIR):
 #	@mkdir -p $@
@@ -74,9 +78,7 @@ $(SUBMODULE):
 
 clean:
 	@make clean -C $(dir $(LIBFT))
-	@rm -rf *.o
-	@rm -rf $(OBJDIR)
-
+	@rm -rf $(OBJDIR) *.o
 
 fclean: clean
 	@make fclean -C $(dir $(LIBFT))
