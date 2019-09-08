@@ -61,6 +61,7 @@ $(MAINOBJ): $(MAINFILE) | $(MAINLINK)
 	@mv $(MAINFILE) "main.c"; gcc -c main.c; mv "main.c" $(MAINFILE)
 
 $(MAINLINK): $(MAINFILE)
+	@if [ -e $@ ] ; then rm $@; fi
 	@ln $< $@
 
 #$(BUILDDIR):

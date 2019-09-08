@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/08 05:29:04 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/08 05:37:43 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void leak_test(void)
 static void default_tests(void)
 {
 //		ft_printf("%-.09s", "The hidden.");
-	ft_printf("%S", L"|\t|\t 😄 !DEFAULT TESTS! 😄 \t|\t|\n--<");
+	ft_printf("%S", L"|\t|\t 😄 !DEFAULT TESTS! 😄 \t|\t|\n");
 	ft_printf("%5%	  <--  Padding!\n");
 	ft_printf("%-5%	  <--  Left padding!\n");
 	ft_printf("%%s | \'Twin strings!\' == %s\n", "This string was passed in.");
