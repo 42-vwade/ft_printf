@@ -6,15 +6,54 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 15:29:26 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 18:17:09 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "source/ft_printf.h"
 #define PI		3.141592653589793238462643383279502884197169399375105820974944592307816406286L
 
+static void leak_test(void)
+{
+	ft_printf("\\n");
+	ft_printf("%%\\n");
+	ft_printf("%d\\n", 42);
+	ft_printf("%d%d\\n", 42, 41);
+	ft_printf("%d%d%d\\n", 42, 43, 44);
+	ft_printf("%ld\\n", 2147483647);
+	ft_printf("%lld\\n", 9223372036854775807);
+	ft_printf("%x\\n", 505);
+	ft_printf("%X\\n", 505);
+	ft_printf("%p\\n", &ft_printf);
+	ft_printf("%20.15d\\n", 54321);
+	ft_printf("%-10d\\n", 3);
+	ft_printf("% d\\n", 3);
+	ft_printf("%+d\\n", 3);
+	ft_printf("%010d\\n", 1);
+	ft_printf("%hhd\\n", 0);
+	ft_printf("%jd\\n", 9223372036854775807);
+	ft_printf("%zd\\n", 4294967295);
+	ft_printf("%\\n");
+	ft_printf("%U\\n", 4294967295);
+	ft_printf("%u\\n", 4294967295);
+	ft_printf("%o\\n", 40);
+	ft_printf("%%#08x\\n", 42);
+	ft_printf("%x\\n", 1000);
+	ft_printf("%#X\\n", 1000);
+	ft_printf("%s\\n", NULL);
+	ft_printf("%S\\n", L"ݗݜशব");
+	ft_printf("%s%s\\n", "test", "test");
+	ft_printf("%s%s%s\\n", "test", "test", "test");
+	ft_printf("%C\\n", 15000);
+  while (1);
+  return ;
+
+}
+
 static void default_tests(void)
 {
+//		ft_printf("%-.09s", "The hidden.");
+	ft_printf("%5%");
 	ft_printf("%%s | \'These should be the same.\'== %s\n", "These should be the same.");
 	ft_printf("%%c | 42 == %c\n", 42);
 	ft_printf("%%c | \\0 == %c	  <--  Use \'cat -e\' to see this one!\n", 0);
@@ -30,6 +69,7 @@ static void default_tests(void)
 	ft_printf("%%.16f pi(3.14..) == %.16f\n", (float)PI);
 	ft_printf("%%.16Lf pi(3.14..) == %.16Lf\n", (long double)PI);
 	ft_printf("%%.4f 42.4242 == %.4f	  <--  Rounded up!\n", 42.4242);
+	ft_printf("%%.6f 42.4242 == %.6f\n", 42.4242);
 }
 
 int main(int n, char **v)
@@ -40,12 +80,13 @@ int main(int n, char **v)
 			MATCH(n == 2, ft_printf("Your tests:\n\t%s", v[1]));
 			MATCH(n == 3, ft_printf(
 				"You entered a format string.\n"
-				"Output:") && ft_printf(v[1], v[2]));
+				"Output >") && ft_printf(v[1], v[2]));
 		})
 		ELSE(
 		{ft_printf(
 			"Usage: [string] | <format> [string]\n"
 			"        A series of default tests will run if no input is given.\n\n");
+			leak_test();
 			default_tests();
 		});
 	}
