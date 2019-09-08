@@ -27,17 +27,19 @@ all: $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
-build: $(CFILES) $(LFILES) $(MAINOBJ)
+build: $(CFILES) $(LFILES) $(MAINLINK)
 #build: $(NAME) $(MAINOBJ)
 	@echo "Build initiated ..."
-	@gcc -o "a.test" -g $(CFLAGS) $^
+	@cp -rf $(MAINLINK) ./
+	@gcc -o "a.test" -g $(CFLAGS) $(CFILES) $(LFILES) ./$(notdir $(MAINLINK))
+	@rm -rf ./$(notdir $(MAINLINK))
 # 	-fsanitize=address
 #	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
 
 #	REAL BUILD & TEST OF ACTUAL FINISHED WORK
 test: $(NAME) $(MAINOBJ)
-	@gcc -o "a.test" -g -fsanitize=address $(CFLAGS) $< "main.o"
+	@gcc -o "a.test" -g $(CFLAGS) $< "main.o"
 #	./a.test
 
 #	MAKE THE PROJECT FILE
