@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 18:56:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 20:27:57 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 static void leak_test(void)
 {
+	ft_printf("%.p", &(int){0});
 	ft_printf("\\n");
 	ft_printf("%%\\n");
 	ft_printf("%d\\n", 42);
@@ -53,9 +54,7 @@ static void leak_test(void)
 static void default_tests(void)
 {
 //		ft_printf("%-.09s", "The hidden.");
-	ft_printf("%.0%");
-	ft_printf("\n%-5%\n");
-	ft_printf("%5%\n");
+	ft_printf("%5%");
 	ft_printf("%%s | \'These should be the same.\'== %s\n", "These should be the same.");
 	ft_printf("%%c | 42 == %c\n", 42);
 	ft_printf("%%c | \\0 == %c	  <--  Use \'cat -e\' to see this one!\n", 0);
@@ -71,7 +70,7 @@ static void default_tests(void)
 	ft_printf("%%.16f pi(3.14..) == %.16f\n", (float)PI);
 	ft_printf("%%.16Lf pi(3.14..) == %.16Lf\n", (long double)PI);
 	ft_printf("%%.4f 42.4242 == %.4f	  <--  Rounded up!\n", 42.4242);
-	ft_printf("%%.6f 42.4242 == %.6f\n", 42.4242);
+	ft_printf("%%.16f 42.4242 == %.16f	  <--  More precision!\n", 42.4242);
 }
 
 int main(int n, char **v)
@@ -90,7 +89,6 @@ int main(int n, char **v)
 			"        A series of default tests will run if no input is given.\n\n");
 			//leak_test();
 			default_tests();
-			while(1);
 		});
 	}
 }
