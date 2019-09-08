@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 07:09:07 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 18:17:09 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 18:56:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ static void leak_test(void)
 static void default_tests(void)
 {
 //		ft_printf("%-.09s", "The hidden.");
-	ft_printf("%5%");
+	ft_printf("%.0%");
+	ft_printf("\n%-5%\n");
+	ft_printf("%5%\n");
 	ft_printf("%%s | \'These should be the same.\'== %s\n", "These should be the same.");
 	ft_printf("%%c | 42 == %c\n", 42);
 	ft_printf("%%c | \\0 == %c	  <--  Use \'cat -e\' to see this one!\n", 0);
@@ -86,8 +88,9 @@ int main(int n, char **v)
 		{ft_printf(
 			"Usage: [string] | <format> [string]\n"
 			"        A series of default tests will run if no input is given.\n\n");
-			leak_test();
+			//leak_test();
 			default_tests();
+			while(1);
 		});
 	}
 }
