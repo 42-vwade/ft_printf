@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 18:21:52 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/08 04:31:42 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ void
 	if ((o->p.length & (l + ll) || ft_isuppercase(o->str[0])))
 	{
 		if (o->p.tick & 4)
-			o->v = encode_utf8_w(str_utf8(o->v), o->p.precision);
+			o->v = encode_utf8_w(o->v, o->p.precision);
 		else
-			o->v = encode_utf8(str_utf8(o->v));
+			o->v = encode_utf8(o->v);
 	}
 	else
 	{
