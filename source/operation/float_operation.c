@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 00:02:58 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/07 17:54:02 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ static void
 	is_float(t_format *o)
 {
 	MATCH(!(o->p.tick & 0b100), o->p.precision = 6);
-	o->v = infinite_double(*(double*)o->v, o->p.precision);
+	MATCH(o->p.length > 8,
+		o->v = infinite_double(*(long double*)o->v, o->p.precision));
+	ELSE(o->v = infinite_double((long double)*(double*)o->v, o->p.precision));
 }
 
 static int
@@ -72,14 +74,19 @@ static int
 int
 	parse_f(t_format *o)
 {
-	size_t	ret;
-	double	num;
+	size_t		ret;
+	double		num;
+	long double	ld;
 
 	ret = 0;
-	o->v = &num;
-	num = va_arg(o->ap, double);
+	MATCH(o->p.length <= 8, o->v = &num);
+	ELSE(o->v = &ld);
+	MATCH(o->p.length <= 8, num = va_arg(o->ap, double));
+	ELSE(ld = va_arg(o->ap, long double));
 	o->p.flags |= (num < 0) << 7;
-	MATCH((ret = is_anomaly(*(double*)o->v, o)), RET(ret));
+	MATCH(o->p.length > 8, ret = is_anomaly(*(long double*)o->v, o));
+	ELSE(ret = is_anomaly((long double)*(double*)o->v, o));
+	MATCH(ret, RET(ret));
 	ELSE(is_float(o));
 	return (convert_f(o));
 }

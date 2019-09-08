@@ -37,7 +37,7 @@ build: $(CFILES) $(LFILES) $(MAINOBJ)
 
 #	REAL BUILD & TEST OF ACTUAL FINISHED WORK
 test: $(NAME) $(MAINOBJ)
-	@gcc -o "a.test" -g $(CFLAGS) $< "main.o"
+	@gcc -o "a.test" -g -fsanitize=address $(CFLAGS) $< "main.o"
 #	./a.test
 
 #	MAKE THE PROJECT FILE
