@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 09:24:05 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 10:23:14 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,40 @@ static void
 }
 
 static int
-	search_width(ull_t *w, const char *f, size_t *len, size_t *i)
+	search_width(t_format *o, ull_t *w, const char *f, size_t *i)
 {
 	w[0] = 0;
-	while (*i < *len && !(('1' <= f[*i] && f[*i] <= '9') || f[*i] == '.'))
+	while (*i < o->len && f[*i] != '.' && f[*i] != '*' &&
+			!('1' <= f[*i] && f[*i] <= '9'))
 		*i = *i + 1;
-	MATCH(!ft_isdigit(f[*i]), RET(*i *= f[*i] == '.'));
-	MATCH(f[*i] == '*', RET(1));
-	OR(ft_isdigit(f[*i]), w[0] = ft_atoi(&f[*i]));
-	while (*i < *len && ('0' <= f[*i] && f[*i] <= '9'))
+	MATCH(f[*i] == '*', (*i += 1)
+		&& (w[0] = va_arg(o->ap, int)));
+	MATCH(w[0] >= (unsigned long)0x80 << ((sizeof(w[0]) - 1) * 8),
+		(w[0] = ~(w[0] - 1)));
+	MATCH(!ft_isdigit(f[*i]), RET(0));
+	ELSE(w[0] = ft_atoi(&f[*i]));
+	while (*i < o->len && ('0' <= f[*i] && f[*i] <= '9'))
 		*i = *i + 1;
 	RET(0);
 }
 
 static int
-	search_precision(ull_t *p, const char *f, size_t *len, size_t *i)
+	search_precision(t_format *o, ull_t *p, const char *f, size_t *i)
 {
 	p[0] = 0;
-	MATCH(f[*i] != '.', RET(0));
-	ELSE(*i = *i + 1);
-	MATCH(f[*i] == '*', RET(1));
-	OR(ft_isdigit(f[*i]), p[0] = ft_atoi(&f[*i]));
-	while (*i < *len && ('0' <= f[*i] && f[*i] <= '9'))
+	while (*i < o->len && f[*i] != '.')
+		*i += 1;
+	MATCH(f[*i] == '.', (o->p.tick |= 1 << 2)
+		&& (*i += 1));
+	ELSE(RET(0));
+	MATCH(f[*i] == '*', (*i += 1)
+		&& (p[0] = va_arg(o->ap, int)));
+	MATCH(p[0] >= (unsigned long)0x80 << ((sizeof(p[0]) - 1) * 8),
+	(o->p.tick &= ~(1 << 2))
+		&& (p[0] = 0));
+	MATCH(!('0' <= f[*i] && f[*i] <= '9'), RET(0));
+	ELSE(p[0] = ft_atoi(&f[*i]));
+	while (*i < o->len && ('0' <= f[*i] && f[*i] <= '9'))
 		*i = *i + 1;
 	RET(0);
 }
@@ -86,19 +98,14 @@ static void
 void
 	search_parameters(t_format *o, const char *format)
 {
-	size_t	i;
-
 	o->p = (t_param){0, 0, 0, 0, 4};
-	if ((i = o->len == 0))
+	if (o->len == 0)
 		return ;
-	search_flags(&o->p.flags, format, &o->len, &i);
-	if (search_width(&o->p.width, format, &o->len, &i))
-		o->p.width = va_arg(o->ap, int);
+	search_flags(&o->p.flags, format, &o->len, &(size_t){0});
+	search_width(o, &o->p.width, format, &(size_t){0});
 	o->p.tick = !!o->p.flags << 0;
 	o->p.tick |= !!o->p.width << 1;
-	o->p.tick |= (format[i] == '.') << 2;
-	if (search_precision(&o->p.precision, format, &o->len, &i))
-		o->p.precision = va_arg(o->ap, int);
-	search_length(&o->p.length, format, &o->len, &i);
+	search_precision(o, &o->p.precision, format, &(size_t){0});
+	search_length(&o->p.length, format, &o->len, &(size_t){0});
 	o->p.tick |= (o->p.length != 4) << 3;
 }

@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/05 23:36:40 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 02:59:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		get_params(t_format *obj, size_t i);
 char	*encode_output(const char *data, const char *output);
 char	*decode_output(const char *data, size_t *len);
 
-size_t	ftprintf_write(char *s, size_t len, t_format *o);
+int		asterisk_locate(va_list ap, const char *format);
 
 int		parse_c(t_format *o);
 int		parse_s(t_format *o);
