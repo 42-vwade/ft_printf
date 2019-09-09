@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/08 04:31:42 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 01:35:07 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void
 	sign_i(o);
 	MATCH(ft_tolower(*o->str) != 'p' && !(o->p.tick & 4), RET);
 	o->len = ft_strlen(o->v);
-	MATCH(ft_tolower(*o->str) == 'p' && !(o->p.tick & 4), o->p.precision = 8);
 	o->p.precision = MAX((ll_t)(o->p.precision - o->len), 0);
 	MATCH(!o->p.precision, RET);
 	o->z_pad = ft_memset(ft_strnew(o->p.precision), '0', o->p.precision);

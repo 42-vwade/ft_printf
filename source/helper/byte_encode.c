@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 22:26:11 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 14:11:17 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 01:13:00 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ char
 {
 	char	*encode;
 
-	MATCH(!output, RET((char*)data));
+	MATCH(!output, RET((char *)data));
 	MATCH(!data, encode = encode_str(output));
 	ELSE(encode = ft_append(data, encode_str(output), 3));
-	ft_memdel((void**)&output);
+	ft_memdel((void **)&output);
 	return (encode);
 }
 
@@ -76,6 +76,6 @@ char
 
 	MATCH(data, decode = decode_str(data, len));
 	ELSE(decode = ft_strnew(0));
-	ft_memdel((void**)&data);
+	ft_memdel((void **)&data);
 	return (decode);
 }

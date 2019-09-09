@@ -30,9 +30,8 @@ all: $(NAME)
 build: $(CFILES) $(LFILES) $(MAINLINK)
 #build: $(NAME) $(MAINOBJ)
 	@echo "Build initiated ..."
-	@cp -rf $(MAINLINK) ./
-	@gcc -o "a.test" -g $(CFLAGS) $(CFILES) $(LFILES) ./$(notdir $(MAINLINK))
-	@rm -rf ./$(notdir $(MAINLINK))
+	@if [ -e "main.c" ]; then gcc -o "a.test" -g $(CFLAGS) $(CFILES) $(LFILES) main.c; \
+		else cp -rf $(MAINLINK) ./; gcc -o "a.test" -g $(CFLAGS) $(CFILES) $(LFILES) ./$(notdir $(MAINLINK)); rm -rf ./$(notdir $(MAINLINK)); fi
 # 	-fsanitize=address
 #	@gcc -g -L. -lftprintf -fsanitize=address $(CFLAGS) $^
 #	./a.out
@@ -58,7 +57,7 @@ $(LIBFT): $(SUBMODULE) | $(OBJDIR)
 	@mv $(@D)/obj/*.o $(OBJDIR)/
 
 $(MAINOBJ): $(MAINFILE) | $(MAINLINK)
-	@mv $(MAINFILE) "main.c"; gcc -c main.c; mv "main.c" $(MAINFILE)
+	@if [ -e $< ] ; then gcc -c main.c; else cp $< "main.c"; gcc -c main.c; rm "main.c"; fi
 
 $(MAINLINK): $(MAINFILE)
 	@if [ -e $@ ] ; then rm $@; fi
