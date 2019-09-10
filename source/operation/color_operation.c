@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:57:50 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/10 08:11:34 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/10 08:17:22 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@
 #define C_B_MAGENTA	14
 #define C_B_CYAN	15
 #define C_B_WHITE	16
-#define	CG7(s,f)		f(s)
-#define	CG6(s,f)		C_BLACK
-#define	CG5(s,f)		!!f("white",s)		?	C_WHITE		: CG6(s,f)
-#define	CG4(s,f)		!!f("magenta",s)	?	C_MAGENTA	: CG5(s,f)
-#define	CG3(s,f)		!!f("cyan",s)		?	C_CYAN		: CG4(s,f)
-#define	CG2(s,f)		!!f("yellow",s)		?	C_YELLOW	: CG3(s,f)
-#define	CG1(s,f)		!!f("blue",s)		?	C_BLUE		: CG2(s,f)
-#define	CG0(s,f)		!!f("green",s)		?	C_GREEN		: CG1(s,f)
-#define	COLOR_GET(s,f)	!!f("red",s)		?	C_RED		: CG0(s,f)
+#define CG7(s,f)	f(s)
+#define CG6(s,f)		C_BLACK
+#define CG5(s,f)		!!f("white",s)	 ? C_WHITE	 : CG6(s,f)
+#define CG4(s,f)		!!f("magenta",s) ? C_MAGENTA : CG5(s,f)
+#define CG3(s,f)		!!f("cyan",s)	 ? C_CYAN	 : CG4(s,f)
+#define CG2(s,f)		!!f("yellow",s)	 ? C_YELLOW	 : CG3(s,f)
+#define CG1(s,f)		!!f("blue",s)	 ? C_BLUE	 : CG2(s,f)
+#define CG0(s,f)		!!f("green",s)	 ? C_GREEN	 : CG1(s,f)
+#define COLOR_GET(s,f)	!!f("red",s)	 ? C_RED	 : CG0(s,f)
 
 static int
 	convert_a(t_format *o)
