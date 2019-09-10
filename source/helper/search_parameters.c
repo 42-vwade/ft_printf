@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 00:49:18 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 10:23:14 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 15:59:31 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int
 	MATCH(f[*i] == '*', (*i += 1)
 		&& (w[0] = va_arg(o->ap, int)));
 	MATCH(w[0] >= (unsigned long)0x80 << ((sizeof(w[0]) - 1) * 8),
-		(w[0] = ~(w[0] - 1)));
+	(o->p.flags = minus)
+		&& (w[0] = ~(w[0] - 1)));
 	MATCH(!ft_isdigit(f[*i]), RET(0));
 	ELSE(w[0] = ft_atoi(&f[*i]));
 	while (*i < o->len && ('0' <= f[*i] && f[*i] <= '9'))
@@ -68,11 +69,11 @@ static int
 	MATCH(f[*i] == '.', (o->p.tick |= 1 << 2)
 		&& (*i += 1));
 	ELSE(RET(0));
-	MATCH(f[*i] == '*', (*i += 1)
-		&& (p[0] = va_arg(o->ap, int)));
-	MATCH(p[0] >= (unsigned long)0x80 << ((sizeof(p[0]) - 1) * 8),
-	(o->p.tick &= ~(1 << 2))
-		&& (p[0] = 0));
+	MATCH(f[*i] == '*', (p[0] = va_arg(o->ap, int)));
+	MATCH(p[0] >= (unsigned long)0x80 << ((sizeof(p[0]) - 1) * 8), !(p[0] = 0)
+		&& (o->p.tick &= ~(1 << 2)));
+	OR(f[*i] == '*', o->p.tick |= 1 << 6);
+	MATCH(f[*i] == '*', (*i += 1));
 	MATCH(!('0' <= f[*i] && f[*i] <= '9'), RET(0));
 	ELSE(p[0] = ft_atoi(&f[*i]));
 	while (*i < o->len && ('0' <= f[*i] && f[*i] <= '9'))
