@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:57:50 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/10 05:37:10 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/10 08:11:34 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 #define C_B_MAGENTA	14
 #define C_B_CYAN	15
 #define C_B_WHITE	16
-
 #define	CG7(s,f)		f(s)
 #define	CG6(s,f)		C_BLACK
 #define	CG5(s,f)		!!f("white",s)		?	C_WHITE		: CG6(s,f)

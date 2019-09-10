@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 21:29:46 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/10 08:11:17 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int
 	o->error = 0;
 	if ((o->v = va_arg(o->ap, void *)) == NULL)
 		(o->v = "(null)")
-			&&	(o->error = 1);
+			&& (o->error = 1);
 	MATCH(!o->error && (ft_isuppercase(o->str[0]) || o->p.length > 8),
 		o->p.length = l);
 	if (!o->error && o->p.length == l && (o->len = -4))
@@ -72,5 +72,5 @@ int
 	else
 		while ((c = ((char*)o->v)[o->len++]))
 			parse_c(&(t_format){.str = "r", .p = o->p, .tmp = &c});
-	return(convert_s(o));
+	return (convert_s(o));
 }

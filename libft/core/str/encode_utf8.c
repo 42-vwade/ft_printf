@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 08:19:37 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/08 04:36:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/10 08:13:03 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static void
 static FT_STR
 	parse_utf8(unsigned wc, char **new)
 {
-
 	ft_bzero(new[0], 7);
 	if (wc < 0x80)
 		new[0][0] = wc;
