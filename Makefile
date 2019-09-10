@@ -23,7 +23,7 @@ OBJECTS		:=	$(OBJECTS) $(addprefix $(OBJDIR), $(notdir $(LFILES:.c=.o)))
 SUBMODULE	:=	$(dir $(LIBFT))/.sub
 ####	UNDER THE HOOD	########################################################
 
-all: $(NAME)
+all: $(SUBMODULE) $(NAME)
 
 #	BUILD PROJECT FOR TESTING PURPOSES ONLY
 #	WE DO NOT NEED OBJECT FILES TO TEST THE PROJECT
