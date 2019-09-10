@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 04:39:52 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/07 14:07:14 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 23:00:15 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void
 	o->jump['f'] = parse_f;
 	o->jump['e'] = 0;
 	o->jump['g'] = 0;
-	o->jump['a'] = 0;
+	o->jump['a'] = parse_a;
 	o->jump['n'] = 0;
 	o->jump['b'] = parse_x;
 }
