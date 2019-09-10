@@ -6,17 +6,17 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 06:10:12 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 16:55:47 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 20:16:05 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#define SIZE_0(v)	v=va_arg(o->ap, uint)
-#define SIZE_1(v)	v=va_arg(o->ap, uint)
-#define SIZE_2(v)	v=va_arg(o->ap, uint)
-#define SIZE_3(v)	v=va_arg(o->ap, uint)
-#define SIZE_4(v)	v=va_arg(o->ap, ll_t)
-#define SIZE_5(v)	v=va_arg(o->ap, ld_t)
+#define SIZE_0(v)	v=(unsigned char)va_arg(o->ap, uint)
+#define SIZE_1(v)	v=(unsigned char)va_arg(o->ap, uint)
+#define SIZE_2(v)	v=(unsigned short)va_arg(o->ap, uint)
+#define SIZE_3(v)	v=(unsigned int)va_arg(o->ap, uint)
+#define SIZE_4(v)	v=(unsigned long long)va_arg(o->ap, ll_t)
+#define SIZE_5(v)	v=(long double)va_arg(o->ap, ld_t)
 
 void
 	cast_o(t_format *o)
