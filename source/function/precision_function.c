@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 18:05:10 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 01:35:07 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 22:15:21 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void
 	sign_i(t_format *o)
 {
 	o->sign = 0;
-	MATCH(ft_strchr("box", ft_tolower(*o->str)), RET);
+	MATCH(ft_strchr("ubox", ft_tolower(*o->str)), RET);
 	MATCH(!((plus + space + neg) & o->p.flags), RET);
 	MATCH(o->p.flags & space, o->sign = " ");
 	OR(o->p.flags & plus, o->sign = "+");

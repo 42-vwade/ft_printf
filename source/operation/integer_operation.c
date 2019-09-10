@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 15:59:37 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 22:16:06 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 static int
 	convert_i(t_format *o)
 {
-	MATCH(o->p.tick & 4 && !o->p.precision, o->v = 0);
+	MATCH(o->p.tick & 4 && !o->p.precision && !*(ll_t*)o->v, o->v = 0);
 	OR(o->p.flags & neg, o->v = ft_itoa(*(ll_t*)o->v));
 	ELSE(o->v = ft_itoa_unsigned(*(ull_t*)o->v));
 	precision_i(o);
@@ -78,7 +78,7 @@ int
 
 	o->v = &num;
 	c = ft_tolower(o->str[0]);
-	MATCH(ft_isuppercase(o->str[0]) || o->p.length > 8, o->p.length = l);
+	MATCH(o->p.length > 8, o->p.length = l);
 	MATCH(o->p.tick & (1 << 6) && !o->p.precision, (o->p.tick &= ~(1 << 2)));
 	MATCH(o->p.tick & 4, o->p.flags &= ~zero);
 	cast_o(o);

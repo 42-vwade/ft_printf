@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 20:20:41 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 22:04:30 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static FT_SIZE
 	u = ft_tolower(o->str[0]);
 	MATCH(u == 'b', u = 2);
 	ELSE(u = 16 >> (u == 'o'));
-	MATCH(0 && o->p.tick & 4 && !o->p.precision, o->v = 0);
+	MATCH(o->p.tick & 4 && !o->p.precision && !*(ll_t*)o->v, o->v = 0);
 	ELSE(o->v = ft_itoa_base(*(ull_t*)o->v, u));
 	precision_i(o);
 	width_o(o);

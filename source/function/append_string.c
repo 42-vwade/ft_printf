@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 22:15:36 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/04 21:20:30 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 22:08:58 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void
 	MATCH(o->z_pad, o->v = ft_append(o->z_pad, o->v, 3));
 	MATCH(left, o->v = ft_append(o->v, o->pad, 3));
 	OR(o->pad, o->v = ft_append(o->pad, o->v, 3));
-	MATCH(ANY2(o->str[0], 'X', 'P'), ft_strcapitalize(o->v));
+	MATCH(o->v && ANY2(o->str[0], 'X', 'P'), ft_strcapitalize(o->v));
 }

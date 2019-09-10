@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 06:01:13 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 01:14:44 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 20:45:29 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int
 
 	o->v = &c;
 	MATCH(ft_isuppercase(o->str[0]) || o->p.length > 8, o->p.length = l);
-	MATCH(o->str[0] != '%', cast_o(o));
+	MATCH(o->str[0] == 'r', c = *(ull_t*)o->tmp);
+	OR(o->str[0] != '%', cast_o(o));
 	return (convert_c(o));
 }

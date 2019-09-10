@@ -6,7 +6,7 @@
 /*   By: viwade <viwade@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 17:15:19 by viwade            #+#    #+#             */
-/*   Updated: 2019/09/09 02:59:03 by viwade           ###   ########.fr       */
+/*   Updated: 2019/09/09 20:42:23 by viwade           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		asterisk_locate(va_list ap, const char *format);
 
 int		parse_c(t_format *o);
 int		parse_s(t_format *o);
+int		parse_r(t_format *o);
 int		parse_i(t_format *o);
 int		parse_u(t_format *o);
 int		parse_x(t_format *o);
